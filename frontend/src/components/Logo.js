@@ -3,9 +3,11 @@ import { Box } from '@mui/material';
 import logo from '../image/logo.png';
 
 Logo.propTypes = {
-  sx: PropTypes.object
+	sx: PropTypes.shape,
 };
 
 export default function Logo({ sx }) {
-  return <Box component="img" src={logo} sx={{ width: 83, height: 62, ...sx }} />;
+	return (
+		<Box component='img' src={logo} sx={{ width: 83, height: 62, ...sx }} />
+	);
 }

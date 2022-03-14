@@ -5,10 +5,10 @@ import { HelmetProvider } from 'react-helmet-async';
 import App from './App';
 
 ReactDOM.render(
-  <HelmetProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </HelmetProvider>,
-  document.getElementById('root')
+	<HelmetProvider>
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+	</HelmetProvider>,
+	document.getElementById('root')
 );

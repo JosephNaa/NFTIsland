@@ -6,12 +6,12 @@
 - SALE_ABI: SALE 컨트랙트 ABI
 */
 const ABI = {
-  CONTRACT_ABI: {
-    NFT_ABI: [],
-    SALE_FACTORY_ABI: [],
-    SALE_ABI: [],
-    ERC_ABI: []
-  }
+	CONTRACT_ABI: {
+		NFT_ABI: [],
+		SALE_FACTORY_ABI: [],
+		SALE_ABI: [],
+		ERC_ABI: [],
+	},
 };
 
 export default ABI;

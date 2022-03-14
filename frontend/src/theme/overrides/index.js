@@ -10,15 +10,15 @@ import IconButton from './IconButton';
 import Autocomplete from './Autocomplete';
 
 export default function ComponentsOverrides(theme) {
-  return merge(
-    Card(theme),
-    Lists(theme),
-    Paper(theme),
-    Input(theme),
-    Button(theme),
-    Backdrop(theme),
-    Typography(theme),
-    IconButton(theme),
-    Autocomplete(theme)
-  );
+	return merge(
+		Card(theme),
+		Lists(theme),
+		Paper(theme),
+		Input(theme),
+		Button(theme),
+		Backdrop(theme),
+		Typography(theme),
+		IconButton(theme),
+		Autocomplete(theme)
+	);
 }
