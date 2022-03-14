@@ -1,7 +1,10 @@
 //const Migrations = artifacts.require("Migrations");
-const SsafyToken = artifacts.require("SsafyToken");
 const SsafyNFT = artifacts.require("SsafyNFT");
-const SaleFactory = artifacts.require("SaleFactory");
+// const SsafyToken = artifacts.require("SsafyToken");
+// const SaleFactory = artifacts.require("SaleFactory");
+
+const name = "Non Fungible Token For SSAFY";
+const symbol = "SNFT";
 
 /**
  * PJT Ⅰ/Ⅲ - 시나리오 테스트
@@ -12,7 +15,7 @@ const SaleFactory = artifacts.require("SaleFactory");
  * 가 배포되어야 합니다.
  */
 module.exports = function (deployer) {
-  deployer.deploy(SsafyNFT);
-  deployer.deploy(SsafyToken, "SSAFY", "SSF", 0);
-  deployer.deploy(SaleFactory);
+  deployer.deploy(SsafyNFT, name, symbol);
+  // deployer.deploy(SsafyToken, "SSAFY", "SSF", 0);
+  // deployer.deploy(SaleFactory);
 };
