@@ -8,6 +8,7 @@ import ItemRegistration from './pages/ItemRegistration';
 import SaleRegistration from './pages/SaleRegistration';
 import WhosArt from './pages/WhosArt';
 import ItemPurchase from './pages/ItemPurchase';
+import Market from './pages/Market';
 
 // 화면 라우팅 테이블
 export default function Router() {
@@ -54,6 +55,14 @@ export default function Router() {
 				{ element: <Navigate to='/whosart' replace /> },
 				{ path: '', element: <WhosArt /> },
 				{ path: ':address', element: <WhosArt /> },
+			],
+		},
+		{
+			path: '/market',
+			element: <MainLayout />,
+			children: [
+				{ element: <Navigate to='/market' replace /> },
+				{ path: '', element: <Market /> },
 			],
 		},
 		{ path: '*', element: <Navigate to='/404' replace /> },
