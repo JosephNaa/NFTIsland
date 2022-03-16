@@ -1,9 +1,10 @@
+/* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 import logo from '../image/logo.png';
 
 Logo.propTypes = {
-	sx: PropTypes.shape,
+	sx: PropTypes.object,
 };
 
 export default function Logo({ sx }) {
