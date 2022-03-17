@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 import { useEffect, useMemo, useState } from 'react';
 import Router from './routes';
 import ThemeConfig from './theme';
@@ -6,6 +7,7 @@ import UserContext from './context/UserContext';
 
 export default function App() {
 	const [accounts, setAccounts] = useState('');
+
 	const getAccounts = async () => {
 		const userAccounts = await window.ethereum.request({
 			method: 'eth_accounts',
@@ -16,17 +18,21 @@ export default function App() {
 			setAccounts('');
 		}
 	};
+
+	const setUserAccounts = accounts => {
+		setAccounts(accounts);
+	};
+
 	useEffect(async () => {
 		window.ethereum.on('accountsChanged', async () => {
 			getAccounts();
 		});
-		getAccounts();
 	}, []);
 
 	return (
 		<ThemeConfig>
 			<GlobalStyles />
-			<UserContext.Provider value={accounts}>
+			<UserContext.Provider value={{ accounts, setUserAccounts }}>
 				<Router />
 			</UserContext.Provider>
 		</ThemeConfig>

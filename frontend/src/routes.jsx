@@ -2,7 +2,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import MainLayout from './layouts/main';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 import NotFound from './pages/Page404';
-import Main from './pages/Main';
+// import Main from './pages/Main';
 import Items from './pages/Items';
 import ItemRegistration from './pages/ItemRegistration';
 import SaleRegistration from './pages/SaleRegistration';
@@ -15,12 +15,20 @@ import Intro from './pages/Intro';
 // 화면 라우팅 테이블
 export default function Router() {
 	return useRoutes([
+		// {
+		// 	path: '/main',
+		// 	element: <MainLayout />,
+		// 	children: [
+		// 		{ element: <Navigate to='/main' replace /> },
+		// 		{ path: '', element: <Main /> },
+		// 	],
+		// },
 		{
-			path: '/main',
+			path: '/intro',
 			element: <MainLayout />,
 			children: [
-				{ element: <Navigate to='/main' replace /> },
-				{ path: '', element: <Main /> },
+				{ element: <Navigate to='/intro' replace /> },
+				{ path: '', element: <Intro /> },
 			],
 		},
 		{
@@ -28,7 +36,7 @@ export default function Router() {
 			element: <LogoOnlyLayout />,
 			children: [
 				{ path: '404', element: <NotFound /> },
-				{ path: '/', element: <Navigate to='/main' /> },
+				{ path: '/', element: <Navigate to='/intro' /> },
 				{ path: '*', element: <Navigate to='/404' /> },
 			],
 		},
@@ -65,14 +73,6 @@ export default function Router() {
 			children: [
 				{ element: <Navigate to='/market' replace /> },
 				{ path: '', element: <Market /> },
-			],
-		},
-		{
-			path: '/intro',
-			element: <MainLayout />,
-			children: [
-				{ element: <Navigate to='/intro' replace /> },
-				{ path: '', element: <Intro /> },
 			],
 		},
 		{ path: '*', element: <Navigate to='/404' replace /> },

@@ -1,30 +1,69 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
-import PersonIcon from '@mui/icons-material/Person';
-import AppsIcon from '@mui/icons-material/Apps';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import LogoutIcon from '@mui/icons-material/Logout';
-import WalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import AddIcon from '@mui/icons-material/Add';
+import { useContext, useState } from 'react';
+import {
+	Box,
+	Avatar,
+	Menu,
+	MenuItem,
+	IconButton,
+	Tooltip,
+} from '@mui/material';
+import {
+	Person as PersonIcon,
+	Apps as AppsIcon,
+	Assignment as AssignmentIcon,
+	FavoriteBorder as FavoriteBorderIcon,
+	Logout as LogoutIcon,
+	AccountBalanceWallet as WalletIcon,
+	Add as AddIcon,
+} from '@mui/icons-material';
+import UserContext from '../../context/UserContext';
 
 export default function DropDownMenu() {
+	const { accounts, setUserAccounts } = useContext(UserContext);
 	// 로그인 여부
-	const login = true;
-	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick = event => {
 		setAnchorEl(event.currentTarget);
 	};
+
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+
+	const connectAccount = async () => {
+		try {
+			if (window.ethereum) {
+				if (window.ethereum.isConnected()) {
+					// 지갑 주소 가져오기
+					const userAccounts = await window.ethereum.request({
+						method: 'eth_accounts',
+					});
+					if (userAccounts[0]) {
+						setUserAccounts(userAccounts[0]);
+					} else {
+						setUserAccounts('');
+					}
+				}
+				// 지갑 연결 요청
+				await window.ethereum.request({
+					method: 'eth_requestAccounts',
+				});
+			} else {
+				alert('Install Metamask!');
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const onClickLogin = () => {
+		connectAccount();
+	};
+	const onClickLogout = () => {
+		setUserAccounts('');
+	};
+
 	return (
 		<>
 			<Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -37,7 +76,7 @@ export default function DropDownMenu() {
 						aria-haspopup='true'
 						aria-expanded={open ? 'true' : undefined}
 					>
-						{login ? (
+						{accounts ? (
 							<Avatar sx={{ width: 32, height: 32 }}>
 								<PersonIcon />
 							</Avatar>
@@ -47,7 +86,7 @@ export default function DropDownMenu() {
 					</IconButton>
 				</Tooltip>
 			</Box>
-			{login ? (
+			{accounts ? (
 				<Menu
 					anchorEl={anchorEl}
 					id='My-menu'
@@ -95,7 +134,7 @@ export default function DropDownMenu() {
 					<MenuItem>
 						<FavoriteBorderIcon /> 내 좋아요
 					</MenuItem>
-					<MenuItem>
+					<MenuItem onClick={onClickLogout}>
 						<LogoutIcon /> 로그아웃
 					</MenuItem>
 				</Menu>
@@ -135,7 +174,7 @@ export default function DropDownMenu() {
 					transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 					anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 				>
-					<MenuItem>
+					<MenuItem onClick={onClickLogin}>
 						<AddIcon /> 지갑 연결하기
 					</MenuItem>
 				</Menu>
