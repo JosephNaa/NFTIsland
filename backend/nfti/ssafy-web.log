@@ -1,0 +1,105 @@
+2022-03-17 06:47:09.117  INFO 12652 --- [main] com.ssafy.nfti.NftiApplication           : Starting NftiApplication using Java 14.0.1 on DESKTOP-FMPGPT6 with PID 12652 (C:\SSAFY\2학기\특화PJT\backend\nfti\target\classes started by Joseph in C:\SSAFY\2학기\특화PJT\backend\nfti)
+2022-03-17 06:47:09.119  INFO 12652 --- [main] com.ssafy.nfti.NftiApplication           : No active profile set, falling back to 1 default profile: "default"
+2022-03-17 06:47:09.815  INFO 12652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-03-17 06:47:09.816  INFO 12652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-03-17 06:47:09.844  INFO 12652 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.ssafy.nfti.db.repository.ItemsRepository. If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2022-03-17 06:47:09.845  INFO 12652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 0 JDBC repository interfaces.
+2022-03-17 06:47:09.853  INFO 12652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-03-17 06:47:09.855  INFO 12652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-03-17 06:47:09.889  INFO 12652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27 ms. Found 1 JPA repository interfaces.
+2022-03-17 06:47:10.407  INFO 12652 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-03-17 06:47:10.416  INFO 12652 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-03-17 06:47:10.416  INFO 12652 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.58]
+2022-03-17 06:47:10.541  INFO 12652 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-03-17 06:47:10.542  INFO 12652 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1386 ms
+2022-03-17 06:47:10.731  INFO 12652 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-03-17 06:47:10.786  INFO 12652 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.5.Final
+2022-03-17 06:47:10.945  INFO 12652 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-03-17 06:47:11.052  INFO 12652 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-03-17 06:47:11.556  INFO 12652 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-03-17 06:47:11.570  INFO 12652 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2022-03-17 06:47:12.137  INFO 12652 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-03-17 06:47:12.145  INFO 12652 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-03-17 06:47:12.190  WARN 12652 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-03-17 06:47:12.307 DEBUG 12652 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2022-03-17 06:47:12.368 DEBUG 12652 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2022-03-17 06:47:12.398 DEBUG 12652 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2022-03-17 06:47:12.408 DEBUG 12652 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2022-03-17 06:47:12.728  INFO 12652 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 66f0ef43-a317-451b-9e9b-b7fa6d1c0a4a
+
+2022-03-17 06:47:12.836  INFO 12652 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2022-03-17 06:47:12.908  INFO 12652 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-03-17 06:47:12.916  INFO 12652 --- [main] com.ssafy.nfti.NftiApplication           : Started NftiApplication in 4.338 seconds (JVM running for 5.694)
+2022-03-17 12:00:55.840  INFO 27220 --- [main] com.ssafy.nfti.NftiApplication           : Starting NftiApplication using Java 14.0.1 on DESKTOP-FMPGPT6 with PID 27220 (C:\SSAFY\2학기\특화PJT\backend\nfti\target\classes started by Joseph in C:\SSAFY\2학기\특화PJT\backend\nfti)
+2022-03-17 12:00:55.846  INFO 27220 --- [main] com.ssafy.nfti.NftiApplication           : No active profile set, falling back to 1 default profile: "default"
+2022-03-17 12:00:57.015  INFO 27220 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-03-17 12:00:57.016  INFO 27220 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-03-17 12:00:57.062  INFO 27220 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.ssafy.nfti.db.repository.ItemsRepository. If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2022-03-17 12:00:57.065  INFO 27220 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.ssafy.nfti.db.repository.SalesRepository. If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2022-03-17 12:00:57.067  INFO 27220 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 44 ms. Found 0 JDBC repository interfaces.
+2022-03-17 12:00:57.079  INFO 27220 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-03-17 12:00:57.080  INFO 27220 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-03-17 12:00:57.137  INFO 27220 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 51 ms. Found 2 JPA repository interfaces.
+2022-03-17 12:00:57.879  INFO 27220 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-03-17 12:00:57.891  INFO 27220 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-03-17 12:00:57.893  INFO 27220 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.58]
+2022-03-17 12:00:58.063  INFO 27220 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-03-17 12:00:58.063  INFO 27220 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2092 ms
+2022-03-17 12:00:58.312  INFO 27220 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-03-17 12:00:58.386  INFO 27220 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.5.Final
+2022-03-17 12:00:58.567  INFO 27220 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-03-17 12:00:58.714  INFO 27220 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-03-17 12:00:59.322  INFO 27220 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-03-17 12:00:59.345  INFO 27220 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2022-03-17 12:01:00.234  INFO 27220 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-03-17 12:01:00.246  INFO 27220 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-03-17 12:01:00.322  WARN 27220 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-03-17 12:01:00.513 DEBUG 27220 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2022-03-17 12:01:00.591 DEBUG 27220 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 12 mappings in 'requestMappingHandlerMapping'
+2022-03-17 12:01:00.624 DEBUG 27220 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2022-03-17 12:01:00.635 DEBUG 27220 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2022-03-17 12:01:01.090  INFO 27220 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: d94223c8-b292-4781-bbbf-1e260e1562a9
+
+2022-03-17 12:01:01.285  INFO 27220 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2022-03-17 12:01:01.456  INFO 27220 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-03-17 12:01:01.474  INFO 27220 --- [main] com.ssafy.nfti.NftiApplication           : Started NftiApplication in 6.514 seconds (JVM running for 8.134)
+2022-03-17 14:35:25.923  INFO 27652 --- [main] com.ssafy.nfti.NftiApplication           : Starting NftiApplication using Java 14.0.1 on DESKTOP-FMPGPT6 with PID 27652 (C:\SSAFY\2학기\특화PJT\backend\nfti\target\classes started by Joseph in C:\SSAFY\2학기\특화PJT\backend\nfti)
+2022-03-17 14:35:25.927  INFO 27652 --- [main] com.ssafy.nfti.NftiApplication           : No active profile set, falling back to 1 default profile: "default"
+2022-03-17 14:35:26.620  INFO 27652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-03-17 14:35:26.621  INFO 27652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2022-03-17 14:35:26.652  INFO 27652 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.ssafy.nfti.db.repository.ItemsRepository. If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2022-03-17 14:35:26.655  INFO 27652 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.ssafy.nfti.db.repository.SalesRepository. If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2022-03-17 14:35:26.657  INFO 27652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 0 JDBC repository interfaces.
+2022-03-17 14:35:26.673  INFO 27652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-03-17 14:35:26.673  INFO 27652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-03-17 14:35:26.711  INFO 27652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 34 ms. Found 2 JPA repository interfaces.
+2022-03-17 14:35:27.259  INFO 27652 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-03-17 14:35:27.268  INFO 27652 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-03-17 14:35:27.268  INFO 27652 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.58]
+2022-03-17 14:35:27.417  INFO 27652 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-03-17 14:35:27.417  INFO 27652 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1445 ms
+2022-03-17 14:35:27.475 DEBUG 27652 --- [main] o.s.w.f.CommonsRequestLoggingFilter      : Filter 'commonsRequestLoggingFilter' configured for use
+2022-03-17 14:35:27.599  INFO 27652 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-03-17 14:35:27.652  INFO 27652 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.5.Final
+2022-03-17 14:35:27.800  INFO 27652 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-03-17 14:35:27.882  INFO 27652 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-03-17 14:35:28.324  INFO 27652 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-03-17 14:35:28.341  INFO 27652 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2022-03-17 14:35:28.881  INFO 27652 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-03-17 14:35:28.888  INFO 27652 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-03-17 14:35:28.965  WARN 27652 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-03-17 14:35:29.057  INFO 27652 --- [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 87a4b208-1169-4979-bacf-10042834bbd2
+
+2022-03-17 14:35:29.150  INFO 27652 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2022-03-17 14:35:29.429 DEBUG 27652 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2022-03-17 14:35:29.476 DEBUG 27652 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 12 mappings in 'requestMappingHandlerMapping'
+2022-03-17 14:35:29.510 DEBUG 27652 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /resources/**, /swagger-ui/, /css/**, /fonts/**, /icons/**, /img/**, /js/**] in 'resourceHandlerMapping'
+2022-03-17 14:35:29.520 DEBUG 27652 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2022-03-17 14:35:29.710  INFO 27652 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-03-17 14:35:29.720  INFO 27652 --- [main] com.ssafy.nfti.NftiApplication           : Started NftiApplication in 4.265 seconds (JVM running for 5.178)
