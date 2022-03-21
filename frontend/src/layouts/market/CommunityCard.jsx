@@ -1,17 +1,19 @@
 import { useTheme, styled } from '@mui/material/styles';
 import { Box, Avatar, Typography, Stack, Card } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../image/logo.png';
 
 function MarketCard() {
+	const navigate = useNavigate();
 	const theme = useTheme();
 	const ImgStyle = styled('img')({
 		width: '100%',
-		height: '50%',
+		// height: '50%',
 		objectFit: 'cover',
 	});
 
 	const onClickCard = () => {
-		console.log('card');
+		navigate('/market/sadgirl');
 	};
 	const onClickNickname = e => {
 		e.stopPropagation();
@@ -19,11 +21,11 @@ function MarketCard() {
 	};
 	return (
 		<Card
-			width='330px'
-			height='400px'
-			border={`1px solid ${theme.palette.grey[300]}`}
-			borderradius='10px'
-			overflow='hidden'
+			// width='430px'
+			// height='400px'
+			// border={`1px solid ${theme.palette.grey[300]}`}
+			// borderradius='10px'
+			// overflow='hidden'
 			sx={{
 				cursor: 'pointer',
 				transition: 'transform .2s ease-in-out',
@@ -31,7 +33,6 @@ function MarketCard() {
 					transform: 'scale(1.01)',
 				},
 			}}
-			boxshadow={theme.customShadows.z8}
 			onClick={onClickCard}
 		>
 			<ImgStyle src={logo} alt='' />
@@ -41,13 +42,7 @@ function MarketCard() {
 				marginTop='-36px'
 				padding='10px'
 			>
-				<Box
-					border='3px solid white'
-					borderRadius='50%'
-					paddingBottom='7px'
-					textAlign='center'
-					margin='0 auto'
-				>
+				<Box border='3px solid white' borderRadius='50%' paddingBottom='7px'>
 					<Avatar src={logo} alt='' />
 				</Box>
 				{/* 컬랙션 이름 */}
