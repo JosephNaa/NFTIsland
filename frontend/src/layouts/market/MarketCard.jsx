@@ -1,8 +1,10 @@
 import { useTheme, styled } from '@mui/material/styles';
 import { Box, Avatar, Typography, Stack, Card } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../image/logo.png';
 
 function MarketCard() {
+	const navigate = useNavigate();
 	const theme = useTheme();
 	const ImgStyle = styled('img')({
 		width: '100%',
@@ -11,7 +13,7 @@ function MarketCard() {
 	});
 
 	const onClickCard = () => {
-		console.log('card');
+		navigate('/market/sadgirl');
 	};
 	const onClickNickname = e => {
 		e.stopPropagation();
@@ -41,13 +43,7 @@ function MarketCard() {
 				marginTop='-36px'
 				padding='10px'
 			>
-				<Box
-					border='3px solid white'
-					borderRadius='50%'
-					paddingBottom='7px'
-					textAlign='center'
-					margin='0 auto'
-				>
+				<Box border='3px solid white' borderRadius='50%' paddingBottom='7px'>
 					<Avatar src={logo} alt='' />
 				</Box>
 				{/* 컬랙션 이름 */}
