@@ -16,7 +16,7 @@ public class Items extends BaseEntity {
 
     private Long tokenId;
 
-    private String itemHash;
+    private String itemUrl;
 
     private String itemTitle;
 

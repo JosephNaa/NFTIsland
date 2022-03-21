@@ -1,11 +1,16 @@
 package com.ssafy.nfti.api.controller;
 
+import com.ssafy.nfti.api.request.FileUploadReq;
 import com.ssafy.nfti.api.request.ItemsReq;
 import com.ssafy.nfti.api.request.UpdateItemReq;
+import com.ssafy.nfti.api.response.FileUploadRes;
 import com.ssafy.nfti.api.response.ItemsRes;
+import com.ssafy.nfti.api.service.AWSS3Service;
 import com.ssafy.nfti.api.service.ItemsService;
 import com.ssafy.nfti.common.model.response.BaseResponseBody;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +26,15 @@ public class ItemsController {
     @Autowired
     ItemsService itemsService;
 
-    @PostMapping()
-    public ResponseEntity<ItemsRes> createItem(ItemsReq itemsReq) {
+    @Autowired
+    AWSS3Service awss3Service;
 
-        ItemsRes res = itemsService.createItems(itemsReq);
+    @PostMapping()
+    public ResponseEntity<FileUploadRes> createItem(FileUploadReq fileUploadReq) {
+
+        String url = awss3Service.uploadFile(fileUploadReq.getImage());
+
+        FileUploadRes res = itemsService.createItems(url, fileUploadReq);
         return ResponseEntity.ok(res);
     }
 
