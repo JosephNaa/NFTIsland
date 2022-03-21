@@ -8,7 +8,7 @@ function MarketCard() {
 	const theme = useTheme();
 	const ImgStyle = styled('img')({
 		width: '100%',
-		height: '50%',
+		// height: '50%',
 		objectFit: 'cover',
 	});
 
@@ -21,11 +21,11 @@ function MarketCard() {
 	};
 	return (
 		<Card
-			width='330px'
-			height='400px'
-			border={`1px solid ${theme.palette.grey[300]}`}
-			borderradius='10px'
-			overflow='hidden'
+			// width='430px'
+			// height='400px'
+			// border={`1px solid ${theme.palette.grey[300]}`}
+			// borderradius='10px'
+			// overflow='hidden'
 			sx={{
 				cursor: 'pointer',
 				transition: 'transform .2s ease-in-out',
@@ -33,7 +33,6 @@ function MarketCard() {
 					transform: 'scale(1.01)',
 				},
 			}}
-			boxshadow={theme.customShadows.z8}
 			onClick={onClickCard}
 		>
 			<ImgStyle src={logo} alt='' />

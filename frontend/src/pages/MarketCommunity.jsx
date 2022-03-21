@@ -4,6 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import { Container, Box, Avatar, Stack, Typography, Grid } from '@mui/material';
 import Page from '../components/Page';
 import logo from '../image/logo.png';
+import ItemCard from '../layouts/market/ItemCard';
 
 function MarketCommunity() {
 	const communityId = useLocation().pathname.substring(8);
@@ -78,7 +79,28 @@ function MarketCommunity() {
 				{/* NFT List */}
 				<Grid container spacing={6}>
 					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						{/* <MarketCard /> */}asldkf
+						<ItemCard />
+					</Grid>
+					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+						<ItemCard />
+					</Grid>
+					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+						<ItemCard />
+					</Grid>
+					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+						<ItemCard />
+					</Grid>
+					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+						<ItemCard />
+					</Grid>
+					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+						<ItemCard />
+					</Grid>
+					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+						<ItemCard />
+					</Grid>
+					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+						<ItemCard />
 					</Grid>
 				</Grid>
 			</Container>

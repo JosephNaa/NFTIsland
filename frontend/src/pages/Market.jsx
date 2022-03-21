@@ -1,6 +1,6 @@
 import { Container, Typography, Grid } from '@mui/material';
 import Page from '../components/Page';
-import MarketCard from '../layouts/market/MarketCard';
+import CommunityCard from '../layouts/market/CommunityCard';
 
 function Market() {
 	return (
@@ -17,25 +17,25 @@ function Market() {
 			<Container maxWidth='xl' sx={{ pt: '30px' }}>
 				<Grid container spacing={6}>
 					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<MarketCard />
+						<CommunityCard />
 					</Grid>
 					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<MarketCard />
+						<CommunityCard />
 					</Grid>
 					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<MarketCard />
+						<CommunityCard />
 					</Grid>
 					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<MarketCard />
+						<CommunityCard />
 					</Grid>
 					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<MarketCard />
+						<CommunityCard />
 					</Grid>
 					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<MarketCard />
+						<CommunityCard />
 					</Grid>
 					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<MarketCard />
+						<CommunityCard />
 					</Grid>
 				</Grid>
 			</Container>
