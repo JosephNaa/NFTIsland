@@ -19,7 +19,7 @@ import {
 import UserContext from '../../context/UserContext';
 
 export default function DropDownMenu() {
-	const { accounts, setUserAccounts } = useContext(UserContext);
+	const userContext = useContext(UserContext);
 	// 로그인 여부
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
@@ -40,9 +40,9 @@ export default function DropDownMenu() {
 						method: 'eth_accounts',
 					});
 					if (userAccounts[0]) {
-						setUserAccounts(userAccounts[0]);
+						userContext.setUserAccounts(userAccounts[0]);
 					} else {
-						setUserAccounts('');
+						userContext.setUserAccounts('');
 					}
 				}
 				// 지갑 연결 요청
@@ -61,7 +61,7 @@ export default function DropDownMenu() {
 		connectAccount();
 	};
 	const onClickLogout = () => {
-		setUserAccounts('');
+		userContext.setUserAccounts('');
 	};
 
 	return (
@@ -76,7 +76,7 @@ export default function DropDownMenu() {
 						aria-haspopup='true'
 						aria-expanded={open ? 'true' : undefined}
 					>
-						{accounts ? (
+						{userContext.accounts ? (
 							<Avatar sx={{ width: 32, height: 32 }}>
 								<PersonIcon />
 							</Avatar>
@@ -86,7 +86,7 @@ export default function DropDownMenu() {
 					</IconButton>
 				</Tooltip>
 			</Box>
-			{accounts ? (
+			{userContext.accounts ? (
 				<Menu
 					anchorEl={anchorEl}
 					id='My-menu'

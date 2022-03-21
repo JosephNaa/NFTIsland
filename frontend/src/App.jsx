@@ -27,12 +27,15 @@ export default function App() {
 		window.ethereum.on('accountsChanged', async () => {
 			getAccounts();
 		});
+		getAccounts();
 	}, []);
+
+	const userContext = useMemo(() => ({ accounts, setUserAccounts }), [accounts]);
 
 	return (
 		<ThemeConfig>
 			<GlobalStyles />
-			<UserContext.Provider value={{ accounts, setUserAccounts }}>
+			<UserContext.Provider value={userContext}>
 				<Router />
 			</UserContext.Provider>
 		</ThemeConfig>
