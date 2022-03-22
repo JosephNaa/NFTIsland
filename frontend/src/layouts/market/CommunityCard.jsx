@@ -13,7 +13,7 @@ function MarketCard() {
 	});
 
 	const onClickCard = () => {
-		navigate('/market/sadgirl');
+		navigate('/market/community/sadgirl');
 	};
 	const onClickNickname = e => {
 		e.stopPropagation();

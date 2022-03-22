@@ -7,7 +7,7 @@ import logo from '../image/logo.png';
 import ItemCard from '../layouts/market/ItemCard';
 
 function MarketCommunity() {
-	const communityId = useLocation().pathname.substring(8);
+	const communityId = useLocation().pathname.substring(18);
 	const theme = useTheme();
 
 	useEffect(() => {
