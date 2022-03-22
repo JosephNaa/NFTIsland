@@ -5,6 +5,7 @@ import {
 	InsertComment as InsertCommentIcon,
 	FavoriteBorder as LikeIcon,
 } from '@mui/icons-material';
+import { Link as RouterLink } from 'react-router-dom';
 import logo from '../../image/logo.png';
 
 function PostCard() {
@@ -16,6 +17,7 @@ function PostCard() {
 	});
 
 	const onClickCard = () => {
+		window.location.replace('/postdetail');
 		console.log('card');
 	};
 

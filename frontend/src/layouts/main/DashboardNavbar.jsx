@@ -49,7 +49,7 @@ function DashboardNavbar() {
 							소개
 						</Button>
 						<Button
-							to='/community'
+							to='/communitydetail'
 							size='large'
 							sx={{ fontSize: 17 }}
 							component={RouterLink}

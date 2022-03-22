@@ -18,9 +18,12 @@ import {
 	Search as SearchIcon,
 	Add as AddIcon,
 } from '@mui/icons-material';
+import { Link as RouterLink } from 'react-router-dom';
 import Page from '../components/Page';
 import PostCard from '../layouts/community-detail/PostCard';
 import logo from '../image/logo.png';
+import PostWrite from './PostWrite';
+import PostDetail from './PostDetail';
 
 function CommunityDetail() {
 	return (
@@ -100,6 +103,8 @@ function CommunityDetail() {
 					variant='contained'
 					disableElevation
 					endIcon={<AddIcon />}
+					to='/postwrite'
+					component={RouterLink}
 				>
 					게시글 생성
 				</Button>
