@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @Setter
 public class FileUploadReq {
-    MultipartFile image;
     String authorName;
     String itemTitle;
     String itemDescription;
