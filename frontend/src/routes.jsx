@@ -13,6 +13,9 @@ import Intro from './pages/Intro';
 import MarketCommunity from './pages/MarketCommunity';
 import MarketItem from './pages/MarketItem';
 import Community from './pages/Community';
+import CommunityDetail from './pages/CommunityDetail';
+import PostWrite from './pages/PostWrite';
+import PostDetail from './pages/PostDetail';
 
 // 화면 라우팅 테이블
 export default function Router() {
@@ -85,6 +88,31 @@ export default function Router() {
 			children: [
 				{ element: <Navigate to='/community' replace /> },
 				{ path: '', element: <Community /> },
+				{ path: ':communityId', element: <CommunityDetail /> },
+			],
+		},
+		// {
+		// 	path: '/communitydetail',
+		// 	element: <MainLayout />,
+		// 	children: [
+		// 		{ element: <Navigate to='/communitydetail' replace /> },
+		// 		{ path: '', element: <CommunityDetail /> },
+		// 	],
+		// },
+		{
+			path: '/postwrite',
+			element: <MainLayout />,
+			children: [
+				{ element: <Navigate to='/postwrite' replace /> },
+				{ path: '', element: <PostWrite /> },
+			],
+		},
+		{
+			path: '/postdetail',
+			element: <MainLayout />,
+			children: [
+				{ element: <Navigate to='/postdetail' replace /> },
+				{ path: '', element: <PostDetail /> },
 			],
 		},
 		{ path: '*', element: <Navigate to='/404' replace /> },

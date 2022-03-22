@@ -3,15 +3,8 @@ import { styled } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
 import Web3 from 'web3';
 import Page from '../components/Page';
-
-// 이미지 스타일
-const ImgStyle = styled('img')({
-	top: 0,
-	width: '100%',
-	height: '100%',
-	objectFit: 'contain',
-	position: 'absolute',
-});
+import logo from '../image/logo.png';
+import logo2 from '../image/logo2.png';
 
 /**
  * [메인 화면]
@@ -31,11 +24,12 @@ function Intro() {
 			display='flex'
 		>
 			<Container>
-				<Stack direction='row' justifyContent='center'>
-					<Box>
-						<Typography variant='h2' sx={{ pb: 10 }} align='center'>
-							NFT Island (이 부분 이미지 + 로고 이미지)
-						</Typography>
+				<Stack justifyContent='center'>
+					<Box ml='10%' mr='10%'>
+						<Box ml='35%' mr='35%'>
+							<img src={logo2} alt='' width='300px' />
+							<img src={logo} alt='' width='300px' />
+						</Box>
 						<Typography fontSize={20} sx={{ pb: 10 }} align='center'>
 							NFT Island에 오신 것을 환영합니다!
 							<br />
