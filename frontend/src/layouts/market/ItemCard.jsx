@@ -8,7 +8,7 @@ function ItemCard() {
 	const theme = useTheme();
 
 	const onClickCard = () => {
-		navigate('/market/sadgirl');
+		navigate('/market/item/sadgirl');
 	};
 
 	const ImgStyle = styled('img')({

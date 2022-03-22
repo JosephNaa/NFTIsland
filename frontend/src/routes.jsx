@@ -11,6 +11,7 @@ import ItemPurchase from './pages/ItemPurchase';
 import Market from './pages/Market';
 import Intro from './pages/Intro';
 import MarketCommunity from './pages/MarketCommunity';
+import MarketItem from './pages/MarketItem';
 import Community from './pages/Community';
 
 // 화면 라우팅 테이블
@@ -74,7 +75,8 @@ export default function Router() {
 			children: [
 				{ element: <Navigate to='/market' replace /> },
 				{ path: '', element: <Market /> },
-				{ path: ':communityId', element: <MarketCommunity /> },
+				{ path: 'community/:communityId', element: <MarketCommunity /> },
+				{ path: 'item/:itemId', element: <MarketItem /> },
 			],
 		},
 		{
