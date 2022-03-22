@@ -88,16 +88,17 @@ export default function Router() {
 			children: [
 				{ element: <Navigate to='/community' replace /> },
 				{ path: '', element: <Community /> },
+				{ path: ':communityId', element: <CommunityDetail /> },
 			],
 		},
-		{
-			path: '/communitydetail',
-			element: <MainLayout />,
-			children: [
-				{ element: <Navigate to='/communitydetail' replace /> },
-				{ path: '', element: <CommunityDetail /> },
-			],
-		},
+		// {
+		// 	path: '/communitydetail',
+		// 	element: <MainLayout />,
+		// 	children: [
+		// 		{ element: <Navigate to='/communitydetail' replace /> },
+		// 		{ path: '', element: <CommunityDetail /> },
+		// 	],
+		// },
 		{
 			path: '/postwrite',
 			element: <MainLayout />,
