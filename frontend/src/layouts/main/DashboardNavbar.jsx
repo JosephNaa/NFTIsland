@@ -57,12 +57,12 @@ function DashboardNavbar() {
 							커뮤니티
 						</Button>
 						<Button
-							to='/whosart'
+							to='/market'
 							size='large'
 							sx={{ fontSize: 17 }}
 							component={RouterLink}
 						>
-							뱃지마켓
+							마켓
 						</Button>
 					</Stack>
 					<Dropdown />
