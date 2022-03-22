@@ -56,22 +56,21 @@ public class ItemsController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ItemsRes>> getItems(@RequestParam(required = false) AddressItemsReq addressItemsReq) {
+    public ResponseEntity<List<ItemsRes>> getItems() {
 
-        System.out.println(addressItemsReq.getAddress());
         List<ItemsRes> res = itemsService.getItems();
 
         return ResponseEntity.ok(res);
     }
 
-//    @GetMapping()
-//    public ResponseEntity<List<ItemsRes>> getItemsWithAddress(AddressItemsReq addressItemsReq) {
-//
-//        System.out.println(addressItemsReq.getAddress());
-//        List<ItemsRes> res = itemsService.getItemsWithAddress(addressItemsReq.getAddress());
-//
-//        return ResponseEntity.ok(res);
-//    }
+    @GetMapping("/me")
+    public ResponseEntity<List<ItemsRes>> getItemsWithAddress(@RequestBody AddressItemsReq addressItemsReq) {
+
+        System.out.println(addressItemsReq.getAddress());
+        List<ItemsRes> res = itemsService.getItemsWithAddress(addressItemsReq.getAddress());
+
+        return ResponseEntity.ok(res);
+    }
 
     @GetMapping("/recent")
     public ResponseEntity<List<ItemsRes>> getRecentItems() {

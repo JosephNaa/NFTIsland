@@ -55,7 +55,14 @@ public class ItemsServiceImpl implements ItemsService {
 
     @Override
     public List<ItemsRes> getItemsWithAddress(String address) {
-        return null;
+        List<Items> list = itemsRepository.findByOwnerAddress(address);
+        List<ItemsRes> res = new ArrayList<>();
+        for (Items item : list) {
+            res.add(ItemsRes.of(item));
+//            System.out.println(item.getAuthorName() + " " + item.getItemDescription() + " " + item.getItemTitle() + " " + item.getItemUrl());
+        }
+
+        return res;
     }
 
 
