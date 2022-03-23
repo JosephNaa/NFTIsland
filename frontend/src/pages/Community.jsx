@@ -9,110 +9,78 @@ import {
 	Grid,
 	IconButton,
 	InputBase,
+	Link,
 	Paper,
 	Stack,
 	Typography,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Page from '../components/Page';
+import CommunityCard from '../layouts/market/CommunityCard';
 
 function Community() {
 	return (
 		<Page title='Community' maxWidth='100%' minHeight='100%' display='flex'>
 			<Container>
 				<Stack spacing={2}>
-					<Box>
-						<Typography variant='h3'>나의 컬렉션</Typography>
-						<Divider sx={{ mb: 3 }} />
-						<Stack direction='row' spacing={2}>
-							<Card>
-								<CardMedia component='img' image='https://picsum.photos/96/96' alt='' />
-							</Card>
-							<Card>
-								<CardMedia component='img' image='https://picsum.photos/96/96' alt='' />
-							</Card>
-							<Card>
-								<CardMedia component='img' image='https://picsum.photos/96/96' alt='' />
-							</Card>
-							<Card>
-								<CardMedia component='img' image='https://picsum.photos/96/96' alt='' />
-							</Card>
-						</Stack>
-					</Box>
-					<Box>
-						<Typography variant='h3'>커뮤니티 랭킹</Typography>
-						<Divider sx={{ mb: 3 }} />
-						<Grid container spacing={2}>
-							<Grid item xs={6}>
-								<Card>
-									<CardContent>
-										<Typography>암호화폐</Typography>
-									</CardContent>
-								</Card>
-							</Grid>
-							<Grid item xs={6}>
-								<Card>
-									<CardContent>
-										<Typography>IT 교육</Typography>
-									</CardContent>
-								</Card>
-							</Grid>
-							<Grid item xs={6}>
-								<Card>
-									<CardContent>
-										<Typography>IT 커뮤니티</Typography>
-									</CardContent>
-								</Card>
-							</Grid>
-							<Grid item xs={6}>
-								<Card>
-									<CardContent>
-										<Typography>기업</Typography>
-									</CardContent>
-								</Card>
-							</Grid>
+					<Stack direction='row'>
+						<Box sx={{ flexGrow: 1 }} />
+						<Paper
+							variant='outlined'
+							sx={{
+								p: '2px 4px',
+								display: 'flex',
+								alignItems: 'center',
+								flexGrow: 2,
+							}}
+						>
+							<InputBase
+								sx={{ ml: 1, flex: 1 }}
+								placeholder='커뮤니티 이름을 입력하세요.'
+							/>
+							<Divider sx={{ height: 28, m: 0.5 }} orientation='vertical' />
+							<IconButton type='submit' sx={{ p: '10px' }}>
+								<SearchIcon />
+							</IconButton>
+						</Paper>
+						<Box sx={{ flexGrow: 1 }} />
+					</Stack>
+					<Stack
+						sx={{ justifyContent: 'center', alignItems: 'center' }}
+						direction='row'
+						spacing={1}
+					>
+						<Link href='#1'>가나다순</Link>
+						<Divider sx={{ height: 18 }} orientation='vertical' />
+						<Link href='#2'>최신순</Link>
+						<Divider sx={{ height: 18 }} orientation='vertical' />
+						<Link href='#3'>회원 많은순</Link>
+						<Divider sx={{ height: 18 }} orientation='vertical' />
+						<Link href='#4'>게시글 많은순</Link>
+					</Stack>
+					<Grid container spacing={4}>
+						<Grid item xs={12} sm={6} md={4} lg={3}>
+							<CommunityCard />
 						</Grid>
-					</Box>
-					<Box>
-						<Typography variant='h3'>커뮤니티 검색</Typography>
-						<Divider sx={{ mb: 3 }} />
-						<Stack spacing={2}>
-							<Paper
-								variant='outlined'
-								sx={{
-									p: '2px 4px',
-									display: 'flex',
-									alignItems: 'center',
-									width: '100%',
-								}}
-							>
-								<InputBase
-									sx={{ ml: 1, flex: 1 }}
-									placeholder='커뮤니티 이름을 입력하세요.'
-								/>
-								<Divider sx={{ height: 28, m: 0.5 }} orientation='vertical' />
-								<IconButton type='submit' sx={{ p: '10px' }}>
-									<SearchIcon />
-								</IconButton>
-							</Paper>
-							<Stack direction='row' spacing={1}>
-								<Chip label='IT 커뮤니티' variant='outlined' />
-								<Chip label='암호화폐' variant='outlined' />
-							</Stack>
-							<Stack spacing={2}>
-								<Card>
-									<CardContent>
-										<Typography>암호화폐</Typography>
-									</CardContent>
-								</Card>
-								<Card>
-									<CardContent>
-										<Typography>IT 커뮤니티</Typography>
-									</CardContent>
-								</Card>
-							</Stack>
-						</Stack>
-					</Box>
+						<Grid item xs={12} sm={6} md={4} lg={3}>
+							<CommunityCard />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4} lg={3}>
+							<CommunityCard />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4} lg={3}>
+							<CommunityCard />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4} lg={3}>
+							<CommunityCard />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4} lg={3}>
+							<CommunityCard />
+						</Grid>
+						<Grid item xs={12} sm={6} md={4} lg={3}>
+							<CommunityCard />
+						</Grid>
+					</Grid>
 				</Stack>
 			</Container>
 		</Page>
