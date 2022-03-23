@@ -20,6 +20,8 @@ public class Sales extends BaseEntity {
 
     private Boolean saleYn;
 
+    private Long saleId;
+
     private Long tokenId;
 
     private String cashContractAddress;

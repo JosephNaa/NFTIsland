@@ -13,9 +13,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-/**
- * 인증(authentication) 와 인가(authorization) 처리를 위한 스프링 시큐리티 설정 정의.
- */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -33,12 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin()
                 .disable()
             .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-            .authorizeRequests()
-                .antMatchers("/v1/**")
-                    .authenticated()
-                .anyRequest()
-                    .permitAll();
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 }

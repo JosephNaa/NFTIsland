@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SalesReq {
-    Long tokenId;
-    String buyerAddress;
+public class AddressItemsReq {
 
+    String address;
 }

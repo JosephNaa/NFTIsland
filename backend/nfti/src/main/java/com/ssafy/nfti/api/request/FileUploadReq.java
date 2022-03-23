@@ -1,17 +1,15 @@
 package com.ssafy.nfti.api.request;
 
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
-public class ItemsReq {
+public class FileUploadReq {
     Long tokenId;
     String ownerAddress;
-    String image;
     String authorName;
     String itemTitle;
     String itemDescription;
-    LocalDateTime createdAt;
 }

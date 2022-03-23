@@ -4,5 +4,6 @@ import com.ssafy.nfti.db.entity.Sales;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SalesRepository extends JpaRepository<Sales, Long> {
-
+    Sales findByTokenId(Long tokenId);
+    Sales findBySaleId(Long saleId);
 }

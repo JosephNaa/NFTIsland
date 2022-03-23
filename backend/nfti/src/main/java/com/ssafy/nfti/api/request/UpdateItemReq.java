@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateItemReq {
-    Long itemId;
     Long tokenId;
     String ownerAddress;
 }

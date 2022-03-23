@@ -19,10 +19,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jdbc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
@@ -60,7 +56,7 @@
 			<scope>test</scope>
 		</dependency>
 
-<!--		querydsl-->
+		<!--		querydsl-->
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-apt</artifactId>
@@ -81,6 +77,24 @@
 			<version>3.10.3</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>io.awspring.cloud</groupId>
+			<artifactId>spring-cloud-aws-context</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.awspring.cloud</groupId>
+			<artifactId>spring-cloud-aws-autoconfigure</artifactId>
+			<version>2.3.1</version>
+		</dependency>
 
 	</dependencies>
 

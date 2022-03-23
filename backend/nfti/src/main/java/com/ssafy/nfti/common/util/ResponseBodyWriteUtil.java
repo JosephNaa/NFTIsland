@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 
-/**
- * 컨트롤러(controller)가 아닌곳에서, 서버 응답값(바디) 직접 변경 및 전달 하기위한 유틸 정의.
- */
 public class ResponseBodyWriteUtil {
 	
 	public static void sendApiResponse(HttpServletResponse response, BaseResponseBody apiResponse) throws IOException {
