@@ -9,11 +9,11 @@ import com.ssafy.nfti.db.entity.Items;
 import java.util.List;
 
 public interface ItemsService {
-    FileUploadRes createItems(String url, FileUploadReq fileUploadReq);
-    void updateItemTokenIdAndOwnerAddress(Long itemId, Long tokenId, String ownerAddress);
+    Items createItems(String url, FileUploadReq fileUploadReq);
+    Items updateItemTokenIdAndOwnerAddress(Long itemId, Long tokenId, String ownerAddress);
     List<ItemsRes> getItems();
     List<ItemsRes> getItemsWithAddress(String address);
-    List<ItemsRes> getRecentItems();
+    ItemsRes getRecentItems();
     ItemsRes getItemByTokenId(Long tokenId);
     void updateItemOwnerAddress(Long tokenId, Long ownerAddress);
 }

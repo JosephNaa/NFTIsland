@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("itemsService")
 public class ItemsServiceImpl implements ItemsService {
@@ -20,25 +21,27 @@ public class ItemsServiceImpl implements ItemsService {
     ItemsRepository itemsRepository;
 
     @Override
-    public FileUploadRes createItems(String url, FileUploadReq file) {
+    @Transactional
+    public Items createItems(String url, FileUploadReq file) {
         Items items = new Items();
         items.setItemUrl(url);
         items.setAuthorName(file.getAuthorName());
         items.setItemTitle(file.getItemTitle());
         items.setItemDescription(file.getItemDescription());
         items.setCreatedAt(LocalDateTime.now());
+        items.setTokenId(file.getTokenId());
+        items.setOwnerAddress(file.getOwnerAddress());
 
-        System.out.println("files: " + file.getAuthorName());
-        System.out.println("items: " + items.getAuthorName());
-
-        itemsRepository.save(items);
-
-        return null;
+        return itemsRepository.save(items);
     }
 
     @Override
-    public void updateItemTokenIdAndOwnerAddress(Long itemId, Long tokenId, String ownerAddress) {
+    public Items updateItemTokenIdAndOwnerAddress(Long itemId, Long tokenId, String ownerAddress) {
+        Items item = itemsRepository.getById(itemId);
+        item.setTokenId(tokenId);
+        item.setOwnerAddress(ownerAddress);
 
+        return itemsRepository.save(item);
     }
 
     @Override
@@ -47,7 +50,6 @@ public class ItemsServiceImpl implements ItemsService {
         List<ItemsRes> res = new ArrayList<>();
         for (Items item : list) {
             res.add(ItemsRes.of(item));
-//            System.out.println(item.getAuthorName() + " " + item.getItemDescription() + " " + item.getItemTitle() + " " + item.getItemUrl());
         }
 
         return res;
@@ -59,7 +61,6 @@ public class ItemsServiceImpl implements ItemsService {
         List<ItemsRes> res = new ArrayList<>();
         for (Items item : list) {
             res.add(ItemsRes.of(item));
-//            System.out.println(item.getAuthorName() + " " + item.getItemDescription() + " " + item.getItemTitle() + " " + item.getItemUrl());
         }
 
         return res;
@@ -67,13 +68,15 @@ public class ItemsServiceImpl implements ItemsService {
 
 
     @Override
-    public List<ItemsRes> getRecentItems() {
-        return null;
+    public ItemsRes getRecentItems() {
+        Items recentItem = itemsRepository.findTopByOrderByIdDesc();
+        return ItemsRes.of(recentItem);
     }
 
     @Override
     public ItemsRes getItemByTokenId(Long tokenId) {
-        return null;
+        Items item = itemsRepository.findByTokenId(tokenId);
+        return ItemsRes.of(item);
     }
 
     @Override

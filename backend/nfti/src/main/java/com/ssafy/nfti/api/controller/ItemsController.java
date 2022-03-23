@@ -10,10 +10,12 @@ import com.ssafy.nfti.api.response.ItemsRes;
 import com.ssafy.nfti.api.service.AWSS3Service;
 import com.ssafy.nfti.api.service.ItemsService;
 import com.ssafy.nfti.common.model.response.BaseResponseBody;
+import com.ssafy.nfti.db.entity.Items;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,15 +45,29 @@ public class ItemsController {
 //        System.out.println("file: " + fileUploadReq);
         String url = awss3Service.uploadFile(file);
 
-        FileUploadRes res = itemsService.createItems(url, fileUploadReq);
-        return ResponseEntity.ok(res);
+        Items item = itemsService.createItems(url, fileUploadReq);
+
+        FileUploadRes res = new FileUploadRes();
+
+        if (item != null) {
+            res.setImageUrl(item.getItemUrl());
+            res.setItemId(item.getTokenId());
+            res.setResult("Success");
+
+            return ResponseEntity.ok(res);
+        } else {
+            res.setResult("Fail");
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
+        }
 //        return null;
     }
 
     @PutMapping("/{itemId}")
-    public ResponseEntity<BaseResponseBody> updateItemTokenIdAndOwnerAddress(UpdateItemReq updateItemReq) {
+    public ResponseEntity<BaseResponseBody> updateItemTokenIdAndOwnerAddress(
+        UpdateItemReq updateItemReq, @PathVariable Long itemId) {
 
-        itemsService.updateItemTokenIdAndOwnerAddress(updateItemReq.getItemId(), updateItemReq.getTokenId(), updateItemReq.getOwnerAddress());
+        itemsService.updateItemTokenIdAndOwnerAddress(itemId, updateItemReq.getTokenId(), updateItemReq.getOwnerAddress());
         return ResponseEntity.ok(BaseResponseBody.of(200, "작품 정보 업데이트"));
     }
 
@@ -63,19 +79,19 @@ public class ItemsController {
         return ResponseEntity.ok(res);
     }
 
-    @GetMapping("/me")
-    public ResponseEntity<List<ItemsRes>> getItemsWithAddress(@RequestBody AddressItemsReq addressItemsReq) {
+    @GetMapping("/{address}")
+    public ResponseEntity<List<ItemsRes>> getItemsWithAddress(@PathVariable String address) {
 
-        System.out.println(addressItemsReq.getAddress());
-        List<ItemsRes> res = itemsService.getItemsWithAddress(addressItemsReq.getAddress());
+        System.out.println(address);
+        List<ItemsRes> res = itemsService.getItemsWithAddress(address);
 
         return ResponseEntity.ok(res);
     }
 
     @GetMapping("/recent")
-    public ResponseEntity<List<ItemsRes>> getRecentItems() {
+    public ResponseEntity<ItemsRes> getRecentItems() {
 
-        List<ItemsRes> res = itemsService.getRecentItems();
+        ItemsRes res = itemsService.getRecentItems();
         return ResponseEntity.ok(res);
     }
 
