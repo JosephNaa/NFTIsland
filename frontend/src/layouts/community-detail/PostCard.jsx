@@ -5,10 +5,13 @@ import {
 	InsertComment as InsertCommentIcon,
 	FavoriteBorder as LikeIcon,
 } from '@mui/icons-material';
-import { Link as RouterLink } from 'react-router-dom';
-import logo from '../../image/logo.png';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function PostCard() {
+	const navigate = useNavigate();
+
+	const { communityId } = useParams();
+
 	const theme = useTheme();
 	const ImgStyle = styled('img')({
 		width: '100%',
@@ -17,7 +20,7 @@ function PostCard() {
 	});
 
 	const onClickCard = () => {
-		window.location.replace('/postdetail');
+		navigate(`/community/${communityId}/a`);
 		console.log('card');
 	};
 

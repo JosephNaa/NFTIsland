@@ -14,12 +14,18 @@ import {
 } from '@mui/material';
 
 import { ArrowBack as BackIcon } from '@mui/icons-material';
-import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Page from '../components/Page';
 
 function PostWrite() {
+	const navigate = useNavigate();
+
 	const onClickBackIcon = () => {
-		window.location.replace('/communitydetail');
+		navigate(-1);
+	};
+
+	const onClickButton = () => {
+		navigate(-1);
 	};
 
 	return (
@@ -58,8 +64,7 @@ function PostWrite() {
 						}}
 						variant='contained'
 						disableElevation
-						to='/communitydetail'
-						component={RouterLink}
+						onClick={onClickButton}
 					>
 						CREATE
 					</Button>

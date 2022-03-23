@@ -20,21 +20,23 @@ import {
 	Edit as EditIcon,
 	FavoriteBorder as LikeIcon,
 } from '@mui/icons-material';
-import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Page from '../components/Page';
 import Comments from '../layouts/community-detail/Comments';
 
 function PostDetail() {
+	const navigate = useNavigate();
+
 	const onClickBackIcon = () => {
-		window.location.replace('/communitydetail');
+		navigate(-1);
 	};
 
 	const onClickEditIcon = () => {
-		window.location.replace('/postwrite');
+		navigate('/postwrite');
 	};
 
 	const onClickDeleteIcon = () => {
-		window.location.replace('/communitydetail');
+		navigate(-1);
 	};
 
 	return (
