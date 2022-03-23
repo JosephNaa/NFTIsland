@@ -89,6 +89,7 @@ export default function Router() {
 				{ element: <Navigate to='/community' replace /> },
 				{ path: '', element: <Community /> },
 				{ path: ':communityId', element: <CommunityDetail /> },
+				{ path: ':communityId/:postId', element: <PostDetail /> },
 			],
 		},
 		// {
@@ -107,14 +108,14 @@ export default function Router() {
 				{ path: '', element: <PostWrite /> },
 			],
 		},
-		{
-			path: '/postdetail',
-			element: <MainLayout />,
-			children: [
-				{ element: <Navigate to='/postdetail' replace /> },
-				{ path: '', element: <PostDetail /> },
-			],
-		},
+		// {
+		// 	path: '/postdetail',
+		// 	element: <MainLayout />,
+		// 	children: [
+		// 		{ element: <Navigate to='/postdetail' replace /> },
+		// 		{ path: '', element: <PostDetail /> },
+		// 	],
+		// },
 		{ path: '*', element: <Navigate to='/404' replace /> },
 	]);
 }

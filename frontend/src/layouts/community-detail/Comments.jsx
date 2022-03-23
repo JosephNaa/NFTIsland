@@ -7,22 +7,23 @@ import {
 	Edit as EditIcon,
 	FavoriteBorder as LikeIcon,
 } from '@mui/icons-material';
-import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../image/logo.png';
 
 function Comments() {
 	const theme = useTheme();
+	const navigate = useNavigate();
 
 	const onClickLikeIcon = () => {
 		console.log('like');
 	};
 
 	const onClickEditIcon = () => {
-		window.location.replace('/postwrite');
+		navigate('/postwrite');
 	};
 
 	const onClickDeleteIcon = () => {
-		window.location.replace('/communitydetail');
+		navigate('/community/a');
 	};
 
 	return (
