@@ -21,21 +21,19 @@ contract("NftCreator", (accounts) => {
   });
 
   it("NFT mint, transfer, compare URI", async () => {
-    // TODO
-    // 다음이 반드시 테스트되어야 합니다.
-    // assert.equal(sender, owner, "NFT Mint Failed");
-    // assert.equal(receiver, owner, "NFT Transfer Failed.");
-    // assert.equal(tokenURI, tokenURIFetched, "Wrong Token Id or URI.")
-
     const sender = accounts[1];
     const receiver = accounts[2];
     const tokenURI = "myuri://testtest";
 
     // create 호출 후, tokenId 생성과 owner 지정 테스트
-    var createRes = await nftCreatorInstance.create(sender, tokenURI, {
+    var outTokenId = await nftCreatorInstance.create.call(sender, tokenURI, {
       from: sender,
     });
-    var tokenId = createRes.receipt.logs[0].args["2"].toNumber();
+    var tokenId = outTokenId.toNumber();
+
+    await nftCreatorInstance.create(sender, tokenURI, {
+      from: sender,
+    });
     var owner = await nftCreatorInstance.ownerOf(tokenId);
 
     assert.equal(sender, owner, "NFT Mint Failed");
