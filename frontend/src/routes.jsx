@@ -16,6 +16,8 @@ import Community from './pages/Community';
 import CommunityDetail from './pages/CommunityDetail';
 import PostWrite from './pages/PostWrite';
 import PostDetail from './pages/PostDetail';
+import CreateCommunity from './pages/CreateCommunity';
+import CreateItem from './pages/CreateItem';
 
 // 화면 라우팅 테이블
 export default function Router() {
@@ -55,6 +57,22 @@ export default function Router() {
 			],
 		},
 		{
+			path: '/create/community',
+			element: <MainLayout />,
+			children: [
+				{ element: <Navigate to='/create/community' replace /> },
+				{ path: '', element: <CreateCommunity /> },
+			],
+		},
+		{
+			path: '/create/item',
+			element: <MainLayout />,
+			children: [
+				{ element: <Navigate to='/create/item' replace /> },
+				{ path: '', element: <CreateItem /> },
+			],
+		},
+		{
 			path: '/register',
 			element: <MainLayout />,
 			children: [
@@ -63,15 +81,15 @@ export default function Router() {
 				{ path: 'sale/:tokenId', element: <SaleRegistration /> },
 			],
 		},
-		{
-			path: '/whosart',
-			element: <MainLayout />,
-			children: [
-				{ element: <Navigate to='/whosart' replace /> },
-				{ path: '', element: <WhosArt /> },
-				{ path: ':address', element: <WhosArt /> },
-			],
-		},
+		// {
+		// 	path: '/whosart',
+		// 	element: <MainLayout />,
+		// 	children: [
+		// 		{ element: <Navigate to='/whosart' replace /> },
+		// 		{ path: '', element: <WhosArt /> },
+		// 		{ path: ':address', element: <WhosArt /> },
+		// 	],
+		// },
 		{
 			path: '/market',
 			element: <MainLayout />,
