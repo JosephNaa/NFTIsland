@@ -4,7 +4,9 @@ import com.ssafy.nfti.api.request.CreateSaleReq;
 import com.ssafy.nfti.api.request.SalesReq;
 import com.ssafy.nfti.api.response.SalesRes;
 import com.ssafy.nfti.db.entity.Sales;
+import com.ssafy.nfti.db.repository.ItemsRepository;
 import com.ssafy.nfti.db.repository.SalesRepository;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ public class SalesServiceImpl implements SalesService{
     @Autowired
     SalesRepository salesRepository;
 
+    @Autowired
+    ItemsRepository itemsRepository;
+
     @Override
     public void createSales(CreateSaleReq createSaleReq) {
 
@@ -22,6 +27,8 @@ public class SalesServiceImpl implements SalesService{
         newSale.setSellerAddress(createSaleReq.getSellerAddress());
         newSale.setSaleContractAddress(createSaleReq.getSalesContractAddress());
         newSale.setCashContractAddress(createSaleReq.getCashContractAddress());
+
+        newSale.setSaleYn(false);
 
         salesRepository.save(newSale);
     }
@@ -36,13 +43,14 @@ public class SalesServiceImpl implements SalesService{
     public void completeSales(Long tokenId, SalesReq salesReq) {
         Sales updateSale = salesRepository.findByTokenId(tokenId);
         updateSale.setBuyerAddress(salesReq.getBuyerAddress());
+        updateSale.setSaleYn(true);
 
         salesRepository.save(updateSale);
     }
 
     @Override
     public void deleteSales(Long saleId) {
-        Sales delSale = salesRepository.findBySaleId(saleId);
+        Sales delSale = salesRepository.findById(saleId).get();
         salesRepository.delete(delSale);
     }
 }
