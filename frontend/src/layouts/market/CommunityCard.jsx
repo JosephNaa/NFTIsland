@@ -3,7 +3,7 @@ import { Box, Avatar, Typography, Stack, Card } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../image/logo.png';
 
-function MarketCard() {
+function CommunityCard({ onClickURL }) {
 	const navigate = useNavigate();
 	const theme = useTheme();
 	const ImgStyle = styled('img')({
@@ -13,7 +13,7 @@ function MarketCard() {
 	});
 
 	const onClickCard = () => {
-		navigate('/market/community/sadgirl');
+		navigate(onClickURL);
 	};
 	const onClickNickname = e => {
 		e.stopPropagation();
@@ -77,4 +77,4 @@ function MarketCard() {
 	);
 }
 
-export default MarketCard;
+export default CommunityCard;
