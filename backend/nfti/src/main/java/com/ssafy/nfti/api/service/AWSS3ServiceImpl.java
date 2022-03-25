@@ -29,6 +29,7 @@ public class AWSS3ServiceImpl implements AWSS3Service {
         metadata.setContentType(file.getContentType());
 
         try {
+            // bucketName 비밀키로 관리하기
             awsS3Client.putObject("kgw012-nft-bucket", key, file.getInputStream(), metadata);
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "An exception occured while uploading the file");

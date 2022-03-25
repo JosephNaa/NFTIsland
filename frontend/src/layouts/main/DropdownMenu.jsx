@@ -16,6 +16,7 @@ import {
 	AccountBalanceWallet as WalletIcon,
 	Add as AddIcon,
 } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 
 export default function DropDownMenu() {
@@ -29,6 +30,12 @@ export default function DropDownMenu() {
 
 	const handleClose = () => {
 		setAnchorEl(null);
+	};
+
+	const navigate = useNavigate();
+
+	const onClickMyIcon = () => {
+		navigate('/mypage');
 	};
 
 	const connectAccount = async () => {
@@ -122,7 +129,7 @@ export default function DropDownMenu() {
 					transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 					anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 				>
-					<MenuItem>
+					<MenuItem onClick={onClickMyIcon}>
 						<PersonIcon /> 마이 페이지
 					</MenuItem>
 					<MenuItem>

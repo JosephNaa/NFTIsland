@@ -18,6 +18,9 @@ import PostWrite from './pages/PostWrite';
 import PostDetail from './pages/PostDetail';
 import CreateCommunity from './pages/CreateCommunity';
 import CreateItem from './pages/CreateItem';
+import MyPage from './pages/MyPage';
+import BadgeDetail from './pages/BadgeDetail';
+import BadgeRegistration from './pages/BadgeRegistration';
 
 // 화면 라우팅 테이블
 export default function Router() {
@@ -110,14 +113,6 @@ export default function Router() {
 				{ path: ':communityId/:postId', element: <PostDetail /> },
 			],
 		},
-		// {
-		// 	path: '/communitydetail',
-		// 	element: <MainLayout />,
-		// 	children: [
-		// 		{ element: <Navigate to='/communitydetail' replace /> },
-		// 		{ path: '', element: <CommunityDetail /> },
-		// 	],
-		// },
 		{
 			path: '/postwrite',
 			element: <MainLayout />,
@@ -126,14 +121,30 @@ export default function Router() {
 				{ path: '', element: <PostWrite /> },
 			],
 		},
-		// {
-		// 	path: '/postdetail',
-		// 	element: <MainLayout />,
-		// 	children: [
-		// 		{ element: <Navigate to='/postdetail' replace /> },
-		// 		{ path: '', element: <PostDetail /> },
-		// 	],
-		// },
+		{
+			path: '/mypage',
+			element: <MainLayout />,
+			children: [
+				{ element: <Navigate to='/mypage' replace /> },
+				{ path: '', element: <MyPage /> },
+			],
+		},
+		{
+			path: '/badgedetail',
+			element: <MainLayout />,
+			children: [
+				{ element: <Navigate to='/badgedetail' replace /> },
+				{ path: '', element: <BadgeDetail /> },
+			],
+		},
+		{
+			path: '/badgeregistration',
+			element: <MainLayout />,
+			children: [
+				{ element: <Navigate to='/badgeregistration' replace /> },
+				{ path: '', element: <BadgeRegistration /> },
+			],
+		},
 		{ path: '*', element: <Navigate to='/404' replace /> },
 	]);
 }
