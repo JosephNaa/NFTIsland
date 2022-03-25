@@ -17,6 +17,8 @@ import CommunityDetail from './pages/CommunityDetail';
 import PostWrite from './pages/PostWrite';
 import PostDetail from './pages/PostDetail';
 import MyPage from './pages/MyPage';
+import BadgeDetail from './pages/BadgeDetail';
+import BadgeRegistration from './pages/BadgeRegistration';
 
 // 화면 라우팅 테이블
 export default function Router() {
@@ -107,6 +109,22 @@ export default function Router() {
 			children: [
 				{ element: <Navigate to='/mypage' replace /> },
 				{ path: '', element: <MyPage /> },
+			],
+		},
+		{
+			path: '/badgedetail',
+			element: <MainLayout />,
+			children: [
+				{ element: <Navigate to='/badgedetail' replace /> },
+				{ path: '', element: <BadgeDetail /> },
+			],
+		},
+		{
+			path: '/badgeregistration',
+			element: <MainLayout />,
+			children: [
+				{ element: <Navigate to='/badgeregistration' replace /> },
+				{ path: '', element: <BadgeRegistration /> },
 			],
 		},
 		{ path: '*', element: <Navigate to='/404' replace /> },

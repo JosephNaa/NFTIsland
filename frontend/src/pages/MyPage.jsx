@@ -125,15 +125,12 @@ function MyPage() {
 				</Typography>
 				<Box sx={{ width: '100%' }}>
 					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-						<Tabs
-							value={value}
-							onChange={handleChange}
-							aria-label='basic tabs example'
-							centered
-						>
+						<Tabs value={value} onChange={handleChange} centered>
 							<Tab label='Community' {...a11yProps(0)} style={{ minWidth: '20%' }} />
 							<Tab label='Badge' {...a11yProps(1)} style={{ minWidth: '20%' }} />
 							<Tab label='Activity' {...a11yProps(2)} style={{ minWidth: '20%' }} />
+							<Tab label='Master' {...a11yProps(3)} style={{ minWidth: '20%' }} />
+							<Tab label='Selling' {...a11yProps(4)} style={{ minWidth: '20%' }} />
 						</Tabs>
 					</Box>
 					<TabPanel value={value} index={0}>
@@ -162,9 +159,9 @@ function MyPage() {
 										<em>Community</em>
 									</MenuItem>
 									{/* 가입된 커뮤니티 목록 */}
+									<MenuItem value='All'>All</MenuItem>
 									<MenuItem value='가입된 커뮤니티1'>가입된 커뮤니티1</MenuItem>
 									<MenuItem value='가입된 커뮤니티2'>가입된 커뮤니티2</MenuItem>
-									<MenuItem value='가입된 커뮤니티3'>가입된 커뮤니티3</MenuItem>
 								</Select>
 							</FormControl>
 						</Box>
@@ -186,32 +183,19 @@ function MyPage() {
 						</Box>
 					</TabPanel>
 					<TabPanel value={value} index={2}>
-						<Stack direction='row'>
-							<Box>
-								<FormControl sx={{ m: 1, minWidth: 120 }}>
-									<Select value={category} onChange={handleCategoryChange} displayEmpty>
-										<MenuItem value=''>
-											<em>Community</em>
-										</MenuItem>
-										{/* 가입된 커뮤니티 목록 */}
-										<MenuItem value='가입된 커뮤니티1'>가입된 커뮤니티1</MenuItem>
-										<MenuItem value='가입된 커뮤니티2'>가입된 커뮤니티2</MenuItem>
-										<MenuItem value='가입된 커뮤니티3'>가입된 커뮤니티3</MenuItem>
-									</Select>
-								</FormControl>
-							</Box>
-							<Box>
-								<FormControl sx={{ m: 1, minWidth: 120 }}>
-									<Select value={activity} onChange={handleActivityChange} displayEmpty>
-										<MenuItem value=''>
-											<em>Activity</em>
-										</MenuItem>
-										<MenuItem value='게시글'>Post</MenuItem>
-										<MenuItem value='댓글'>Comment</MenuItem>
-									</Select>
-								</FormControl>
-							</Box>
-						</Stack>
+						<Box>
+							<FormControl sx={{ m: 1, minWidth: 120 }}>
+								<Select value={category} onChange={handleCategoryChange} displayEmpty>
+									<MenuItem value=''>
+										<em>Community</em>
+									</MenuItem>
+									{/* 가입된 커뮤니티 목록 */}
+									<MenuItem value='All'>All</MenuItem>
+									<MenuItem value='가입된 커뮤니티1'>가입된 커뮤니티1</MenuItem>
+									<MenuItem value='가입된 커뮤니티2'>가입된 커뮤니티2</MenuItem>
+								</Select>
+							</FormControl>
+						</Box>
 						<Box maxWidth='xl' sx={{ pt: '30px' }}>
 							<Grid container spacing={6}>
 								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
@@ -225,6 +209,55 @@ function MyPage() {
 								</Grid>
 								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
 									<PostCard />
+								</Grid>
+							</Grid>
+						</Box>
+					</TabPanel>
+					<TabPanel value={value} index={3}>
+						<Box maxWidth='xl' sx={{ pt: '30px' }}>
+							<Grid container spacing={6}>
+								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+									<CommunityCard />
+								</Grid>
+								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+									<CommunityCard />
+								</Grid>
+								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+									<CommunityCard />
+								</Grid>
+								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+									<CommunityCard />
+								</Grid>
+							</Grid>
+						</Box>
+					</TabPanel>
+					<TabPanel value={value} index={4}>
+						<Box>
+							<FormControl sx={{ m: 1, minWidth: 120 }}>
+								<Select value={category} onChange={handleCategoryChange} displayEmpty>
+									<MenuItem value=''>
+										<em>Community</em>
+									</MenuItem>
+									{/* 가입된 커뮤니티 목록 */}
+									<MenuItem value='All'>All</MenuItem>
+									<MenuItem value='가입된 커뮤니티1'>가입된 커뮤니티1</MenuItem>
+									<MenuItem value='가입된 커뮤니티2'>가입된 커뮤니티2</MenuItem>
+								</Select>
+							</FormControl>
+						</Box>
+						<Box maxWidth='xl' sx={{ pt: '30px' }}>
+							<Grid container spacing={6}>
+								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+									<ItemCard />
+								</Grid>
+								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+									<ItemCard />
+								</Grid>
+								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+									<ItemCard />
+								</Grid>
+								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
+									<ItemCard />
 								</Grid>
 							</Grid>
 						</Box>
