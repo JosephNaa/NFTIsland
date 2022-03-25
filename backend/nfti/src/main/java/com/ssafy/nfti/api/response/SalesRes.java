@@ -20,9 +20,9 @@ public class SalesRes {
 
     public static SalesRes of(Sales sales) {
         SalesRes res = new SalesRes();
+        res.setSaleId(sales.getId());
         res.setSaleContractAddress(sales.getSaleContractAddress());
         res.setSaleYn(sales.getSaleYn());
-        res.setSaleId(sales.getSaleId());
         res.setTokenId(sales.getTokenId());
         res.setCashContractAddress(sales.getCashContractAddress());
         res.setSellerAddress(sales.getSellerAddress());
