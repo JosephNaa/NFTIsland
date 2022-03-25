@@ -96,7 +96,7 @@ public class ItemsController {
     }
 
     @GetMapping("/{tokenId}")
-    public ResponseEntity<ItemsRes> getItemByTokenId(Long tokenId) {
+    public ResponseEntity<ItemsRes> getItemByTokenId(@PathVariable Long tokenId) {
 
         ItemsRes res = itemsService.getItemByTokenId(tokenId);
         return ResponseEntity.ok(res);
