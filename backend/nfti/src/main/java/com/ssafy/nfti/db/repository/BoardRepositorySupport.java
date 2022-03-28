@@ -2,7 +2,7 @@
 //
 //import com.querydsl.jpa.impl.JPAQuery;
 //import com.querydsl.jpa.impl.JPAQueryFactory;
-//import com.ssafy.nfti.db.entity.Post;
+//import com.ssafy.nfti.db.entity.Board;
 //import java.awt.print.Pageable;
 //import java.util.List;
 //import java.util.Objects;
@@ -10,19 +10,19 @@
 //import org.springframework.stereotype.Repository;
 //
 //@Repository
-//public class PostRepositorySupport extends QuerydslRepositorySupport {
+//public class BoardRepositorySupport extends QuerydslRepositorySupport {
 //
 //    private final JPAQueryFactory jpaQueryFactory;
 //
-//    public PostRepositorySupport(JPAQueryFactory jpaQueryFactory) {
-//        super(Post.class);
+//    public BoardRepositorySupport(JPAQueryFactory jpaQueryFactory) {
+//        super(Board.class);
 //        this.jpaQueryFactory = jpaQueryFactory;
 //    }
 //
-//    public List<Post> findAllById(Pageable pageable, Long id) {
-//        JPAQuery<Post> query;
+//    public List<Board> findAllById(Pageable pageable, Long id) {
+//        JPAQuery<Board> query;
 //
-//        List<Post> postList = Objects.requireNonNull(getQuerydsl())
+//        List<Board> postList = Objects.requireNonNull(getQuerydsl())
 //            .applyPagination(pageable, query)
 //            .fetch();
 //    }

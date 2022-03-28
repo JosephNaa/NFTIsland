@@ -6,6 +6,9 @@ import com.ssafy.nfti.api.service.AWSS3Service;
 import com.ssafy.nfti.api.service.CommunityService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,9 +42,11 @@ public class CommunityController {
 
     // 목록
     @GetMapping
-    public ResponseEntity<List<CommunityRes>> getCommunityList() {
+    public ResponseEntity<List<CommunityRes>> getCommunityList(
+        @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable
+    ) {
 
-        List<CommunityRes> res = communityService.getList();
+        List<CommunityRes> res = communityService.getList(pageable);
 
         return ResponseEntity.ok(res);
     }
