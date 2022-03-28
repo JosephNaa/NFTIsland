@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -34,7 +35,23 @@ public class Community extends BaseEntity {
     private Set<Items> items = new HashSet<>();
 
     @OneToMany(mappedBy = "community", cascade = CascadeType.ALL)
-    private List<Post> posts = new ArrayList<>();
+    private List<Board> boards = new ArrayList<>();
 
     // host address
+    private String hostAddress;
+
+    @Builder
+    public Community(
+        String name,
+        String desc,
+        Boolean payable,
+        String logoPath,
+        String hostAddress
+    ) {
+        this.name = name;
+        this.desc = desc;
+        this.payable = payable;
+        this.logoPath = logoPath;
+        this.hostAddress = hostAddress;
+    }
 }
