@@ -8,19 +8,22 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "board")
-public class Board extends BaseEntity{
+public class Board extends BaseEntity {
 
     @Column(nullable = false)
     private String title;
@@ -28,20 +31,14 @@ public class Board extends BaseEntity{
     @Column(nullable = false)
     private String content;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
     @ManyToOne
     private Community community;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private Set<Like> likes = new HashSet<>();
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private Set<Likes> likes = new HashSet<>();
 
     @Builder
     public Board(

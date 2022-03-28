@@ -16,9 +16,6 @@ public class Comment extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
-
     @ManyToOne
     private Board board;
 }

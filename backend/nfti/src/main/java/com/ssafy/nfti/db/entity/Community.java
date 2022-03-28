@@ -8,28 +8,31 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "community")
 public class Community extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
 
-    private String desc;
+    private String description;
 
     @Column(nullable = false)
     private Boolean payable;
     private String logoPath;
-
-    @CreatedDate
-    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "community")
     private Set<Items> items = new HashSet<>();
@@ -37,19 +40,18 @@ public class Community extends BaseEntity {
     @OneToMany(mappedBy = "community", cascade = CascadeType.ALL)
     private List<Board> boards = new ArrayList<>();
 
-    // host address
     private String hostAddress;
 
     @Builder
     public Community(
         String name,
-        String desc,
+        String description,
         Boolean payable,
         String logoPath,
         String hostAddress
     ) {
         this.name = name;
-        this.desc = desc;
+        this.description = description;
         this.payable = payable;
         this.logoPath = logoPath;
         this.hostAddress = hostAddress;

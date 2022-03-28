@@ -7,8 +7,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name = "like")
-public class Like extends BaseEntity{
+@Entity(name = "likes")
+public class Likes extends BaseEntity{
 
     // user address
 

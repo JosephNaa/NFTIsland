@@ -31,9 +31,6 @@ public class Sales extends BaseEntity {
 
     private String buyerAddress;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
-
     private LocalDateTime completedAt;
 
 }
