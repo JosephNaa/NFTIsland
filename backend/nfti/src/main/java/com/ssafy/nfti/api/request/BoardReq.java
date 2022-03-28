@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class BoardReq {
     Long communityId;
+    String userAddress;
     String title;
     String content;
 }

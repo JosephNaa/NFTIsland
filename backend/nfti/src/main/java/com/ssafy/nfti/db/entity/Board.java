@@ -40,11 +40,17 @@ public class Board extends BaseEntity {
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private Set<Likes> likes = new HashSet<>();
 
+    private String userAddress;
+
     @Builder
     public Board(
+        Community community,
+        String userAddress,
         String title,
         String content
     ) {
+        this.community = community;
+        this.userAddress = userAddress;
         this.title = title;
         this.content = content;
     }
