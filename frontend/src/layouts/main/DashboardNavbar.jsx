@@ -2,7 +2,8 @@ import { alpha, styled } from '@mui/material/styles';
 import { Box, Stack, Button, AppBar, Toolbar } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import logo from '../../image/logo.png';
-import Dropdown from './DropdownMenu';
+import DropdownMenu from './DropdownMenu';
+import DropdownCreate from './DropdownCreate';
 
 // 헤더 화면 (상단 메뉴바)
 function DashboardNavbar() {
@@ -39,33 +40,32 @@ function DashboardNavbar() {
 					</RouterLink>
 				</Box>
 				<Stack direction='row'>
-					<Stack direction='row'>
-						<Button
-							to='/intro'
-							size='large'
-							sx={{ fontSize: 17 }}
-							component={RouterLink}
-						>
-							소개
-						</Button>
-						<Button
-							to='/community'
-							size='large'
-							sx={{ fontSize: 17 }}
-							component={RouterLink}
-						>
-							커뮤니티
-						</Button>
-						<Button
-							to='/market'
-							size='large'
-							sx={{ fontSize: 17 }}
-							component={RouterLink}
-						>
-							마켓
-						</Button>
-					</Stack>
-					<Dropdown />
+					<Button
+						to='/intro'
+						size='large'
+						sx={{ fontSize: 17 }}
+						component={RouterLink}
+					>
+						소개
+					</Button>
+					<Button
+						to='/community'
+						size='large'
+						sx={{ fontSize: 17 }}
+						component={RouterLink}
+					>
+						커뮤니티
+					</Button>
+					<Button
+						to='/market'
+						size='large'
+						sx={{ fontSize: 17 }}
+						component={RouterLink}
+					>
+						마켓
+					</Button>
+					<DropdownCreate />
+					<DropdownMenu />
 				</Stack>
 			</ToolbarStyle>
 		</RootStyle>
