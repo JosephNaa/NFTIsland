@@ -72,4 +72,11 @@ public class CommunityServiceImpl implements CommunityService {
 
         return CommunityRes.of(res);
     }
+
+    @Override
+    public void deleteCommunity(Long id) {
+        Community community = communityRepository.findById(id)
+            .orElseThrow();
+        communityRepository.delete(community);
+    }
 }

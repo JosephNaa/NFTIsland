@@ -3690,3 +3690,61 @@ Using generated security password: 85dba13a-6a24-46bb-9124-b2e8702ec40c
 2022-03-29 03:02:11.205 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
 2022-03-29 03:02:11.205 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.ssafy.nfti.api.response.CommunityRes@fc6adf8]
 2022-03-29 03:02:11.207 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-03-29 03:06:37.229  INFO 34384 --- [restartedMain] com.ssafy.nfti.NftiApplication           : Starting NftiApplication using Java 14.0.1 on DESKTOP-FMPGPT6 with PID 34384 (C:\Users\Joseph\Documents\GitHub\S06P22D107\backend\nfti\target\classes started by Joseph in C:\Users\Joseph\Documents\GitHub\S06P22D107\backend\nfti)
+2022-03-29 03:06:37.230  INFO 34384 --- [restartedMain] com.ssafy.nfti.NftiApplication           : No active profile set, falling back to 1 default profile: "default"
+2022-03-29 03:06:37.280  INFO 34384 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-03-29 03:06:37.281  INFO 34384 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-03-29 03:06:38.125  INFO 34384 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-03-29 03:06:38.253  INFO 34384 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 118 ms. Found 6 JPA repository interfaces.
+2022-03-29 03:06:38.542  INFO 34384 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-03-29 03:06:38.922  INFO 34384 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-03-29 03:06:38.929  INFO 34384 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-03-29 03:06:38.929  INFO 34384 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.58]
+2022-03-29 03:06:39.061  INFO 34384 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-03-29 03:06:39.062  INFO 34384 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1780 ms
+2022-03-29 03:06:39.121 DEBUG 34384 --- [restartedMain] o.s.w.f.CommonsRequestLoggingFilter      : Filter 'commonsRequestLoggingFilter' configured for use
+2022-03-29 03:06:39.258  INFO 34384 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-03-29 03:06:39.297  INFO 34384 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.5.Final
+2022-03-29 03:06:39.406  INFO 34384 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-03-29 03:06:39.489  INFO 34384 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-03-29 03:06:39.890  INFO 34384 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-03-29 03:06:39.903  INFO 34384 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2022-03-29 03:06:40.732  INFO 34384 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-03-29 03:06:40.740  INFO 34384 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-03-29 03:06:41.684  WARN 34384 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-03-29 03:06:41.791  INFO 34384 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: f9ea2ef1-2a35-4c5a-88e8-1ecece9bad04
+
+2022-03-29 03:06:41.886  INFO 34384 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2022-03-29 03:06:42.010 DEBUG 34384 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2022-03-29 03:06:42.071 DEBUG 34384 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 21 mappings in 'requestMappingHandlerMapping'
+2022-03-29 03:06:42.110 DEBUG 34384 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2022-03-29 03:06:42.120 DEBUG 34384 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2022-03-29 03:06:42.250  INFO 34384 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-03-29 03:06:42.306  INFO 34384 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-03-29 03:06:42.315  INFO 34384 --- [restartedMain] com.ssafy.nfti.NftiApplication           : Started NftiApplication in 5.745 seconds (JVM running for 7.04)
+2022-03-29 03:07:06.472  INFO 34384 --- [http-nio-0.0.0.0-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-03-29 03:07:06.472  INFO 34384 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-03-29 03:07:06.473 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2022-03-29 03:07:06.473 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2022-03-29 03:07:06.473 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2022-03-29 03:07:06.475 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6a451fd3
+2022-03-29 03:07:06.476 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@2b2a51d5
+2022-03-29 03:07:06.476 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2022-03-29 03:07:06.476  INFO 34384 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-03-29 03:07:06.504 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : DELETE "/v1/community/5", parameters={}
+2022-03-29 03:07:06.512 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.nfti.api.controller.CommunityController#deleteCommunity(Long)
+2022-03-29 03:07:06.719 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
+2022-03-29 03:07:06.719 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Nothing to write: null body
+2022-03-29 03:07:06.722 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 204 NO_CONTENT
+2022-03-29 03:07:14.920 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/v1/community?page=2&size=1", parameters={masked}
+2022-03-29 03:07:14.921 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.nfti.api.controller.CommunityController#getCommunityList(Pageable)
+2022-03-29 03:07:15.071 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
+2022-03-29 03:07:15.071 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[]]
+2022-03-29 03:07:15.084 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-03-29 03:07:19.598 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/v1/community?page=1&size=1", parameters={masked}
+2022-03-29 03:07:19.598 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.nfti.api.controller.CommunityController#getCommunityList(Pageable)
+2022-03-29 03:07:19.622 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
+2022-03-29 03:07:19.622 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[com.ssafy.nfti.api.response.CommunityRes@58ab6742]]
+2022-03-29 03:07:19.627 DEBUG 34384 --- [http-nio-0.0.0.0-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

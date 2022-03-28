@@ -11,6 +11,5 @@ public interface CommunityService {
     CommunityRes getOne(Long id);
     List<CommunityRes> getList(Pageable pageable);
     CommunityRes updateCommunity(Long id, CommunityReq req);
-
-    // 삭제
+    void deleteCommunity(Long id);
 }
