@@ -13,6 +13,6 @@ public class Like extends BaseEntity{
     // user address
 
     @ManyToOne
-    private Post post;
+    private Board board;
 
 }

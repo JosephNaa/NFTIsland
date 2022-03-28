@@ -11,14 +11,16 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
 @Setter
-@Entity(name = "post")
-public class Post extends BaseEntity{
+@Entity(name = "board")
+public class Board extends BaseEntity{
 
     @Column(nullable = false)
     private String title;
@@ -29,6 +31,7 @@ public class Post extends BaseEntity{
     @CreatedDate
     private LocalDateTime createdAt;
 
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     @ManyToOne
@@ -39,4 +42,13 @@ public class Post extends BaseEntity{
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private Set<Like> likes = new HashSet<>();
+
+    @Builder
+    public Board(
+        String title,
+        String content
+    ) {
+        this.title = title;
+        this.content = content;
+    }
 }

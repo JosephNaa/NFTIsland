@@ -3,7 +3,6 @@ package com.ssafy.nfti.db.entity;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,5 +20,5 @@ public class Comment extends BaseEntity {
     private LocalDateTime createdAt;
 
     @ManyToOne
-    private Post post;
+    private Board board;
 }
