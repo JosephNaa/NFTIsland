@@ -7,7 +7,10 @@ import {
 	TextField,
 	Divider,
 	Button,
+	Switch,
+	FormControlLabel,
 } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { Form, FormikProvider, useFormik } from 'formik';
 import * as Yup from 'yup';
 import Header from '../layouts/PageHeader';
@@ -19,6 +22,7 @@ function CreateCommunity() {
 	const [imageName, setImageName] = useState('');
 	const [communityName, setCommunityName] = useState('');
 	const [description, setDescription] = useState('');
+	const [payable, setPayable] = useState(true);
 
 	// 타이핑 헬퍼
 	const typeSchema = Yup.object().shape({
@@ -64,6 +68,11 @@ function CreateCommunity() {
 		else setImageName('');
 	};
 
+	// payable switch button
+	const onChangePayable = e => {
+		setPayable(e.target.checked);
+	};
+
 	return (
 		<Page>
 			<Container maxWidth='md'>
@@ -91,7 +100,7 @@ function CreateCommunity() {
 								<TextField
 									sx={{ width: '85%' }}
 									type='text'
-									label='아이템 (업로드 확장자 형식: png, jpeg, jpg, gif)'
+									label='커뮤니티 로고 (업로드 확장자 형식: png, jpeg, jpg, gif)'
 									value={imageName}
 									disabled
 								/>
@@ -111,7 +120,6 @@ function CreateCommunity() {
 								</Button>
 							</Stack>
 							<TextField
-								inputProps={{ maxLength: 20 }}
 								type='text'
 								label='이름'
 								{...getFieldProps('communityName')}
@@ -119,13 +127,18 @@ function CreateCommunity() {
 								helperText={touched.communityName && errors.communityName}
 							/>
 							<TextField
-								inputProps={{ maxLength: 20 }}
 								type='text'
 								label='설명'
+								multiline
+								rows={5}
 								{...getFieldProps('description')}
 								error={Boolean(touched.description && errors.description)}
 								helperText={touched.description && errors.description}
 							/>
+							<Stack direction='row' alignItems='center'>
+								<Typography variant='body1'>Payable</Typography>
+								<Switch defaultChecked onChange={onChangePayable} />
+							</Stack>
 
 							<Divider sx={{ mt: 5 }} />
 							<Stack alignItems='center'>
