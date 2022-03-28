@@ -40,6 +40,13 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    public CommunityRes getOne(Long id) {
+        Community res = communityRepository.findById(id)
+            .orElseThrow();
+        return CommunityRes.of(res);
+    }
+
+    @Override
     public List<CommunityRes> getList(Pageable pageable) {
         List<Community> list = communityRepositorySupport.findAllPageSort(pageable);
 //        Page<Community> list = communityRepository.findByCreatedAtDesc(pageable);
@@ -50,5 +57,19 @@ public class CommunityServiceImpl implements CommunityService {
         }
 
         return res;
+    }
+
+    @Override
+    public CommunityRes updateCommunity(Long id, CommunityReq req) {
+        Community community = communityRepository.findById(id)
+            .orElseThrow();
+
+        community.setName(req.getName());
+        community.setHostAddress(req.getHostAddress());
+        community.setDescription(req.getDescription());
+
+        Community res = communityRepository.save(community);
+
+        return CommunityRes.of(res);
     }
 }

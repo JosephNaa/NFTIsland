@@ -7,12 +7,10 @@ import org.springframework.data.domain.Pageable;
 
 public interface CommunityService {
 
-    CommunityRes createCommunity(CommunityReq communityReq, String url);
-
+    CommunityRes createCommunity(CommunityReq req, String url);
+    CommunityRes getOne(Long id);
     List<CommunityRes> getList(Pageable pageable);
-
-
-    // 수정
+    CommunityRes updateCommunity(Long id, CommunityReq req);
 
     // 삭제
 }

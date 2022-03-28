@@ -3464,3 +3464,229 @@ Using generated security password: d75e24f5-fba9-41f5-9a86-344d87d03155
 2022-03-29 02:32:23.409 DEBUG 40288 --- [http-nio-0.0.0.0-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
 2022-03-29 02:32:23.410 DEBUG 40288 --- [http-nio-0.0.0.0-8080-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[]]
 2022-03-29 02:32:23.412 DEBUG 40288 --- [http-nio-0.0.0.0-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-03-29 02:35:32.643 DEBUG 40288 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/v1/community?page=2&size=2", parameters={masked}
+2022-03-29 02:35:32.644 DEBUG 40288 --- [http-nio-0.0.0.0-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.nfti.api.controller.CommunityController#getCommunityList(Pageable)
+2022-03-29 02:35:32.668 DEBUG 40288 --- [http-nio-0.0.0.0-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
+2022-03-29 02:35:32.669 DEBUG 40288 --- [http-nio-0.0.0.0-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[]]
+2022-03-29 02:35:32.671 DEBUG 40288 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-03-29 02:35:35.260 DEBUG 40288 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/v1/community?page=2&size=1", parameters={masked}
+2022-03-29 02:35:35.261 DEBUG 40288 --- [http-nio-0.0.0.0-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.nfti.api.controller.CommunityController#getCommunityList(Pageable)
+2022-03-29 02:35:35.287 DEBUG 40288 --- [http-nio-0.0.0.0-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
+2022-03-29 02:35:35.288 DEBUG 40288 --- [http-nio-0.0.0.0-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[com.ssafy.nfti.api.response.CommunityRes@7a8774fb]]
+2022-03-29 02:35:35.290 DEBUG 40288 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-03-29 02:41:38.773  INFO 23424 --- [restartedMain] com.ssafy.nfti.NftiApplication           : Starting NftiApplication using Java 14.0.1 on DESKTOP-FMPGPT6 with PID 23424 (C:\Users\Joseph\Documents\GitHub\S06P22D107\backend\nfti\target\classes started by Joseph in C:\Users\Joseph\Documents\GitHub\S06P22D107\backend\nfti)
+2022-03-29 02:41:38.775  INFO 23424 --- [restartedMain] com.ssafy.nfti.NftiApplication           : No active profile set, falling back to 1 default profile: "default"
+2022-03-29 02:41:38.841  INFO 23424 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-03-29 02:41:38.841  INFO 23424 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-03-29 02:41:39.584  INFO 23424 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-03-29 02:41:39.690  INFO 23424 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 100 ms. Found 6 JPA repository interfaces.
+2022-03-29 02:41:39.946  INFO 23424 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-03-29 02:41:40.294  INFO 23424 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-03-29 02:41:40.303  INFO 23424 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-03-29 02:41:40.303  INFO 23424 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.58]
+2022-03-29 02:41:40.425  INFO 23424 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-03-29 02:41:40.425  INFO 23424 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1583 ms
+2022-03-29 02:41:40.477 DEBUG 23424 --- [restartedMain] o.s.w.f.CommonsRequestLoggingFilter      : Filter 'commonsRequestLoggingFilter' configured for use
+2022-03-29 02:41:40.594  INFO 23424 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-03-29 02:41:40.635  INFO 23424 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.5.Final
+2022-03-29 02:41:40.822  INFO 23424 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-03-29 02:41:40.895  INFO 23424 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-03-29 02:41:41.256  INFO 23424 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-03-29 02:41:41.266  INFO 23424 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2022-03-29 02:41:42.057  INFO 23424 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-03-29 02:41:42.065  INFO 23424 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-03-29 02:41:42.823  WARN 23424 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-03-29 02:41:42.918  INFO 23424 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: a08e65a8-1e3e-417c-aa64-c4749e885852
+
+2022-03-29 02:41:42.991  INFO 23424 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2022-03-29 02:41:43.130 DEBUG 23424 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2022-03-29 02:41:43.180 DEBUG 23424 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 19 mappings in 'requestMappingHandlerMapping'
+2022-03-29 02:41:43.217 DEBUG 23424 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2022-03-29 02:41:43.227 DEBUG 23424 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2022-03-29 02:41:43.350  INFO 23424 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-03-29 02:41:43.394  INFO 23424 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-03-29 02:41:43.404  INFO 23424 --- [restartedMain] com.ssafy.nfti.NftiApplication           : Started NftiApplication in 5.141 seconds (JVM running for 6.07)
+2022-03-29 02:42:21.215  INFO 23424 --- [http-nio-0.0.0.0-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-03-29 02:42:21.216  INFO 23424 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-03-29 02:42:21.216 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2022-03-29 02:42:21.216 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2022-03-29 02:42:21.216 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2022-03-29 02:42:21.217 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@9aa83e
+2022-03-29 02:42:21.217 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@7fc16493
+2022-03-29 02:42:21.218 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2022-03-29 02:42:21.218  INFO 23424 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2022-03-29 02:42:21.236 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/v1/community/4", parameters={}
+2022-03-29 02:42:21.241 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.nfti.api.controller.CommunityController#getCommunity(Long)
+2022-03-29 02:42:21.421 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
+2022-03-29 02:42:21.422 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.ssafy.nfti.api.response.CommunityRes@37525d06]
+2022-03-29 02:42:21.442 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-03-29 02:42:26.054 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/v1/community/5", parameters={}
+2022-03-29 02:42:26.055 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.nfti.api.controller.CommunityController#getCommunity(Long)
+2022-03-29 02:42:26.133 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
+2022-03-29 02:42:26.134 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.ssafy.nfti.api.response.CommunityRes@4fc8c79f]
+2022-03-29 02:42:26.136 DEBUG 23424 --- [http-nio-0.0.0.0-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-03-29 02:52:19.766  INFO 35448 --- [restartedMain] com.ssafy.nfti.NftiApplication           : Starting NftiApplication using Java 14.0.1 on DESKTOP-FMPGPT6 with PID 35448 (C:\Users\Joseph\Documents\GitHub\S06P22D107\backend\nfti\target\classes started by Joseph in C:\Users\Joseph\Documents\GitHub\S06P22D107\backend\nfti)
+2022-03-29 02:52:19.768  INFO 35448 --- [restartedMain] com.ssafy.nfti.NftiApplication           : No active profile set, falling back to 1 default profile: "default"
+2022-03-29 02:52:19.819  INFO 35448 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-03-29 02:52:19.820  INFO 35448 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-03-29 02:52:20.653  INFO 35448 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-03-29 02:52:20.775  INFO 35448 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 115 ms. Found 6 JPA repository interfaces.
+2022-03-29 02:52:21.070  INFO 35448 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-03-29 02:52:21.410  INFO 35448 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-03-29 02:52:21.418  INFO 35448 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-03-29 02:52:21.419  INFO 35448 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.58]
+2022-03-29 02:52:21.536  INFO 35448 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-03-29 02:52:21.536  INFO 35448 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1715 ms
+2022-03-29 02:52:21.587 DEBUG 35448 --- [restartedMain] o.s.w.f.CommonsRequestLoggingFilter      : Filter 'commonsRequestLoggingFilter' configured for use
+2022-03-29 02:52:21.710  INFO 35448 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-03-29 02:52:21.748  INFO 35448 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.5.Final
+2022-03-29 02:52:21.853  INFO 35448 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-03-29 02:52:21.931  INFO 35448 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-03-29 02:52:22.311  INFO 35448 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-03-29 02:52:22.322  INFO 35448 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2022-03-29 02:52:23.112  INFO 35448 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-03-29 02:52:23.121  INFO 35448 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-03-29 02:52:24.084  WARN 35448 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-03-29 02:52:24.202  INFO 35448 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: d3703e6c-b029-48fb-a85c-347129124814
+
+2022-03-29 02:52:24.326  INFO 35448 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2022-03-29 02:52:24.572 DEBUG 35448 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2022-03-29 02:52:24.653 DEBUG 35448 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 20 mappings in 'requestMappingHandlerMapping'
+2022-03-29 02:52:24.735 DEBUG 35448 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2022-03-29 02:52:24.751 DEBUG 35448 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2022-03-29 02:52:24.918  INFO 35448 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-03-29 02:52:24.973  INFO 35448 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-03-29 02:52:24.986  INFO 35448 --- [restartedMain] com.ssafy.nfti.NftiApplication           : Started NftiApplication in 5.833 seconds (JVM running for 7.106)
+2022-03-29 02:54:01.912  INFO 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-03-29 02:54:01.913  INFO 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-03-29 02:54:01.913 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2022-03-29 02:54:01.913 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2022-03-29 02:54:01.914 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2022-03-29 02:54:01.915 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6e54fe50
+2022-03-29 02:54:01.915 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@15ee8bb3
+2022-03-29 02:54:01.915 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2022-03-29 02:54:01.915  INFO 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2022-03-29 02:54:01.940 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : PUT "/v1/community/4", parameters={multipart}
+2022-03-29 02:54:01.969 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.nfti.api.controller.CommunityController#updateCommunity(Long, MultipartFile, CommunityReq)
+2022-03-29 02:54:01.998 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.method.HandlerMethod             : Could not resolve parameter [2] in public org.springframework.http.ResponseEntity<com.ssafy.nfti.api.response.CommunityRes> com.ssafy.nfti.api.controller.CommunityController.updateCommunity(java.lang.Long,org.springframework.web.multipart.MultipartFile,com.ssafy.nfti.api.request.CommunityReq): Content type 'application/octet-stream' not supported
+2022-03-29 02:54:02.000  WARN 35448 --- [http-nio-0.0.0.0-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'application/octet-stream' not supported]
+2022-03-29 02:54:02.001 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 415 UNSUPPORTED_MEDIA_TYPE
+2022-03-29 02:54:02.004 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for PUT "/error", parameters={multipart}
+2022-03-29 02:54:02.005 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2022-03-29 02:54:02.022 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
+2022-03-29 02:54:02.024 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Tue Mar 29 02:54:02 KST 2022, status=415, error=Unsupported Media Type, trace=org.springf (truncated)...]
+2022-03-29 02:54:02.045 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 415
+2022-03-29 02:54:17.588 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-3] o.s.web.servlet.DispatcherServlet        : PUT "/v1/community/4", parameters={multipart}
+2022-03-29 02:54:17.595 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.nfti.api.controller.CommunityController#updateCommunity(Long, MultipartFile, CommunityReq)
+2022-03-29 02:54:17.600 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-3] .m.m.a.RequestPartMethodArgumentResolver : Read "application/json" to [com.ssafy.nfti.api.request.CommunityReq@66031bdc]
+2022-03-29 02:54:18.233 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
+2022-03-29 02:54:18.234 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.ssafy.nfti.api.response.CommunityRes@573ccb52]
+2022-03-29 02:54:18.237 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-03-29 02:54:38.003 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/v1/community/4", parameters={}
+2022-03-29 02:54:38.004 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.nfti.api.controller.CommunityController#getCommunity(Long)
+2022-03-29 02:54:38.078 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
+2022-03-29 02:54:38.078 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.ssafy.nfti.api.response.CommunityRes@5e4e1f32]
+2022-03-29 02:54:38.079 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-03-29 02:55:09.776 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-5] o.s.web.servlet.DispatcherServlet        : PUT "/v1/community/4", parameters={multipart}
+2022-03-29 02:55:09.782 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.nfti.api.controller.CommunityController#updateCommunity(Long, MultipartFile, CommunityReq)
+2022-03-29 02:55:09.782 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-5] o.s.web.method.HandlerMethod             : Could not resolve parameter [1] in public org.springframework.http.ResponseEntity<com.ssafy.nfti.api.response.CommunityRes> com.ssafy.nfti.api.controller.CommunityController.updateCommunity(java.lang.Long,org.springframework.web.multipart.MultipartFile,com.ssafy.nfti.api.request.CommunityReq): Required request part 'file' is not present
+2022-03-29 02:55:09.785  WARN 35448 --- [http-nio-0.0.0.0-8080-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required request part 'file' is not present]
+2022-03-29 02:55:09.785 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 400 BAD_REQUEST
+2022-03-29 02:55:09.785 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-5] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for PUT "/error", parameters={multipart}
+2022-03-29 02:55:09.786 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2022-03-29 02:55:09.787 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
+2022-03-29 02:55:09.787 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Tue Mar 29 02:55:09 KST 2022, status=400, error=Bad Request, trace=org.springframework.we (truncated)...]
+2022-03-29 02:55:09.789 DEBUG 35448 --- [http-nio-0.0.0.0-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 400
+2022-03-29 03:01:14.907  INFO 25716 --- [restartedMain] com.ssafy.nfti.NftiApplication           : Starting NftiApplication using Java 14.0.1 on DESKTOP-FMPGPT6 with PID 25716 (C:\Users\Joseph\Documents\GitHub\S06P22D107\backend\nfti\target\classes started by Joseph in C:\Users\Joseph\Documents\GitHub\S06P22D107\backend\nfti)
+2022-03-29 03:01:14.909  INFO 25716 --- [restartedMain] com.ssafy.nfti.NftiApplication           : No active profile set, falling back to 1 default profile: "default"
+2022-03-29 03:01:14.962  INFO 25716 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-03-29 03:01:14.962  INFO 25716 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-03-29 03:01:15.743  INFO 25716 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-03-29 03:01:15.854  INFO 25716 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 103 ms. Found 6 JPA repository interfaces.
+2022-03-29 03:01:16.143  INFO 25716 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-03-29 03:01:16.496  INFO 25716 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-03-29 03:01:16.503  INFO 25716 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-03-29 03:01:16.504  INFO 25716 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.58]
+2022-03-29 03:01:16.622  INFO 25716 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-03-29 03:01:16.622  INFO 25716 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1659 ms
+2022-03-29 03:01:16.676 DEBUG 25716 --- [restartedMain] o.s.w.f.CommonsRequestLoggingFilter      : Filter 'commonsRequestLoggingFilter' configured for use
+2022-03-29 03:01:16.803  INFO 25716 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-03-29 03:01:16.896  INFO 25716 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.5.Final
+2022-03-29 03:01:17.018  INFO 25716 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-03-29 03:01:17.092  INFO 25716 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-03-29 03:01:17.482  INFO 25716 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-03-29 03:01:17.493  INFO 25716 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2022-03-29 03:01:18.453  INFO 25716 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-03-29 03:01:18.461  INFO 25716 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-03-29 03:01:19.268  WARN 25716 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-03-29 03:01:19.371  INFO 25716 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: c3a97319-7128-4428-8786-fd41c7ec59a1
+
+2022-03-29 03:01:19.453  INFO 25716 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2022-03-29 03:01:19.591 DEBUG 25716 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2022-03-29 03:01:19.641 DEBUG 25716 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 20 mappings in 'requestMappingHandlerMapping'
+2022-03-29 03:01:19.680 DEBUG 25716 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2022-03-29 03:01:19.691 DEBUG 25716 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2022-03-29 03:01:19.820  INFO 25716 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-03-29 03:01:19.863  INFO 25716 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-03-29 03:01:19.873  INFO 25716 --- [restartedMain] com.ssafy.nfti.NftiApplication           : Started NftiApplication in 5.52 seconds (JVM running for 6.556)
+2022-03-29 03:01:34.299  INFO 35648 --- [restartedMain] com.ssafy.nfti.NftiApplication           : Starting NftiApplication using Java 14.0.1 on DESKTOP-FMPGPT6 with PID 35648 (C:\Users\Joseph\Documents\GitHub\S06P22D107\backend\nfti\target\classes started by Joseph in C:\Users\Joseph\Documents\GitHub\S06P22D107\backend\nfti)
+2022-03-29 03:01:34.301  INFO 35648 --- [restartedMain] com.ssafy.nfti.NftiApplication           : No active profile set, falling back to 1 default profile: "default"
+2022-03-29 03:01:34.360  INFO 35648 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-03-29 03:01:34.361  INFO 35648 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-03-29 03:01:35.411  INFO 35648 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-03-29 03:01:35.538  INFO 35648 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 117 ms. Found 6 JPA repository interfaces.
+2022-03-29 03:01:35.888  INFO 35648 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-03-29 03:01:36.301  INFO 35648 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-03-29 03:01:36.312  INFO 35648 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-03-29 03:01:36.312  INFO 35648 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.58]
+2022-03-29 03:01:36.430  INFO 35648 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-03-29 03:01:36.430  INFO 35648 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2068 ms
+2022-03-29 03:01:36.486 DEBUG 35648 --- [restartedMain] o.s.w.f.CommonsRequestLoggingFilter      : Filter 'commonsRequestLoggingFilter' configured for use
+2022-03-29 03:01:36.613  INFO 35648 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-03-29 03:01:36.659  INFO 35648 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.5.Final
+2022-03-29 03:01:36.761  INFO 35648 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-03-29 03:01:36.832  INFO 35648 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-03-29 03:01:37.148  INFO 35648 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-03-29 03:01:37.159  INFO 35648 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2022-03-29 03:01:37.933  INFO 35648 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-03-29 03:01:37.940  INFO 35648 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-03-29 03:01:38.712  WARN 35648 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-03-29 03:01:38.806  INFO 35648 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 85dba13a-6a24-46bb-9124-b2e8702ec40c
+
+2022-03-29 03:01:38.887  INFO 35648 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2022-03-29 03:01:39.004 DEBUG 35648 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2022-03-29 03:01:39.052 DEBUG 35648 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 20 mappings in 'requestMappingHandlerMapping'
+2022-03-29 03:01:39.087 DEBUG 35648 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2022-03-29 03:01:39.097 DEBUG 35648 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2022-03-29 03:01:39.217  INFO 35648 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-03-29 03:01:39.261  INFO 35648 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-03-29 03:01:39.272  INFO 35648 --- [restartedMain] com.ssafy.nfti.NftiApplication           : Started NftiApplication in 5.656 seconds (JVM running for 6.89)
+2022-03-29 03:01:48.363  INFO 35648 --- [http-nio-0.0.0.0-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-03-29 03:01:48.364  INFO 35648 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-03-29 03:01:48.364 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2022-03-29 03:01:48.365 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2022-03-29 03:01:48.365 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2022-03-29 03:01:48.366 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@2afd9193
+2022-03-29 03:01:48.366 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@52cfb41b
+2022-03-29 03:01:48.367 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2022-03-29 03:01:48.367  INFO 35648 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2022-03-29 03:01:48.386 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : PUT "/v1/community/4", parameters={}
+2022-03-29 03:01:48.390 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.nfti.api.controller.CommunityController#updateCommunity(Long, CommunityReq)
+2022-03-29 03:01:48.425 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ssafy.nfti.api.request.CommunityReq@717666cb]
+2022-03-29 03:01:48.630 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
+2022-03-29 03:01:48.632 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.ssafy.nfti.api.response.CommunityRes@381a8d42]
+2022-03-29 03:01:48.647 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-03-29 03:02:11.128 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-3] o.s.web.servlet.DispatcherServlet        : PUT "/v1/community/4", parameters={}
+2022-03-29 03:02:11.129 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.nfti.api.controller.CommunityController#updateCommunity(Long, CommunityReq)
+2022-03-29 03:02:11.130 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ssafy.nfti.api.request.CommunityReq@4b2fcd38]
+2022-03-29 03:02:11.205 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json, application/cbor]
+2022-03-29 03:02:11.205 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.ssafy.nfti.api.response.CommunityRes@fc6adf8]
+2022-03-29 03:02:11.207 DEBUG 35648 --- [http-nio-0.0.0.0-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

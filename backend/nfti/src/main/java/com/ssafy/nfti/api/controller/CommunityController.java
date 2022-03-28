@@ -12,7 +12,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +31,7 @@ public class CommunityController {
     @Autowired
     AWSS3Service awss3Service;
 
+    // 생성
     @PostMapping
     @Transactional
     public ResponseEntity<CommunityRes> createCommunity(
@@ -51,7 +55,23 @@ public class CommunityController {
         return ResponseEntity.ok(res);
     }
 
+    // 하나
+    @GetMapping("/{id}")
+    public ResponseEntity<CommunityRes> getCommunity(@PathVariable Long id) {
+        CommunityRes res = communityService.getOne(id);
+        return ResponseEntity.ok(res);
+    }
+
     // 수정
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<CommunityRes> updateCommunity(
+        @PathVariable Long id,
+        @RequestBody CommunityReq req
+    ) {
+        CommunityRes res = communityService.updateCommunity(id, req);
+        return ResponseEntity.ok(res);
+    }
 
     // 삭제
 }
