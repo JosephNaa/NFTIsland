@@ -14,10 +14,6 @@ function Comments() {
 	const theme = useTheme();
 	const navigate = useNavigate();
 
-	const onClickLikeIcon = () => {
-		console.log('like');
-	};
-
 	const onClickEditIcon = () => {
 		navigate('/postwrite');
 	};
@@ -45,11 +41,7 @@ function Comments() {
 					{/* 댓글 작성일 */}
 					2022.03.22
 				</Typography>
-				<Stack direction='row' ml='10px' mt='15px' spacing={1}>
-					<Box>
-						<LikeIcon sx={{ width: 20, height: 20 }} onClick={onClickLikeIcon} />
-					</Box>
-					<Typography fontSize='14px'>{/* 댓글 좋아요 개수 */}3</Typography>
+				<Stack direction='row' ml='30px' mt='15px' spacing={1}>
 					<Box>
 						<EditIcon sx={{ width: 20, height: 20 }} onClick={onClickEditIcon} />
 					</Box>

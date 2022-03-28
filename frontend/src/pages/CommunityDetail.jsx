@@ -30,6 +30,10 @@ function CommunityDetail() {
 		navigate('/postwrite');
 	};
 
+	const onClickNFTBtn = () => {
+		navigate('-1');
+	};
+
 	return (
 		<Page>
 			<Container>
@@ -45,7 +49,7 @@ function CommunityDetail() {
 					<Stack direction='row'>
 						<Stack flex='1'>
 							<Stack direction='row'>
-								<Avatar sx={{ width: 35, height: 35 }}>
+								<Avatar sx={{ ml: '10px', width: 35, height: 35 }}>
 									<PersonIcon />
 									{/* 커뮤니티장 아이콘 */}
 								</Avatar>
@@ -77,6 +81,19 @@ function CommunityDetail() {
 							</Typography>
 						</Stack>
 					</Stack>
+					<Button
+						sx={{
+							ml: '10%',
+							mt: '10px',
+							fontSize: '12px',
+						}}
+						size='small'
+						variant='contained'
+						disableElevation
+						onClick={onClickNFTBtn}
+					>
+						NFT 발행
+					</Button>
 				</Box>
 				<Box mt='5%' mb='3%'>
 					<Stack direction='row'>

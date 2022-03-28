@@ -1,10 +1,11 @@
+import { useContext, useState } from 'react';
 import { Box, Button, Container, Stack, Typography, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
 import Web3 from 'web3';
 import Page from '../components/Page';
 import logo from '../image/logo.png';
-import logo2 from '../image/logo2.png';
+import UserContext from '../context/UserContext';
 
 /**
  * [메인 화면]
@@ -21,6 +22,37 @@ function Intro() {
 			margin: '0 auto',
 		},
 	}));
+	const userContext = useContext(UserContext);
+
+	const connectAccount = async () => {
+		try {
+			if (window.ethereum) {
+				if (window.ethereum.isConnected()) {
+					// 지갑 주소 가져오기
+					const userAccounts = await window.ethereum.request({
+						method: 'eth_accounts',
+					});
+					if (userAccounts[0]) {
+						userContext.setUserAccounts(userAccounts[0]);
+					} else {
+						userContext.setUserAccounts('');
+					}
+				}
+				// 지갑 연결 요청
+				await window.ethereum.request({
+					method: 'eth_requestAccounts',
+				});
+			} else {
+				alert('Install Metamask!');
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const onClickLogin = () => {
+		connectAccount();
+	};
 
 	return (
 		<Page
@@ -76,10 +108,9 @@ function Intro() {
 									<Box sx={{ width: 1 / 2 }}>
 										<Button
 											sx={{ boxShadow: 5 }}
-											to='/register'
 											variant='outlined'
 											color='secondary'
-											component={RouterLink}
+											onClick={onClickLogin}
 										>
 											지갑 연동하러 가기
 										</Button>
@@ -102,7 +133,7 @@ function Intro() {
 									<Stack direction='row' spacing={2}>
 										<Button
 											sx={{ boxShadow: 5 }}
-											to='/register'
+											to='/community'
 											variant='outlined'
 											color='secondary'
 											component={RouterLink}
@@ -111,7 +142,7 @@ function Intro() {
 										</Button>
 										<Button
 											sx={{ boxShadow: 5 }}
-											to='/register'
+											to='/market'
 											variant='outlined'
 											color='secondary'
 											component={RouterLink}
