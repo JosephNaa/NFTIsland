@@ -23,7 +23,7 @@ public class CommunityTest {
     public void init() {
         communityRepository.save(Community.builder()
             .name("testName")
-            .desc("testDesc")
+            .description("testDesc")
             .payable(false)
             .logoPath("testLogoPath")
             .hostAddress("testAddress")

@@ -11,7 +11,7 @@ public class CommunityRes {
     Long id;
     String hostAddress;
     String name;
-    String desc;
+    String description;
     Boolean payable;
     String logoPath;
     LocalDateTime createdAt;
@@ -19,9 +19,9 @@ public class CommunityRes {
     public static CommunityRes of(Community community) {
         CommunityRes res = new CommunityRes();
         res.setId(community.getId());
-        res.setHostAddress("exampleAddress");
+        res.setHostAddress(community.getHostAddress());
         res.setName(community.getName());
-        res.setDesc(community.getDesc());
+        res.setDescription(community.getDescription());
         res.setPayable(community.getPayable());
         res.setLogoPath(community.getLogoPath());
         res.setCreatedAt(community.getCreatedAt());

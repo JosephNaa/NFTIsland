@@ -2,12 +2,14 @@ package com.ssafy.nfti.api.service;
 
 import com.ssafy.nfti.api.request.CommunityReq;
 import com.ssafy.nfti.api.response.CommunityRes;
+import java.util.List;
 
 public interface CommunityService {
 
-    CommunityRes createCommunity(CommunityReq communityReq, String logoPath);
+    CommunityRes createCommunity(CommunityReq communityReq, String url);
 
-    // 목록
+    List<CommunityRes> getList();
+
 
     // 수정
 

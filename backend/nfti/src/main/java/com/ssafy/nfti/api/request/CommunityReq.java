@@ -8,7 +8,7 @@ import lombok.Setter;
 public class CommunityReq {
     String hostAddress;
     String name;
-    String desc;
+    String description;
     Boolean payable;
 
 }

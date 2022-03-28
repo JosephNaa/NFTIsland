@@ -19,12 +19,13 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Page<BoardRes> list(Pageable pageable, Long id) {
-        Page<Board> postList = boardRepository.findAll(pageable);
-        Page<BoardRes> res = new ArrayList<>();
-        for (Board board : postList) {
-            res.add(BoardRes.of(board));
-        }
-        return res;
+//        Page<Board> postList = boardRepository.findAll(pageable);
+//        Page<BoardRes> res = new ArrayList<>();
+//        for (Board board : postList) {
+//            res.add(BoardRes.of(board));
+//        }
+//        return res;
+        return null;
     }
 
     @Override
