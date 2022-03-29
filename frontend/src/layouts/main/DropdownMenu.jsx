@@ -35,7 +35,7 @@ export default function DropDownMenu() {
 	const navigate = useNavigate();
 
 	const onClickMyIcon = () => {
-		navigate('/mypage');
+		navigate('/userpage');
 	};
 
 	const connectAccount = async () => {

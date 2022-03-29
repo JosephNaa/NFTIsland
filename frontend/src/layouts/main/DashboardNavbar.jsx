@@ -35,17 +35,12 @@ function DashboardNavbar() {
 		<RootStyle>
 			<ToolbarStyle>
 				<Box height='100%' padding='10px'>
-					<RouterLink to='/intro'>
+					<RouterLink to='/'>
 						<ImgStyle src={logo} alt='' />
 					</RouterLink>
 				</Box>
 				<Stack direction='row'>
-					<Button
-						to='/intro'
-						size='large'
-						sx={{ fontSize: 17 }}
-						component={RouterLink}
-					>
+					<Button to='/' size='large' sx={{ fontSize: 17 }} component={RouterLink}>
 						소개
 					</Button>
 					<Button
