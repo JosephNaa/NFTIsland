@@ -1,8 +1,5 @@
-/**
- *  PJT Ⅲ - Req.1-SC3) 시나리오 테스트
- */
 const SsafyToken = artifacts.require("SsafyToken");
-const SsafyNFT = artifacts.require("SsafyNFT");
+const NFTIslandBadge = artifacts.require("NFTIslandBadge");
 const SaleFactory = artifacts.require("SaleFactory");
 const Sale = artifacts.require("Sale");
 let ssafyTokenContract, saleFactoryContract, nftContract, saleContract;
@@ -27,7 +24,7 @@ contract("Sale Contract Testing", (accounts) => {
     console.log("------------------------------");
   }
 
-  before(async function () {
+  async function createSale() {
     ssafyTokenContract = await SsafyToken.new("SsafyToken", "SSF", 18, {
       from: contractOwner,
     });
@@ -42,15 +39,19 @@ contract("Sale Contract Testing", (accounts) => {
       }
     );
 
-    nftContract = await SsafyNFT.new("Non Fungible Token For SSAFY", "SNFT", {
-      from: contractOwner,
-    });
+    nftContract = await NFTIslandBadge.new(
+      "Non Fungible Token For NFTIsland",
+      "BADGE",
+      {
+        from: contractOwner,
+      }
+    );
 
     saleFactoryContract = await SaleFactory.new(nftContract.address, {
       from: contractOwner,
     });
 
-    await nftContract.create(seller, uri, { from: seller });
+    await nftContract.create(seller, uri, true, 1, { from: seller });
 
     await saleFactoryContract.createSale(
       itemId,
@@ -68,9 +69,11 @@ contract("Sale Contract Testing", (accounts) => {
     await nftContract.transferFrom(seller, saleContract.address, itemId, {
       from: seller,
     });
-  });
+  }
 
   it("Create Sale", async () => {
+    await createSale();
+
     var saleInfo = await saleContract.getSaleInfo.call();
 
     assert.equal(
@@ -87,6 +90,8 @@ contract("Sale Contract Testing", (accounts) => {
   });
 
   it("Purchase", async () => {
+    await createSale();
+
     await ssafyTokenContract.approve(saleContract.address, 100000, {
       from: purchaser,
     });
@@ -102,16 +107,14 @@ contract("Sale Contract Testing", (accounts) => {
       purchaserBalance,
       "Transfer Failed"
     );
-
-    // TODO
-    // 다음을 테스트를 통과해야합니다.
-    // assert.equal(purchaser, await getNftOwner(), "Not Owned By Purchaser");
-    // assert.equal(900, await getBalance(purchaser), "Transfer Failed");
   });
 
   it("Cancel", async () => {
-    // TODO
-    // 다음을 테스트를 통과해야합니다.
-    // assert.equal(seller, await getNftOwner(), "Cancellation Failed");
+    await createSale();
+
+    await saleContract.cancelSale({ from: seller });
+
+    var owner = await nftContract.ownerOf.call(itemId);
+    assert.equal(seller, owner, "Cancellation Failed");
   });
 });

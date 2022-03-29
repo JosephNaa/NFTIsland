@@ -3,7 +3,7 @@ pragma solidity ^0.8.4;
 
 import "./access/Ownable.sol";
 import "./token/ERC20/ERC20.sol";
-import "./token/ERC721/ERC721.sol";
+import "./NFTIslandBadge.sol";
 
 /**
  * PJT Ⅲ - Req.1-SC1 SaleFactory 구현
@@ -14,7 +14,7 @@ contract SaleFactory is Ownable {
     address public admin;
     address[] public sales;
 
-    IERC721 public erc721Constract;
+    NFTIslandBadge public erc721Contract;
 
     event NewSale(
         address indexed _saleContract,
@@ -24,7 +24,7 @@ contract SaleFactory is Ownable {
 
     constructor(address _nftAddress) {
         admin = msg.sender;
-        erc721Constract = IERC721(_nftAddress);
+        erc721Contract = NFTIslandBadge(_nftAddress);
     }
 
     /**
@@ -37,7 +37,8 @@ contract SaleFactory is Ownable {
         address nftAddress
     ) public returns (address) {
         address seller = msg.sender;
-        require(erc721Constract.ownerOf(itemId) == seller, "SaleFactory: seller is not owner of this item");
+        require(erc721Contract.ownerOf(itemId) == seller, "SaleFactory: seller is not owner of this item");
+        require(erc721Contract.isPublic(itemId), "SaleFactory: this token can't be sold");
         
         Sale sale = new Sale(admin, seller, itemId, purchasePrice, currencyAddress, nftAddress);
         sales.push(address(sale));
@@ -64,7 +65,7 @@ contract Sale {
     bool public ended;
 
     IERC20 public erc20Contract;
-    IERC721 public erc721Constract;
+    NFTIslandBadge public erc721Contract;
 
     event SaleEnded(address winner, uint256 amount);
 
@@ -84,25 +85,31 @@ contract Sale {
         nftAddress = _nftAddress;
         ended = false;
         erc20Contract = IERC20(_currencyAddress);
-        erc721Constract = IERC721(_nftAddress);
+        erc721Contract = NFTIslandBadge(_nftAddress);
     }
 
     function purchase() public {   
+        require(!ended, "Sale: This Sale is ended");
         require(msg.sender != seller, "Sale: Purchase caller is seller");
         require(purchasePrice <= erc20Contract.allowance(msg.sender, address(this)), "Sale: Purchase caller is not approved in ERC20");
+        require(purchasePrice <= _getCurrencyAmount(), "Sale: buyer's currency amount is not enough to buy this nft");
 
         erc20Contract.transferFrom(msg.sender, seller, purchasePrice);
-        erc721Constract.transferFrom(address(this), msg.sender, tokenId);
+        erc721Contract.transferFrom(address(this), msg.sender, tokenId);
 
         buyer = msg.sender;
-        ended = true;
+        _end();
         emit SaleEnded(buyer, purchasePrice);
     }
     
-    // function cancelSales() public {
-    //     require(!ended, "Sale: This sale is ended");
-    //     require(msg.sender == seller || msg.sender == admin, "Sale: Cancel caller is not seller nor admin");
-    // }
+    function cancelSale() public {
+        require(!ended, "Sale: This sale is ended");
+        require(msg.sender == seller || msg.sender == admin, "Sale: Cancel caller is not seller nor admin");
+
+        erc721Contract.transferFrom(address(this), seller, tokenId);
+
+        _end();
+    }
 
     function getSaleInfo()
         public
