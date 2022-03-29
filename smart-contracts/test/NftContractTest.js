@@ -3,14 +3,14 @@
  * @dev NFT mint, transfer, and compare URI
  */
 
-const NftCreator = artifacts.require("SsafyNFT");
+const NftCreator = artifacts.require("NFTIslandBadge");
 
 contract("NftCreator", (accounts) => {
-  const name = "Non Fungible Token For SSAFY";
-  const symbol = "SNFT";
+  const name = "Non Fungible Token For NFTIsland";
+  const symbol = "BADGE";
   const contractOwner = accounts[0];
 
-  var nftCreatorInstance;
+  let nftCreatorInstance;
 
   before(async function () {
     // set contract instance into a variable
@@ -21,24 +21,38 @@ contract("NftCreator", (accounts) => {
   });
 
   it("NFT mint, transfer, compare URI", async () => {
-    // TODO
-    // 다음이 반드시 테스트되어야 합니다.
-    // assert.equal(sender, owner, "NFT Mint Failed");
-    // assert.equal(receiver, owner, "NFT Transfer Failed.");
-    // assert.equal(tokenURI, tokenURIFetched, "Wrong Token Id or URI.")
-
     const sender = accounts[1];
     const receiver = accounts[2];
     const tokenURI = "myuri://testtest";
 
     // create 호출 후, tokenId 생성과 owner 지정 테스트
-    var createRes = await nftCreatorInstance.create(sender, tokenURI, {
+    var outTokenIds = await nftCreatorInstance.create.call(
+      sender,
+      tokenURI,
+      true,
+      3,
+      {
+        from: sender,
+      }
+    );
+
+    var tokenIds = outTokenIds.map((outTokenId) => outTokenId.toNumber());
+
+    await nftCreatorInstance.create(sender, tokenURI, true, 3, {
       from: sender,
     });
-    var tokenId = createRes.receipt.logs[0].args["2"].toNumber();
-    var owner = await nftCreatorInstance.ownerOf(tokenId);
 
-    assert.equal(sender, owner, "NFT Mint Failed");
+    for (var i = 0; i < 3; i++) {
+      var tokenId = tokenIds[i];
+
+      var owner = await nftCreatorInstance.ownerOf(tokenId);
+      assert.equal(sender, owner, "NFT Mint Failed");
+
+      var tokenURIFetched = await nftCreatorInstance.tokenURI(tokenId);
+      assert.equal(tokenURI, tokenURIFetched, "Wrong Token Id or URI.");
+    }
+
+    var tokenId = tokenIds[0];
 
     // transfer 호출 후, 해당 token의 owner가 잘 넘어갔는지 확인
     await nftCreatorInstance.transferFrom(sender, receiver, tokenId, {
@@ -47,9 +61,5 @@ contract("NftCreator", (accounts) => {
     owner = await nftCreatorInstance.ownerOf(tokenId);
 
     assert.equal(receiver, owner, "NFT Transfer Failed.");
-
-    // tokenURI 호출 후, create 할 때 넣은 tokenURI가 잘 들어갔는지 확인
-    var tokenURIFetched = await nftCreatorInstance.tokenURI(tokenId);
-    assert.equal(tokenURI, tokenURIFetched, "Wrong Token Id or URI.");
   });
 });
