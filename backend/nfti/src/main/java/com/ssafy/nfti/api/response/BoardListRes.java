@@ -9,13 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 @Builder
 @JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class BoardRes {
+public class BoardListRes {
     Long id;
     String userAddress;
     String nickName;
@@ -24,16 +22,10 @@ public class BoardRes {
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
     Integer commentCount;
-    List<CommentRes> comments;
 
-    public static BoardRes of(Board board) {
+    public static BoardListRes of(Board board) {
 
-        List<CommentRes> comments = new ArrayList<>();
-        for (Comment comment : board.getComments()) {
-            comments.add(CommentRes.of(comment));
-        }
-
-        return BoardRes.builder()
+        return BoardListRes.builder()
             .id(board.getId())
             .userAddress(board.getUser().getAddress())
             .nickName(board.getUser().getNickname())
@@ -41,8 +33,7 @@ public class BoardRes {
             .content(board.getContent())
             .createdAt(board.getCreatedAt())
             .updatedAt(board.getUpdatedAt())
-            .commentCount(comments.size())
-            .comments(comments)
+            .commentCount(board.getComments().size())
             .build();
     }
 }
