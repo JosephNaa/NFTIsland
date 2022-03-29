@@ -22,6 +22,7 @@ public class BoardListRes {
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
     Integer commentCount;
+    Integer likesCount;
 
     public static BoardListRes of(Board board) {
 
@@ -34,6 +35,7 @@ public class BoardListRes {
             .createdAt(board.getCreatedAt())
             .updatedAt(board.getUpdatedAt())
             .commentCount(board.getComments().size())
+            .likesCount(board.getLikes().size())
             .build();
     }
 }
