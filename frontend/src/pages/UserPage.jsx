@@ -23,9 +23,9 @@ import {
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import Page from '../components/Page';
-import CommunityCard from '../layouts/mypage/CommunityCard';
-import ItemCard from '../layouts/mypage/ItemCard';
-import PostCard from '../layouts/mypage/PostCard';
+import CommunityCard from '../layouts/userpage/CommunityCard';
+import ItemCard from '../layouts/userpage/ItemCard';
+import PostCard from '../layouts/userpage/PostCard';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -60,7 +60,7 @@ function a11yProps(index) {
 	};
 }
 
-function MyPage() {
+function UserPage() {
 	const [value, setValue] = useState(0);
 
 	const handleChange = (event, newValue) => {
@@ -70,12 +70,12 @@ function MyPage() {
 	const navigate = useNavigate();
 
 	const onClickImgModify = () => {
-		navigate('/mypage');
+		navigate('/userpage');
 		console.log('이미지 수정버튼 클릭');
 	};
 
 	const onClickNameModify = () => {
-		navigate('/mypage');
+		navigate('/userpage');
 		console.log('닉네임 수정버튼 클릭');
 	};
 
@@ -268,4 +268,4 @@ function MyPage() {
 	);
 }
 
-export default MyPage;
+export default UserPage;
