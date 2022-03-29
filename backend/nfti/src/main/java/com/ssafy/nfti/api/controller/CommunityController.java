@@ -1,10 +1,13 @@
 package com.ssafy.nfti.api.controller;
 
 import com.ssafy.nfti.api.request.CommunityReq;
+import com.ssafy.nfti.api.response.CommunityCreateRes;
+import com.ssafy.nfti.api.response.CommunityListRes;
 import com.ssafy.nfti.api.response.CommunityRes;
 import com.ssafy.nfti.api.service.AWSS3Service;
 import com.ssafy.nfti.api.service.CommunityService;
 import com.ssafy.nfti.common.model.response.BaseResponseBody;
+import com.ssafy.nfti.db.entity.Community;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -37,23 +40,43 @@ public class CommunityController {
     // 생성
     @PostMapping
     @Transactional
-    public ResponseEntity<CommunityRes> createCommunity(
+    public ResponseEntity<CommunityCreateRes> createCommunity(
         @RequestPart(value = "file") MultipartFile file,
         @RequestPart(value = "req") CommunityReq req
     ) {
         String url = awss3Service.uploadFile(file);
 
-        CommunityRes res = communityService.createCommunity(req, url);
+        CommunityCreateRes res = communityService.createCommunity(req, url);
         return ResponseEntity.ok(res);
     }
 
     // 목록
     @GetMapping
-    public ResponseEntity<List<CommunityRes>> getCommunityList(
+    public ResponseEntity<List<CommunityListRes>> getCommunityList(
         @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable
     ) {
 
-        List<CommunityRes> res = communityService.getList(pageable);
+        List<CommunityListRes> res = communityService.getList(pageable);
+
+        return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/member-sort")
+    public ResponseEntity<List<CommunityListRes>> getCommunityListSortByMember(
+        @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable
+    ) {
+
+        List<CommunityListRes> res = communityService.getListSortByMember(pageable);
+
+        return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/board-sort")
+    public ResponseEntity<List<CommunityListRes>> getCommunityListSortByBoard(
+        @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable
+    ) {
+
+        List<CommunityListRes> res = communityService.getListSortByBoard(pageable);
 
         return ResponseEntity.ok(res);
     }
@@ -79,8 +102,11 @@ public class CommunityController {
     // 삭제
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<BaseResponseBody> deleteCommunity(@PathVariable Long id) {
-        communityService.deleteCommunity(id);
+    public ResponseEntity<BaseResponseBody> deleteCommunity(
+        @PathVariable Long id,
+        @RequestBody CommunityReq req
+    ) {
+        communityService.deleteCommunity(id, req.getHostAddress());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
