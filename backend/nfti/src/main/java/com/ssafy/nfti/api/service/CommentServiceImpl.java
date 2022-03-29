@@ -6,8 +6,10 @@ import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
 import com.ssafy.nfti.common.exception.response.ApiException;
 import com.ssafy.nfti.db.entity.Board;
 import com.ssafy.nfti.db.entity.Comment;
+import com.ssafy.nfti.db.entity.User;
 import com.ssafy.nfti.db.repository.BoardRepository;
 import com.ssafy.nfti.db.repository.CommentRepository;
+import com.ssafy.nfti.db.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.HttpStatus;
@@ -23,16 +25,22 @@ public class CommentServiceImpl implements CommentService{
     @Autowired
     BoardRepository boardRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Override
     public CommentRes addComment(CommentReq req) {
         Board board = boardRepository.findById(req.getBoardId())
             .orElseThrow();
 
-        Comment comment = new Comment(
-            req.getUserAddress(),
-            req.getContent(),
-            board
-        );
+        User user = userRepository.findByAddress(req.getUserAddress())
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
+
+        Comment comment = Comment.builder()
+            .content(req.getContent())
+            .board(board)
+            .user(user)
+            .build();
 
         Comment res = commentRepository.save(comment);
 
@@ -52,7 +60,7 @@ public class CommentServiceImpl implements CommentService{
         Comment comment = commentRepository.findById(id)
             .orElseThrow();
 
-        if (!comment.getUserAddress().equals(req.getUserAddress())) {
+        if (!comment.getUser().getAddress().equals(req.getUserAddress())) {
             throw new ApiException(ExceptionEnum.NOT_FOUND_USER);
         }
 
@@ -64,11 +72,19 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public void deleteComment(Long id) {
-        Comment comment = commentRepository.findById(id)
-            .orElseThrow();
+    public void deleteComment(Long id, String address) {
+        User user = userRepository.findByAddress(address)
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
 
-        commentRepository.delete(comment);
+        if (user.getAddress().equals(address)) {
+            Comment comment = commentRepository.findById(id)
+                .orElseThrow();
+
+            commentRepository.delete(comment);
+        } else {
+            throw new ApiException(ExceptionEnum.NOT_FOUND_USER);
+        }
+
     }
 
     @Override
