@@ -37,7 +37,7 @@ public class ItemsServiceImpl implements ItemsService {
 
     @Override
     public Items updateItemTokenIdAndOwnerAddress(Long itemId, Long tokenId, String ownerAddress) {
-        Items item = itemsRepository.getById(itemId);
+        Items item = itemsRepository.findById(itemId).orElseThrow();
         item.setTokenId(tokenId);
         item.setOwnerAddress(ownerAddress);
 
