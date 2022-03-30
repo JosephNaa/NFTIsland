@@ -47,9 +47,9 @@ export default function DropDownMenu() {
 						method: 'eth_accounts',
 					});
 					if (userAccounts[0]) {
-						userContext.setUserAccounts(userAccounts[0]);
+						userContext.setUserAccount(userAccounts[0]);
 					} else {
-						userContext.setUserAccounts('');
+						userContext.setUserAccount('');
 					}
 				}
 				// 지갑 연결 요청
@@ -68,7 +68,7 @@ export default function DropDownMenu() {
 		connectAccount();
 	};
 	const onClickLogout = () => {
-		userContext.setUserAccounts('');
+		userContext.setUserAccount('');
 	};
 
 	return (
@@ -83,7 +83,7 @@ export default function DropDownMenu() {
 						aria-haspopup='true'
 						aria-expanded={open ? 'true' : undefined}
 					>
-						{userContext.accounts ? (
+						{userContext.account ? (
 							<Avatar sx={{ width: 32, height: 32 }}>
 								<PersonIcon />
 							</Avatar>
@@ -93,7 +93,7 @@ export default function DropDownMenu() {
 					</IconButton>
 				</Tooltip>
 			</Box>
-			{userContext.accounts ? (
+			{userContext.account ? (
 				<Menu
 					anchorEl={anchorEl}
 					id='My-menu'

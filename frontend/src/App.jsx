@@ -6,31 +6,31 @@ import GlobalStyles from './theme/globalStyles';
 import UserContext from './context/UserContext';
 
 export default function App() {
-	const [accounts, setAccounts] = useState('');
+	const [account, setAccount] = useState('');
 
-	const getAccounts = async () => {
-		const userAccounts = await window.ethereum.request({
+	const getAccount = async () => {
+		const userAccount = await window.ethereum.request({
 			method: 'eth_accounts',
 		});
-		if (userAccounts[0]) {
-			setAccounts(userAccounts[0]);
+		if (userAccount[0]) {
+			setAccount(userAccount[0]);
 		} else {
-			setAccounts('');
+			setAccount('');
 		}
 	};
 
-	const setUserAccounts = accounts => {
-		setAccounts(accounts);
+	const setUserAccount = account => {
+		setAccount(account);
 	};
 
 	useEffect(async () => {
 		window.ethereum.on('accountsChanged', async () => {
-			getAccounts();
+			getAccount();
 		});
-		getAccounts();
+		getAccount();
 	}, []);
 
-	const userContext = useMemo(() => ({ accounts, setUserAccounts }), [accounts]);
+	const userContext = useMemo(() => ({ account, setUserAccount }), [account]);
 
 	return (
 		<ThemeConfig>
