@@ -1,10 +1,12 @@
 import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Menu, MenuItem, IconButton } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
 import UserContext from '../../context/UserContext';
 
 export default function DropDownCreate() {
 	const userContext = useContext(UserContext);
+	const navigate = useNavigate();
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 
@@ -14,6 +16,10 @@ export default function DropDownCreate() {
 
 	const handleClose = () => {
 		setAnchorEl(null);
+	};
+
+	const onClickClick = event => {
+		navigate('/create/community');
 	};
 
 	return (
@@ -28,7 +34,7 @@ export default function DropDownCreate() {
 					onClose={handleClose}
 					onClick={handleClose}
 				>
-					<MenuItem>
+					<MenuItem onClick={onClickClick}>
 						<AddIcon /> 커뮤니티 생성
 					</MenuItem>
 				</Menu>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
 	Avatar,
 	Box,
+	Chip,
 	Stack,
 	Container,
 	Typography,
@@ -120,7 +121,7 @@ function UserPage() {
 					</Stack>
 				</Box>
 				<Typography mb='10px' align='center'>
-					0x394...3923
+					<Chip label='0x394...3923' variant='outlined' onClick={() => {}} />
 					{/* 지갑주소 */}
 				</Typography>
 				<Box sx={{ width: '100%' }}>

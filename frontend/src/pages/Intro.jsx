@@ -1,16 +1,18 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Box, Button, Container, Stack, Typography, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Web3 from 'web3';
 import Page from '../components/Page';
 import logo from '../image/logo.png';
+import metamask from '../image/metamask.png';
 import UserContext from '../context/UserContext';
 
 /**
  * [메인 화면]
  */
 function Intro() {
+	const navigate = useNavigate();
 	// // Web3
 	// const web3 = new Web3(
 	// 	new Web3.providers.HttpProvider(process.env.REACT_APP_ETHEREUM_RPC_URL)
@@ -54,6 +56,12 @@ function Intro() {
 		connectAccount();
 	};
 
+	useEffect(() => {
+		if (userContext.account) {
+			navigate('/community', { replace: true });
+		}
+	}, []);
+
 	return (
 		<Page
 			title='NFT Island'
@@ -84,13 +92,7 @@ function Intro() {
 						<Grid container>
 							<Grid item xs={12} md={6}>
 								<BoxStyle width='100%' pl='30px'>
-									<img
-										src='http://wiki.hash.kr/images/a/a2/%EB%A9%94%ED%83%80%EB%A7%88%EC%8A%A4%ED%81%AC_%EA%B8%80%EC%9E%90.png'
-										alt=''
-										width='90%'
-										pl='10px'
-										pr='10px'
-									/>
+									<img src={metamask} alt='' width='90%' pl='10px' pr='10px' />
 								</BoxStyle>
 							</Grid>
 							<Grid item xs={12} md={6}>
@@ -154,13 +156,7 @@ function Intro() {
 							</Grid>
 							<Grid item xs={12} md={6}>
 								<BoxStyle width='100%'>
-									<img
-										src='http://wiki.hash.kr/images/a/a2/%EB%A9%94%ED%83%80%EB%A7%88%EC%8A%A4%ED%81%AC_%EA%B8%80%EC%9E%90.png'
-										alt=''
-										width='90%'
-										pl='10px'
-										pr='10px'
-									/>
+									<img src={metamask} alt='' width='90%' pl='10px' pr='10px' />
 								</BoxStyle>
 							</Grid>
 						</Grid>
