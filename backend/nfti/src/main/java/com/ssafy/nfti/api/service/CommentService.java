@@ -10,6 +10,6 @@ public interface CommentService {
     CommentRes addComment(CommentReq req);
     CommentRes selectComment(Long id);
     CommentRes updateComment(Long id, CommentReq req);
-    void deleteComment(Long id);
+    void deleteComment(Long id, String address);
     List<CommentRes> selectByBoard(Long boardId);
 }

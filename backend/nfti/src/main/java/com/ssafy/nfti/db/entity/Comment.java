@@ -6,13 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "comment")
@@ -24,16 +25,6 @@ public class Comment extends BaseEntity {
     @ManyToOne
     private Board board;
 
-    private String userAddress;
-
-    @Builder
-    public Comment(
-        String userAddress,
-        String content,
-        Board board
-    ) {
-        this.userAddress = userAddress;
-        this.content = content;
-        this.board = board;
-    }
+    @ManyToOne
+    private User user;
 }

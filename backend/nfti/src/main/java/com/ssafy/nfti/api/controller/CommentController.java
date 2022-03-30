@@ -4,6 +4,7 @@ import com.ssafy.nfti.api.request.CommentReq;
 import com.ssafy.nfti.api.response.CommentRes;
 import com.ssafy.nfti.api.service.CommentService;
 import com.ssafy.nfti.common.model.response.BaseResponseBody;
+import com.ssafy.nfti.db.entity.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +41,11 @@ public class CommentController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<BaseResponseBody> deleteComment(@PathVariable Long id) {
-        commentService.deleteComment(id);
+    public ResponseEntity<BaseResponseBody> deleteComment(
+        @PathVariable Long id,
+        @RequestBody CommentReq req
+    ) {
+        commentService.deleteComment(id, req.getUserAddress());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

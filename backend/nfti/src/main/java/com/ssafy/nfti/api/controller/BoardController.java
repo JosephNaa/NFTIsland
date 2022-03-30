@@ -1,6 +1,7 @@
 package com.ssafy.nfti.api.controller;
 
 import com.ssafy.nfti.api.request.BoardReq;
+import com.ssafy.nfti.api.response.BoardCreateRes;
 import com.ssafy.nfti.api.response.BoardRes;
 import com.ssafy.nfti.api.service.BoardService;
 import com.ssafy.nfti.common.model.response.BaseResponseBody;
@@ -31,8 +32,8 @@ public class BoardController {
     BoardService boardService;
 
     @PostMapping()
-    public ResponseEntity<BoardRes> postBoard(@RequestBody BoardReq req) {
-        BoardRes res = boardService.save(req);
+    public ResponseEntity<BoardCreateRes> postBoard(@RequestBody BoardReq req) {
+        BoardCreateRes res = boardService.save(req);
         return ResponseEntity.ok(res);
     }
 
@@ -66,8 +67,11 @@ public class BoardController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<BaseResponseBody> deleteBoard(@PathVariable("id") Long id) {
-        boardService.delete(id);
+    public ResponseEntity<BaseResponseBody> deleteBoard(
+        @PathVariable("id") Long id,
+        @RequestBody BoardReq req
+    ) {
+        boardService.delete(id, req.getUserAddress());
         return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
     }
 }
