@@ -5,11 +5,6 @@ import "./access/Ownable.sol";
 import "./token/ERC20/ERC20.sol";
 import "./NFTIslandBadge.sol";
 
-/**
- * PJT Ⅲ - Req.1-SC1 SaleFactory 구현
- * 상태 변수나 함수의 시그니처, 이벤트는 구현에 따라 변경할 수 있습니다.
- */
-
 contract SaleFactory is Ownable {
     address public admin;
     address[] public sales;

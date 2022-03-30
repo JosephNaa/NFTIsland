@@ -22,3 +22,6 @@ yarn-debug.log*
 yarn-error.log*
 
 yarn.lock
+
+# admin wallet key
+.secret
