@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.ssafy.nfti.db.entity.Board;
 import com.ssafy.nfti.db.entity.Comment;
+import com.ssafy.nfti.db.entity.Likes;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,11 @@ public class BoardRes {
             comments.add(CommentRes.of(comment));
         }
 
+        int count = 0;
+        for (Likes ignored : board.getLikes()) {
+            count += 1;
+        }
+
         return BoardRes.builder()
             .id(board.getId())
             .userAddress(board.getUser().getAddress())
@@ -43,7 +49,7 @@ public class BoardRes {
             .createdAt(board.getCreatedAt())
             .updatedAt(board.getUpdatedAt())
             .commentCount(comments.size())
-            .likesCount(board.getLikes().size())
+            .likesCount(count)
             .comments(comments)
             .build();
     }

@@ -39,7 +39,7 @@ public class Board extends BaseEntity {
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private Set<Likes> likes = new HashSet<>();
+    private List<Likes> likes = new ArrayList<>();
 
     @ManyToOne
     private User user;
