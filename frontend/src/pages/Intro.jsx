@@ -33,9 +33,9 @@ function Intro() {
 						method: 'eth_accounts',
 					});
 					if (userAccounts[0]) {
-						userContext.setUserAccounts(userAccounts[0]);
+						userContext.setUserAccount(userAccounts[0]);
 					} else {
-						userContext.setUserAccounts('');
+						userContext.setUserAccount('');
 					}
 				}
 				// 지갑 연결 요청
