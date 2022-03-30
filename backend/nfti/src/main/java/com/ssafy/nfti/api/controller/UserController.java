@@ -1,7 +1,6 @@
 package com.ssafy.nfti.api.controller;
 
 import com.ssafy.nfti.api.request.UserReq;
-import com.ssafy.nfti.api.request.UserUpdateReq;
 import com.ssafy.nfti.api.response.UserRes;
 import com.ssafy.nfti.api.service.UserService;
 import com.ssafy.nfti.db.entity.User;
@@ -10,9 +9,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 
 @RestController
@@ -22,7 +19,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/address")
+    @PostMapping("/address")
     @ApiOperation(value = "지갑 정보 조회", notes = "지갑 정보를 응답")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
