@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,12 +25,12 @@ public class MyPageController {
     @Autowired
     MyPageService myPageService;
 
-    @GetMapping()
+    @GetMapping("activity")
     public ResponseEntity<List<MyActivityRes>> getMyList(
         @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable,
-        @RequestBody MyPageReq req
+        @RequestParam String address
     ) {
-        List<MyActivityRes> res = myPageService.myActivityList(req.getAddress());
+        List<MyActivityRes> res = myPageService.myActivityList(pageable, address);
 
         return ResponseEntity.ok(res);
     }
