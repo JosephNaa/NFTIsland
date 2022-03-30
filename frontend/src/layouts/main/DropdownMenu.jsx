@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import axios from 'axios';
 import {
 	Box,
 	Avatar,
@@ -41,26 +42,39 @@ export default function DropDownMenu() {
 	const connectAccount = async () => {
 		try {
 			if (window.ethereum) {
-				if (window.ethereum.isConnected()) {
-					// 지갑 주소 가져오기
-					const userAccounts = await window.ethereum.request({
-						method: 'eth_accounts',
-					});
-					if (userAccounts[0]) {
-						userContext.setUserAccount(userAccounts[0]);
-					} else {
-						userContext.setUserAccount('');
-					}
-				}
-				// 지갑 연결 요청
-				await window.ethereum.request({
-					method: 'eth_requestAccounts',
+				const userAccount = await window.ethereum.request({
+					method: 'eth_accounts',
 				});
+				// 메타마스크에 로그인이 되어있는 경우
+				if (userAccount[0]) {
+					const res = await axios({
+						method: 'post',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						url: 'https://j6d107.p.ssafy.io/api/v1/users/address',
+						data: {
+							address: userAccount[0],
+						},
+					});
+					userContext.setUserInfo(
+						res.data.address,
+						res.data.nickname,
+						res.data.profile_path
+					);
+				}
+				// 메타마스크 로그인을 해야하는 경우
+				else {
+					// 지갑 연결 요청
+					await window.ethereum.request({
+						method: 'eth_requestAccounts',
+					});
+				}
 			} else {
 				alert('Install Metamask!');
 			}
 		} catch (error) {
-			console.error(error);
+			console.dir(error);
 		}
 	};
 
@@ -68,7 +82,7 @@ export default function DropDownMenu() {
 		connectAccount();
 	};
 	const onClickLogout = () => {
-		userContext.setUserAccount('');
+		userContext.clearUserInfo();
 	};
 
 	return (
