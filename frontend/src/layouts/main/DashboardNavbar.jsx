@@ -1,12 +1,15 @@
+import { useContext } from 'react';
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Stack, Button, AppBar, Toolbar } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import UserContext from '../../context/UserContext';
 import logo from '../../image/logo.png';
 import DropdownMenu from './DropdownMenu';
 import DropdownCreate from './DropdownCreate';
 
 // 헤더 화면 (상단 메뉴바)
 function DashboardNavbar() {
+	const userContext = useContext(UserContext);
 	const APPBAR_MOBILE = 36;
 	const APPBAR_DESKTOP = 64;
 
@@ -40,7 +43,12 @@ function DashboardNavbar() {
 					</RouterLink>
 				</Box>
 				<Stack direction='row'>
-					<Button to='/' size='large' sx={{ fontSize: 17 }} component={RouterLink}>
+					<Button
+						to='/'
+						size='large'
+						sx={{ fontSize: 17, display: userContext.account ? 'none' : 'block' }}
+						component={RouterLink}
+					>
 						소개
 					</Button>
 					<Button

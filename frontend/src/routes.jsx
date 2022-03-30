@@ -1,8 +1,6 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 import MainLayout from './layouts/main';
 import NotFound from './pages/Page404';
-import ItemRegistration from './pages/ItemRegistration';
-import SaleRegistration from './pages/SaleRegistration';
 import Market from './pages/Market';
 import Intro from './pages/Intro';
 import MarketCommunity from './pages/MarketCommunity';
