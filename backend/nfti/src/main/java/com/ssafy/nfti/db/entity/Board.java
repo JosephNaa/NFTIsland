@@ -12,14 +12,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "board")
@@ -40,18 +41,6 @@ public class Board extends BaseEntity {
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private Set<Likes> likes = new HashSet<>();
 
-    private String userAddress;
-
-    @Builder
-    public Board(
-        Community community,
-        String userAddress,
-        String title,
-        String content
-    ) {
-        this.community = community;
-        this.userAddress = userAddress;
-        this.title = title;
-        this.content = content;
-    }
+    @ManyToOne
+    private User user;
 }

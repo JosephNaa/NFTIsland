@@ -9,13 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 @Builder
 @JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class CommunityRes {
+public class CommunityCreateRes {
     Long id;
     String hostAddress;
     String hostNickName;
@@ -24,16 +22,10 @@ public class CommunityRes {
     Boolean payable;
     String logoPath;
     LocalDateTime createdAt;
-    List<BoardListRes> boards;
 
-    public static CommunityRes of(Community community) {
+    public static CommunityCreateRes of(Community community) {
 
-        List<BoardListRes> boards = new ArrayList<>();
-        for (Board board : community.getBoards()) {
-            boards.add(BoardListRes.of(board));
-        }
-
-        return CommunityRes.builder()
+        return CommunityCreateRes.builder()
             .id(community.getId())
             .hostAddress(community.getUser().getAddress())
             .hostNickName(community.getUser().getNickname())
@@ -42,7 +34,6 @@ public class CommunityRes {
             .payable(community.getPayable())
             .logoPath(community.getLogoPath())
             .createdAt(community.getCreatedAt())
-            .boards(boards)
             .build();
     }
 }

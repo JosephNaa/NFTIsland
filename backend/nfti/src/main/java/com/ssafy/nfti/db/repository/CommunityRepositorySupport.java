@@ -35,4 +35,24 @@ public class CommunityRepositorySupport extends QuerydslRepositorySupport {
             .applyPagination(pageable, query)
             .fetch();
     }
+
+    public List<Community> findAllSortByMember(Pageable pageable) {
+        JPAQuery<Community> query = jpaQueryFactory
+            .selectFrom(community)
+            .orderBy(community.items.size().desc());
+
+        return Objects.requireNonNull(getQuerydsl())
+            .applyPagination(pageable, query)
+            .fetch();
+    }
+
+    public List<Community> findAllSortByBoard(Pageable pageable) {
+        JPAQuery<Community> query = jpaQueryFactory
+            .selectFrom(community)
+            .orderBy(community.boards.size().desc());
+
+        return Objects.requireNonNull(getQuerydsl())
+            .applyPagination(pageable, query)
+            .fetch();
+    }
 }

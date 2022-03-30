@@ -19,20 +19,20 @@ public class CommunityTest {
     @Autowired
     protected CommunityRepository communityRepository;
 
-    @BeforeEach
-    public void init() {
-        communityRepository.save(Community.builder()
-            .name("testName")
-            .description("testDesc")
-            .payable(false)
-            .logoPath("testLogoPath")
-            .hostAddress("testAddress")
-            .build());
-    }
-
-    @Test
-    void load() {
-        Community community = communityRepository.getById((long) 1);
-        assertThat(community.getName(), is("testName"));
-    }
+//    @BeforeEach
+//    public void init() {
+//        communityRepository.save(Community.builder()
+//            .name("testName")
+//            .description("testDesc")
+//            .payable(false)
+//            .logoPath("testLogoPath")
+//            .hostAddress("testAddress")
+//            .build());
+//    }
+//
+//    @Test
+//    void load() {
+//        Community community = communityRepository.getById((long) 1);
+//        assertThat(community.getName(), is("testName"));
+//    }
 }

@@ -1,14 +1,17 @@
 package com.ssafy.nfti.api.service;
 
 import com.ssafy.nfti.api.request.BoardReq;
+import com.ssafy.nfti.api.response.BoardCreateRes;
 import com.ssafy.nfti.api.response.BoardRes;
 import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
 import com.ssafy.nfti.common.exception.response.ApiException;
 import com.ssafy.nfti.db.entity.Board;
 import com.ssafy.nfti.db.entity.Community;
+import com.ssafy.nfti.db.entity.User;
 import com.ssafy.nfti.db.repository.BoardRepository;
 import com.ssafy.nfti.db.repository.BoardRepositorySupport;
 import com.ssafy.nfti.db.repository.CommunityRepository;
+import com.ssafy.nfti.db.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +32,12 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     CommunityRepository communityRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Override
     public List<BoardRes> list(Pageable pageable, Long id) {
-        List<Board> postList = boardRepositorySupport.findAllByPageSort(pageable);
+        List<Board> postList = boardRepositorySupport.findAllByPageSort(pageable, id);
         List<BoardRes> res = new ArrayList<>();
         for (Board board : postList) {
             res.add(BoardRes.of(board));
@@ -52,7 +58,7 @@ public class BoardServiceImpl implements BoardService {
         Board board = boardRepository.findById(id)
             .orElseThrow();
 
-        if (!board.getUserAddress().equals(req.getUserAddress())) {
+        if (!board.getUser().getAddress().equals(req.getUserAddress())) {
             throw new ApiException(ExceptionEnum.NOT_FOUND_USER);
         }
 
@@ -65,23 +71,34 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardRes save(BoardReq req) {
+    public BoardCreateRes save(BoardReq req) {
         Community community = communityRepository.findById(req.getCommunityId())
             .orElseThrow();
 
-        Board board = new Board(
-            community,
-            req.getUserAddress(),
-            req.getTitle(),
-            req.getContent()
-        );
+        User user = userRepository.findByAddress(req.getUserAddress())
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
+
+        Board board = Board.builder()
+            .title(req.getTitle())
+            .content(req.getContent())
+            .community(community)
+            .user(user)
+            .build();
+
         Board res = boardRepository.save(board);
-        return BoardRes.of(res);
+        return BoardCreateRes.of(res);
     }
 
     @Override
-    public void delete(Long id) {
-        boardRepository.deleteById(id);
+    public void delete(Long id, String userAddress) {
+        User user = userRepository.findByAddress(userAddress)
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
+
+        if (user.getAddress().equals(userAddress)) {
+            boardRepository.deleteById(id);
+        } else {
+            throw new ApiException(ExceptionEnum.NOT_FOUND_USER);
+        }
     }
 
 //    @Override

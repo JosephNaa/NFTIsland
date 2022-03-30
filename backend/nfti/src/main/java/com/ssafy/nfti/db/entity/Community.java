@@ -9,17 +9,19 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "community")
@@ -40,20 +42,7 @@ public class Community extends BaseEntity {
     @OneToMany(mappedBy = "community", cascade = CascadeType.ALL)
     private List<Board> boards = new ArrayList<>();
 
-    private String hostAddress;
+    @ManyToOne
+    private User user;
 
-    @Builder
-    public Community(
-        String name,
-        String description,
-        Boolean payable,
-        String logoPath,
-        String hostAddress
-    ) {
-        this.name = name;
-        this.description = description;
-        this.payable = payable;
-        this.logoPath = logoPath;
-        this.hostAddress = hostAddress;
-    }
 }
