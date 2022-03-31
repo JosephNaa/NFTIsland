@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import {
 	Container,
 	Stack,
@@ -10,15 +10,18 @@ import {
 	Switch,
 	FormControlLabel,
 } from '@mui/material';
+import axios from 'axios';
 import { styled } from '@mui/material/styles';
 import { Form, FormikProvider, useFormik } from 'formik';
 import * as Yup from 'yup';
 import Header from '../layouts/PageHeader';
 import Page from '../components/Page';
+import UserContext from '../context/UserContext';
 
 function CreateCommunity() {
+	const userContext = useContext(UserContext);
 	const imageSelect = useRef();
-	const [imgae, setImage] = useState('');
+	const [image, setImage] = useState('');
 	const [imageName, setImageName] = useState('');
 	const [communityName, setCommunityName] = useState('');
 	const [description, setDescription] = useState('');
@@ -36,10 +39,43 @@ function CreateCommunity() {
 			description: '',
 		},
 		validationSchema: typeSchema,
-		onSubmit: value => {
-			setCommunityName(value.communityName);
-			setDescription(value.description);
+		onSubmit: async value => {
 			// 여기서 백엔드호출해서 커뮤니티 만들기
+			const formData = new FormData();
+
+			formData.append('file', image);
+			// const variables = [
+			// 	{
+			// 		host_address: userContext.account,
+			// 		name: value.communityName,
+			// 		desc: value.description,
+			// 		payable,
+			// 	},
+			// ];
+
+			formData.append('req', {
+				host_address: userContext.account,
+				name: value.communityName,
+				desc: value.description,
+				payable,
+			});
+			// formData.append(
+			// 	'req',
+			// 	new Blob([JSON.stringify(variables)], { type: 'application/json' })
+			// );
+
+			axios
+				.post('https://j6d107.p.ssafy.io/api/v1/community', formData, {
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				})
+				.then(res => {
+					console.log('asdf', res);
+				})
+				.catch(err => {
+					console.dir(err);
+				});
 
 			// onClick={
 			// 	Object.keys(touched).length &&
@@ -60,10 +96,7 @@ function CreateCommunity() {
 
 	// 이미지 업로드 핸들링
 	const handleImage = value => {
-		console.log(value);
-		// S3에 이미지 보내고 URL받아오기
 		setImage(value);
-
 		if (value !== '') setImageName(value.name);
 		else setImageName('');
 	};
