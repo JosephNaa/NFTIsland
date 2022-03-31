@@ -1,5 +1,4 @@
 import { useContext, useState } from 'react';
-import axios from 'axios';
 import {
 	Box,
 	Avatar,
@@ -19,6 +18,7 @@ import {
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
+import { getUserAPI } from '../../api/auth';
 
 export default function DropDownMenu() {
 	const userContext = useContext(UserContext);
@@ -47,16 +47,7 @@ export default function DropDownMenu() {
 				});
 				// 메타마스크에 로그인이 되어있는 경우
 				if (userAccount[0]) {
-					const res = await axios({
-						method: 'post',
-						headers: {
-							'Content-Type': 'application/json',
-						},
-						url: 'https://j6d107.p.ssafy.io/api/v1/users/address',
-						data: {
-							address: userAccount[0],
-						},
-					});
+					const res = await getUserAPI(userAccount[0]);
 					userContext.setUserInfo(
 						res.data.address,
 						res.data.nickname,

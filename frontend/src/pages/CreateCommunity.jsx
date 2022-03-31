@@ -10,13 +10,13 @@ import {
 	Switch,
 	FormControlLabel,
 } from '@mui/material';
-import axios from 'axios';
 import { styled } from '@mui/material/styles';
 import { Form, FormikProvider, useFormik } from 'formik';
 import * as Yup from 'yup';
 import Header from '../layouts/PageHeader';
 import Page from '../components/Page';
 import UserContext from '../context/UserContext';
+import { createCommunityAPI } from '../api/community';
 
 function CreateCommunity() {
 	const userContext = useContext(UserContext);
@@ -39,7 +39,7 @@ function CreateCommunity() {
 			description: '',
 		},
 		validationSchema: typeSchema,
-		onSubmit: async value => {
+		onSubmit: value => {
 			// 여기서 백엔드호출해서 커뮤니티 만들기
 			const formData = new FormData();
 
@@ -48,38 +48,11 @@ function CreateCommunity() {
 			formData.append('name', value.communityName);
 			formData.append('description', value.description);
 			formData.append('payable', payable);
-			// const variables = [
-			// 	{
-			// 		host_address: userContext.account,
-			// 		name: value.communityName,
-			// 		desc: value.description,
-			// 		payable,
-			// 	},
-			// ];
 
-			// formData.append('req', {
-			// 	host_address: userContext.account,
-			// 	name: value.communityName,
-			// 	desc: value.description,
-			// 	payable,
-			// });
-			// formData.append(
-			// 	'req',
-			// 	new Blob([JSON.stringify(variables)], { type: 'application/json' })
-			// );
-
-			axios
-				.post('https://j6d107.p.ssafy.io/api/v1/community', formData, {
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				})
-				.then(res => {
-					console.log('asdf', res);
-				})
-				.catch(err => {
-					console.dir(err);
-				});
+			// 이미지없으면 막기
+			createCommunityAPI(formData).then(res => {
+				console.log('asdf', res);
+			});
 
 			// onClick={
 			// 	Object.keys(touched).length &&

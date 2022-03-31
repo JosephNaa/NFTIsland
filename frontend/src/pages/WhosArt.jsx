@@ -1,3 +1,4 @@
+// 스켈레톤 코드
 import * as Yup from 'yup';
 import { Box, Container, Stack, TextField, Typography } from '@mui/material';
 import { Form, FormikProvider, useFormik } from 'formik';
