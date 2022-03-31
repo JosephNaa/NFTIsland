@@ -1,3 +1,4 @@
+// 스켈레톤 코드
 import * as Yup from 'yup';
 import { motion } from 'framer-motion';
 import { LoadingButton } from '@mui/lab';

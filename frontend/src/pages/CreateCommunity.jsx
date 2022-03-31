@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import {
 	Container,
 	Stack,
@@ -15,10 +15,13 @@ import { Form, FormikProvider, useFormik } from 'formik';
 import * as Yup from 'yup';
 import Header from '../layouts/PageHeader';
 import Page from '../components/Page';
+import UserContext from '../context/UserContext';
+import { createCommunityAPI } from '../api/community';
 
 function CreateCommunity() {
+	const userContext = useContext(UserContext);
 	const imageSelect = useRef();
-	const [imgae, setImage] = useState('');
+	const [image, setImage] = useState('');
 	const [imageName, setImageName] = useState('');
 	const [communityName, setCommunityName] = useState('');
 	const [description, setDescription] = useState('');
@@ -37,9 +40,19 @@ function CreateCommunity() {
 		},
 		validationSchema: typeSchema,
 		onSubmit: value => {
-			setCommunityName(value.communityName);
-			setDescription(value.description);
 			// 여기서 백엔드호출해서 커뮤니티 만들기
+			const formData = new FormData();
+
+			formData.append('file', image);
+			formData.append('host_address', userContext.account);
+			formData.append('name', value.communityName);
+			formData.append('description', value.description);
+			formData.append('payable', payable);
+
+			// 이미지없으면 막기
+			createCommunityAPI(formData).then(res => {
+				console.log('asdf', res);
+			});
 
 			// onClick={
 			// 	Object.keys(touched).length &&
@@ -60,10 +73,7 @@ function CreateCommunity() {
 
 	// 이미지 업로드 핸들링
 	const handleImage = value => {
-		console.log(value);
-		// S3에 이미지 보내고 URL받아오기
 		setImage(value);
-
 		if (value !== '') setImageName(value.name);
 		else setImageName('');
 	};

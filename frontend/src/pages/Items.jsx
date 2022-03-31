@@ -1,3 +1,4 @@
+// 스켈레톤 코드
 import { Box, Container, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
