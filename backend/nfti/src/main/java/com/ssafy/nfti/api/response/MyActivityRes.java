@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.ssafy.nfti.db.entity.Board;
 import com.ssafy.nfti.db.entity.Comment;
+import com.ssafy.nfti.db.entity.Community;
 import com.ssafy.nfti.db.entity.Likes;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,8 +15,10 @@ import lombok.Data;
 @Data
 @Builder
 @JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class BoardListRes {
+public class MyActivityRes {
     Long id;
+    Long communityId;
+    String communityName;
     String userAddress;
     String nickName;
     String title;
@@ -25,23 +28,30 @@ public class BoardListRes {
     Integer commentCount;
     Integer likesCount;
 
-    public static BoardListRes of(Board board) {
+    public static MyActivityRes of(Board board) {
 
-        int count = 0;
-        for (Likes ignored : board.getLikes()) {
-            count += 1;
+        int commentCounts = 0;
+        for (Comment ignored : board.getComments()) {
+            commentCounts += 1;
         }
 
-        return BoardListRes.builder()
+        int likesCounts = 0;
+        for (Likes ignored : board.getLikes()) {
+            likesCounts += 1;
+        }
+
+        return MyActivityRes.builder()
             .id(board.getId())
+            .communityId(board.getCommunity().getId())
+            .communityName(board.getCommunity().getName())
             .userAddress(board.getUser().getAddress())
             .nickName(board.getUser().getNickname())
             .title(board.getTitle())
             .content(board.getContent())
             .createdAt(board.getCreatedAt())
             .updatedAt(board.getUpdatedAt())
-            .commentCount(board.getComments().size())
-            .likesCount(count)
+            .commentCount(commentCounts)
+            .likesCount(likesCounts)
             .build();
     }
 }

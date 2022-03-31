@@ -5,6 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.nfti.db.entity.Board;
 import com.ssafy.nfti.db.entity.QBoard;
 import com.ssafy.nfti.db.entity.QCommunity;
+import com.ssafy.nfti.db.entity.QUser;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.EntityManager;
@@ -24,11 +25,22 @@ public class BoardRepositorySupport extends QuerydslRepositorySupport {
 
     QCommunity community = QCommunity.community;
     QBoard board = QBoard.board;
+    QUser user = QUser.user;
 
     public List<Board> findAllByPageSort(Pageable pageable, Long id) {
         JPAQuery<Board> query = jpaQueryFactory
             .selectFrom(board)
             .where(community.id.eq(id));
+
+        return Objects.requireNonNull(getQuerydsl())
+            .applyPagination(pageable, query)
+            .fetch();
+    }
+
+    public List<Board> findAllByPageSortAndUser(Pageable pageable, String address) {
+        JPAQuery<Board> query = jpaQueryFactory
+            .selectFrom(board)
+            .where(user.address.eq(address));
 
         return Objects.requireNonNull(getQuerydsl())
             .applyPagination(pageable, query)
