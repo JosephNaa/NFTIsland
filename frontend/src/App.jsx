@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import { useEffect, useMemo, useState } from 'react';
-import axios from 'axios';
 import Router from './routes';
 import ThemeConfig from './theme';
 import GlobalStyles from './theme/globalStyles';
 import UserContext from './context/UserContext';
+import { getUserAPI } from './api/auth';
 
 export default function App() {
 	const [account, setAccount] = useState('');
@@ -19,16 +19,7 @@ export default function App() {
 			});
 			// 메타마스크에 로그인이 되어있는 경우
 			if (userAccount[0]) {
-				const res = await axios({
-					method: 'post',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					url: 'https://j6d107.p.ssafy.io/api/v1/users/address',
-					data: {
-						address: userAccount[0],
-					},
-				});
+				const res = await getUserAPI(userAccount[0]);
 				userContext.setUserInfo(
 					res.data.address,
 					res.data.nickname,

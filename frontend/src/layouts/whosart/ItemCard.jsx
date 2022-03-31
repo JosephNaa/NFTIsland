@@ -1,3 +1,4 @@
+// 스켈레톤 코드
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
