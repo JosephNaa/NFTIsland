@@ -48,7 +48,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public BoardRes getOne(Long id) {
         Board board = boardRepository.findById(id)
-            .orElseThrow();
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_BOARD));
 
         return BoardRes.of(board);
     }
@@ -56,10 +56,10 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public BoardRes updateBoard(Long id, BoardReq req) {
         Board board = boardRepository.findById(id)
-            .orElseThrow();
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_BOARD));
 
         if (!board.getUser().getAddress().equals(req.getUserAddress())) {
-            throw new ApiException(ExceptionEnum.NOT_FOUND_USER);
+            throw new ApiException(ExceptionEnum.CONFLICT_USER);
         }
 
         board.setTitle(req.getTitle());
@@ -73,20 +73,25 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public BoardCreateRes save(BoardReq req) {
         Community community = communityRepository.findById(req.getCommunityId())
-            .orElseThrow();
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY));
 
         User user = userRepository.findByAddress(req.getUserAddress())
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
 
-        Board board = Board.builder()
-            .title(req.getTitle())
-            .content(req.getContent())
-            .community(community)
-            .user(user)
-            .build();
+        try {
+            Board board = Board.builder()
+                .title(req.getTitle())
+                .content(req.getContent())
+                .community(community)
+                .user(user)
+                .build();
 
-        Board res = boardRepository.save(board);
-        return BoardCreateRes.of(res);
+            Board res = boardRepository.save(board);
+            return BoardCreateRes.of(res);
+        } catch (Exception e) {
+            throw new ApiException(ExceptionEnum.BAD_REQUEST_BOARD);
+        }
+
     }
 
     @Override
@@ -97,14 +102,8 @@ public class BoardServiceImpl implements BoardService {
         if (user.getAddress().equals(userAddress)) {
             boardRepository.deleteById(id);
         } else {
-            throw new ApiException(ExceptionEnum.NOT_FOUND_USER);
+            throw new ApiException(ExceptionEnum.CONFLICT_USER);
         }
     }
-
-//    @Override
-//    public List<Map<String, Object>> findWithComment(Long boardId) {
-//        return boardRepository.findWithComment(boardId);
-//    }
-
 
 }

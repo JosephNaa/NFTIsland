@@ -31,26 +31,31 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public CommentRes addComment(CommentReq req) {
         Board board = boardRepository.findById(req.getBoardId())
-            .orElseThrow();
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_BOARD));
 
         User user = userRepository.findByAddress(req.getUserAddress())
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
 
-        Comment comment = Comment.builder()
-            .content(req.getContent())
-            .board(board)
-            .user(user)
-            .build();
+        try {
+            Comment comment = Comment.builder()
+                .content(req.getContent())
+                .board(board)
+                .user(user)
+                .build();
 
-        Comment res = commentRepository.save(comment);
+            Comment res = commentRepository.save(comment);
 
-        return CommentRes.of(res);
+            return CommentRes.of(res);
+        } catch (Exception e) {
+            throw new ApiException(ExceptionEnum.BAD_REQUEST_COMMENT);
+        }
+
     }
 
     @Override
     public CommentRes selectComment(Long id) {
         Comment comment = commentRepository.findById(id)
-            .orElseThrow();
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMENT));
 
         return CommentRes.of(comment);
     }
@@ -58,17 +63,22 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public CommentRes updateComment(Long id, CommentReq req) {
         Comment comment = commentRepository.findById(id)
-            .orElseThrow();
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMENT));
 
         if (!comment.getUser().getAddress().equals(req.getUserAddress())) {
-            throw new ApiException(ExceptionEnum.NOT_FOUND_USER);
+            throw new ApiException(ExceptionEnum.CONFLICT_USER);
         }
 
-        comment.setContent(req.getContent());
+        try {
+            comment.setContent(req.getContent());
 
-        Comment res = commentRepository.save(comment);
+            Comment res = commentRepository.save(comment);
 
-        return CommentRes.of(res);
+            return CommentRes.of(res);
+        } catch (Exception e) {
+            throw new ApiException(ExceptionEnum.BAD_REQUEST_COMMENT);
+        }
+
     }
 
     @Override
@@ -78,11 +88,11 @@ public class CommentServiceImpl implements CommentService{
 
         if (user.getAddress().equals(address)) {
             Comment comment = commentRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMENT));
 
             commentRepository.delete(comment);
         } else {
-            throw new ApiException(ExceptionEnum.NOT_FOUND_USER);
+            throw new ApiException(ExceptionEnum.CONFLICT_USER);
         }
 
     }
