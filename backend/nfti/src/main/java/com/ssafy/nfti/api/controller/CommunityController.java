@@ -44,8 +44,6 @@ public class CommunityController {
     @PostMapping(consumes = {"multipart/form-data"})
     @Transactional
     public ResponseEntity<CommunityCreateRes> createCommunity(
-//        @RequestPart(value = "file") MultipartFile file,
-//        @RequestPart(value = "req") CommunityReq req
         @ModelAttribute CommunityReq req
     ) {
         log.info("file: " + req.getFile());
