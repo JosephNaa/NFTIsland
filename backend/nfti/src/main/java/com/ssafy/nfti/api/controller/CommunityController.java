@@ -41,10 +41,13 @@ public class CommunityController {
     @PostMapping
     @Transactional
     public ResponseEntity<CommunityCreateRes> createCommunity(
-        @RequestPart(value = "file") MultipartFile file,
+        @RequestPart(value = "file", required = false) MultipartFile file,
         @RequestPart(value = "req") CommunityReq req
     ) {
-        String url = awss3Service.uploadFile(file);
+        String url = null;
+        if (file != null) {
+            url = awss3Service.uploadFile(file);
+        }
 
         CommunityCreateRes res = communityService.createCommunity(req, url);
         return ResponseEntity.ok(res);
