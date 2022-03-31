@@ -14,6 +14,4 @@ public interface BoardService {
     BoardRes getOne(Long id);
     BoardRes updateBoard(Long id, BoardReq req);
     void delete(Long id, String userAddress);
-
-//    List<Map<String, Object>> findWithComment(Long boardId);
 }

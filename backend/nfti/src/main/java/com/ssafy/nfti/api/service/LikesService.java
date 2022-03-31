@@ -1,8 +1,9 @@
 package com.ssafy.nfti.api.service;
 
 import com.ssafy.nfti.api.request.LikesReq;
+import com.ssafy.nfti.common.model.response.BaseResponseBody;
 
 public interface LikesService {
-    String addLike(LikesReq req);
-    String delLike(LikesReq req);
+    BaseResponseBody addLike(LikesReq req);
+    BaseResponseBody delLike(LikesReq req);
 }

@@ -40,33 +40,36 @@ public class CommunityServiceImpl implements CommunityService {
         User user =  userRepository.findByAddress(req.getHostAddress())
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
 
-        Community community = Community.builder()
-            .name(req.getName())
-            .description(req.getDescription())
-            .payable(req.getPayable())
-            .logoPath(url)
-            .user(user)
-            .build();
+        try {
+            Community community = Community.builder()
+                .name(req.getName())
+                .description(req.getDescription())
+                .payable(req.getPayable())
+                .logoPath(url)
+                .user(user)
+                .build();
 
+            Community res = communityRepository.save(community);
+            return CommunityCreateRes.of(res);
 
-        Community res = communityRepository.save(community);
+        } catch (Exception e) {
+            throw new ApiException(ExceptionEnum.BAD_REQUEST_COMMUNITY);
+        }
 
-        return CommunityCreateRes.of(res);
     }
 
     @Override
     public CommunityRes getOne(Long id) {
         Community res = communityRepository.findById(id)
-            .orElseThrow();
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY));
         return CommunityRes.of(res);
     }
 
     @Override
     public List<CommunityListRes> getList(Pageable pageable) {
         List<Community> list = communityRepositorySupport.findAllPageSort(pageable);
-//        Page<Community> list = communityRepository.findByCreatedAtDesc(pageable);
-        List<CommunityListRes> res = new ArrayList<>();
 
+        List<CommunityListRes> res = new ArrayList<>();
         for (Community c : list) {
             res.add(CommunityListRes.of(c));
         }
@@ -77,8 +80,8 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public List<CommunityListRes> getListSortByMember(Pageable pageable) {
         List<Community> list = communityRepositorySupport.findAllSortByMember(pageable);
-        List<CommunityListRes> res = new ArrayList<>();
 
+        List<CommunityListRes> res = new ArrayList<>();
         for (Community c : list) {
             res.add(CommunityListRes.of(c));
         }
@@ -89,8 +92,8 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public List<CommunityListRes> getListSortByBoard(Pageable pageable) {
         List<Community> list = communityRepositorySupport.findAllSortByBoard(pageable);
-        List<CommunityListRes> res = new ArrayList<>();
 
+        List<CommunityListRes> res = new ArrayList<>();
         for (Community c : list) {
             res.add(CommunityListRes.of(c));
         }
@@ -101,29 +104,33 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public CommunityRes updateCommunity(Long id, CommunityReq req) {
         Community community = communityRepository.findById(id)
-            .orElseThrow();
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY));
 
         User user = userRepository.findByAddress(req.getHostAddress())
-            .orElseThrow();
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
 
-        community.setName(req.getName());
-        community.setUser(user);
-        community.setDescription(req.getDescription());
+        try {
+            community.setName(req.getName());
+            community.setUser(user);
+            community.setDescription(req.getDescription());
 
-        Community res = communityRepository.save(community);
+            Community res = communityRepository.save(community);
 
-        return CommunityRes.of(res);
+            return CommunityRes.of(res);
+        } catch (Exception e) {
+            throw new ApiException(ExceptionEnum.BAD_REQUEST_USER);
+        }
     }
 
     @Override
     public void deleteCommunity(Long id, String hostId) {
         Community community = communityRepository.findById(id)
-            .orElseThrow();
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY));
 
         if (community.getUser().getAddress().equals(hostId)) {
             communityRepository.delete(community);
         } else {
-            throw new ApiException(ExceptionEnum.NOT_FOUND_USER);
+            throw new ApiException(ExceptionEnum.CONFLICT_USER);
         }
     }
 }
