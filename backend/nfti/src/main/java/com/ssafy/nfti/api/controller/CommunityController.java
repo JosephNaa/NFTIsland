@@ -9,6 +9,7 @@ import com.ssafy.nfti.api.service.CommunityService;
 import com.ssafy.nfti.common.model.response.BaseResponseBody;
 import com.ssafy.nfti.db.entity.Community;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+@Slf4j
 @RestController
 @RequestMapping("/v1/community")
 public class CommunityController {
@@ -38,13 +41,16 @@ public class CommunityController {
     AWSS3Service awss3Service;
 
     // 생성
-    @PostMapping
+    @PostMapping(consumes = {"multipart/form-data"})
     @Transactional
     public ResponseEntity<CommunityCreateRes> createCommunity(
-        @RequestPart(value = "file") MultipartFile file,
-        @RequestPart(value = "req") CommunityReq req
+//        @RequestPart(value = "file") MultipartFile file,
+//        @RequestPart(value = "req") CommunityReq req
+        @ModelAttribute CommunityReq req
     ) {
-        String url = awss3Service.uploadFile(file);
+        log.info("file: " + req.getFile());
+        log.info("user address: " + req.getHostAddress());
+        String url = awss3Service.uploadFile(req.getFile());
 
         CommunityCreateRes res = communityService.createCommunity(req, url);
         return ResponseEntity.ok(res);

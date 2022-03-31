@@ -44,6 +44,10 @@ function CreateCommunity() {
 			const formData = new FormData();
 
 			formData.append('file', image);
+			formData.append('host_address', userContext.account);
+			formData.append('name', value.communityName);
+			formData.append('description', value.description);
+			formData.append('payable', payable);
 			// const variables = [
 			// 	{
 			// 		host_address: userContext.account,
@@ -53,12 +57,12 @@ function CreateCommunity() {
 			// 	},
 			// ];
 
-			formData.append('req', {
-				host_address: userContext.account,
-				name: value.communityName,
-				desc: value.description,
-				payable,
-			});
+			// formData.append('req', {
+			// 	host_address: userContext.account,
+			// 	name: value.communityName,
+			// 	desc: value.description,
+			// 	payable,
+			// });
 			// formData.append(
 			// 	'req',
 			// 	new Blob([JSON.stringify(variables)], { type: 'application/json' })
