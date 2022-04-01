@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
 	Avatar,
@@ -14,6 +14,12 @@ import {
 	FormControl,
 	Select,
 	MenuItem,
+	Dialog,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+	Button,
+	TextField,
 } from '@mui/material';
 
 import {
@@ -71,12 +77,12 @@ function UserPage() {
 	const navigate = useNavigate();
 
 	const onClickImgModify = () => {
-		navigate('/userpage');
+		setImgOpen(true);
 		console.log('이미지 수정버튼 클릭');
 	};
 
 	const onClickNameModify = () => {
-		navigate('/userpage');
+		setNameOpen(true);
 		console.log('닉네임 수정버튼 클릭');
 	};
 
@@ -90,6 +96,45 @@ function UserPage() {
 
 	const handleActivityChange = event => {
 		setActivity(event.target.value);
+	};
+	// 다이얼로그
+	const [imgOpen, setImgOpen] = useState(false);
+	const [nameOpen, setNameOpen] = useState(false);
+	const [name, setName] = useState('');
+
+	const handleClose = () => {
+		setImgOpen(false);
+		setNameOpen(false);
+	};
+
+	const handleImgModify = () => {
+		// 이미지 변경 PUT API
+		setImgOpen(false);
+	};
+	const imageSelect = useRef();
+	const [image, setImage] = useState('');
+	const [imageName, setImageName] = useState('');
+
+	// 찾기 버튼 클릭 핸들링
+	const handleImageClick = () => {
+		imageSelect.current.click();
+	};
+
+	// 이미지 업로드 핸들링
+	const handleImage = value => {
+		setImage(value);
+		if (value !== '') setImageName(value.name);
+		else setImageName('');
+	};
+
+	const handleNameChange = event => {
+		setName(event.target.value);
+	};
+
+	const handleNameModify = () => {
+		// 닉네임 변경 PUT API
+		console.log(name);
+		setNameOpen(false);
 	};
 
 	return (
@@ -107,6 +152,65 @@ function UserPage() {
 						<Box pt='110px'>
 							<EditIcon sx={{ width: 15, height: 15 }} onClick={onClickImgModify} />
 						</Box>
+						<Dialog open={imgOpen} onClose={handleClose}>
+							<DialogTitle id='alert-dialog-title'>
+								<Typography fontSize='14px' textalign='center'>
+									<b>프로필 이미지 변경</b>
+								</Typography>
+							</DialogTitle>
+							<DialogContent>
+								<Stack direction='row' alignItems='center'>
+									<input
+										type='file'
+										accept='image/png, image/jpeg, image/jpg, image/gif'
+										ref={imageSelect}
+										onChange={e =>
+											e.target.files.length !== 0
+												? handleImage(e.target.files[0])
+												: handleImage('')
+										}
+										style={{ display: 'none' }}
+									/>
+									<TextField
+										sx={{ width: '100%' }}
+										type='text'
+										label='업로드 확장자 형식: png, jpeg, jpg, gif'
+										value={imageName}
+										disabled
+										fontSize='10px'
+									/>
+									<Button
+										sx={{
+											ml: 3,
+											fontSize: 16,
+											height: '56px',
+											width: '15%',
+											padding: '8px 0',
+										}}
+										variant='contained'
+										size='large'
+										onClick={handleImageClick}
+									>
+										Upload
+									</Button>
+								</Stack>
+								<Stack
+									direction='row'
+									pl='20px'
+									pr='20px'
+									justifyContent='center'
+									mt='10px'
+									spacing={1}
+								>
+									<Button size='small' variant='contained' onClick={handleImgModify}>
+										Modify
+									</Button>
+									<Button size='small' variant='outlined' onClick={handleClose}>
+										Cancel
+									</Button>
+								</Stack>
+							</DialogContent>
+						</Dialog>
 					</Stack>
 				</Box>
 				<Box display='flex' alignItems='center' justifyContent='center'>
@@ -119,6 +223,36 @@ function UserPage() {
 							<EditIcon sx={{ width: 15, height: 15 }} onClick={onClickNameModify} />
 						</Box>
 					</Stack>
+					<Dialog open={nameOpen} onClose={handleClose}>
+						<DialogTitle id='alert-dialog-title'>
+							<Typography fontSize='14px' textalign='center'>
+								<b>닉네임 변경</b>
+							</Typography>
+						</DialogTitle>
+						<DialogContent>
+							<TextField
+								sx={{ width: '100%' }}
+								type='text'
+								onChange={handleNameChange}
+								fontSize='10px'
+							/>
+							<Stack
+								direction='row'
+								pl='20px'
+								pr='20px'
+								justifyContent='center'
+								mt='10px'
+								spacing={1}
+							>
+								<Button size='small' variant='contained' onClick={handleNameModify}>
+									Modify
+								</Button>
+								<Button size='small' variant='outlined' onClick={handleClose}>
+									Cancel
+								</Button>
+							</Stack>
+						</DialogContent>
+					</Dialog>
 				</Box>
 				<Typography mb='10px' align='center'>
 					<Chip label='0x394...3923' variant='outlined' onClick={() => {}} />
