@@ -44,6 +44,7 @@ public class ItemsServiceImpl implements ItemsService {
             item.setItemDescription(req.getItemDescription());
             item.setItemTitle(req.getItemTitle());
             item.setItemUrl(req.getItemUrl());
+            item.setOnSaleYn(false);
 
             items.add(item);
         }

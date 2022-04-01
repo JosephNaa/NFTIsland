@@ -1,14 +1,17 @@
 package com.ssafy.nfti.api.controller;
 
 import com.ssafy.nfti.api.request.ItemsReq;
+import com.ssafy.nfti.api.response.ItemListRes;
 import com.ssafy.nfti.api.response.ItemsCreateRes;
 import com.ssafy.nfti.api.service.AWSS3Service;
 import com.ssafy.nfti.api.service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,4 +41,11 @@ public class ItemsController {
 
         return ResponseEntity.ok(res);
     }
+
+//    @GetMapping()
+//    public ResponseEntity<ItemListRes> getItems(
+//        @RequestParam String address
+//    ) {
+//        return null;
+//    }
 }
