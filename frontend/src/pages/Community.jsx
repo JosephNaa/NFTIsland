@@ -1,15 +1,13 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { useContext, useState, useEffect } from 'react';
 import {
 	Box,
-	Card,
-	CardContent,
-	CardMedia,
-	Chip,
+	Button,
 	Container,
 	Divider,
 	Grid,
 	IconButton,
 	InputBase,
-	Link,
 	Paper,
 	Stack,
 	Typography,
@@ -17,8 +15,22 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import Page from '../components/Page';
 import CommunityCard from '../layouts/market/CommunityCard';
+import { getCommunityListAPI } from '../api/community';
 
 function Community() {
+	const [communityList, setCommunityList] = useState([]);
+	const [filterOption, setFilterOption] = useState('newest');
+
+	const getCommunityList = async key => {
+		const { data } = await getCommunityListAPI(1, 10, key);
+		setCommunityList(_prev => data);
+		setFilterOption(_prev => key);
+	};
+
+	useEffect(() => {
+		getCommunityList('newest');
+	}, []);
+
 	return (
 		<Page title='Community' maxWidth='100%' minHeight='100%' display='flex'>
 			<Container>
@@ -50,36 +62,55 @@ function Community() {
 						direction='row'
 						spacing={1}
 					>
-						<Link href='#1'>가나다순</Link>
+						<Button onClick={() => getCommunityList('newest')}>
+							<Typography
+								sx={
+									filterOption === 'newest'
+										? { fontWeight: 'bold' }
+										: { fontWeight: 'regular' }
+								}
+							>
+								최신순
+							</Typography>
+						</Button>
 						<Divider sx={{ height: 18 }} orientation='vertical' />
-						<Link href='#2'>최신순</Link>
+						<Button onClick={() => getCommunityList('member')}>
+							<Typography
+								sx={
+									filterOption === 'member'
+										? { fontWeight: 'bold' }
+										: { fontWeight: 'regular' }
+								}
+							>
+								회원 많은순
+							</Typography>
+						</Button>
 						<Divider sx={{ height: 18 }} orientation='vertical' />
-						<Link href='#3'>회원 많은순</Link>
-						<Divider sx={{ height: 18 }} orientation='vertical' />
-						<Link href='#4'>게시글 많은순</Link>
+						<Button onClick={() => getCommunityList('board')}>
+							<Typography
+								sx={
+									filterOption === 'board'
+										? { fontWeight: 'bold' }
+										: { fontWeight: 'regular' }
+								}
+							>
+								게시글 많은순
+							</Typography>
+						</Button>
 					</Stack>
 					<Grid container spacing={4}>
-						<Grid item xs={12} sm={6} md={4} lg={3}>
-							<CommunityCard onClickURL='/community/a' />
-						</Grid>
-						<Grid item xs={12} sm={6} md={4} lg={3}>
-							<CommunityCard onClickURL='/community/a' />
-						</Grid>
-						<Grid item xs={12} sm={6} md={4} lg={3}>
-							<CommunityCard onClickURL='/community/a' />
-						</Grid>
-						<Grid item xs={12} sm={6} md={4} lg={3}>
-							<CommunityCard onClickURL='/community/a' />
-						</Grid>
-						<Grid item xs={12} sm={6} md={4} lg={3}>
-							<CommunityCard onClickURL='/community/a' />
-						</Grid>
-						<Grid item xs={12} sm={6} md={4} lg={3}>
-							<CommunityCard onClickURL='/community/a' />
-						</Grid>
-						<Grid item xs={12} sm={6} md={4} lg={3}>
-							<CommunityCard onClickURL='/community/a' />
-						</Grid>
+						{communityList.map(item => (
+							<Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
+								<CommunityCard
+									onClickURL={`/community/${item.id}`}
+									communityName={item.name}
+									communityDescription={item.description}
+									communityHost={item.host_nick_name}
+									communityLogo={item.logo_path}
+									hostProfile={item.host_profile}
+								/>
+							</Grid>
+						))}
 					</Grid>
 				</Stack>
 			</Container>
