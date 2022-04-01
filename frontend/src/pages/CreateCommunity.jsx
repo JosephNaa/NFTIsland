@@ -1,18 +1,17 @@
+/* eslint-disable consistent-return */
 import { useState, useRef, useContext } from 'react';
 import {
 	Container,
 	Stack,
-	Box,
 	Typography,
 	TextField,
 	Divider,
 	Button,
 	Switch,
-	FormControlLabel,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { Form, FormikProvider, useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 import Header from '../layouts/PageHeader';
 import Page from '../components/Page';
 import UserContext from '../context/UserContext';
@@ -21,10 +20,11 @@ import { createCommunityAPI } from '../api/community';
 function CreateCommunity() {
 	const userContext = useContext(UserContext);
 	const imageSelect = useRef();
+	const navigate = useNavigate();
 	const [image, setImage] = useState('');
 	const [imageName, setImageName] = useState('');
-	const [communityName, setCommunityName] = useState('');
-	const [description, setDescription] = useState('');
+	// const [communityName, setCommunityName] = useState('');
+	// const [description, setDescription] = useState('');
 	const [payable, setPayable] = useState(true);
 
 	// 타이핑 헬퍼
@@ -40,6 +40,10 @@ function CreateCommunity() {
 		},
 		validationSchema: typeSchema,
 		onSubmit: value => {
+			// 이미지없으면 submit 막기
+			if (!imageName) {
+				return alert('이미지를 올려주세요.');
+			}
 			// 여기서 백엔드호출해서 커뮤니티 만들기
 			const formData = new FormData();
 
@@ -49,18 +53,11 @@ function CreateCommunity() {
 			formData.append('description', value.description);
 			formData.append('payable', payable);
 
-			// 이미지없으면 막기
 			createCommunityAPI(formData).then(res => {
-				console.log('asdf', res);
+				console.log(res);
+				if (res.status !== 200) return;
+				navigate(`/community/${res.data.id}`);
 			});
-
-			// onClick={
-			// 	Object.keys(touched).length &&
-			// 	!Object.keys(errors).length &&
-			// 	item.length !== 0
-			// 		? toggleApprove
-			// 		: null
-			// }
 		},
 	});
 
