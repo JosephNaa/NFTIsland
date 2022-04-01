@@ -2,16 +2,17 @@ const SsafyToken = artifacts.require("SsafyToken");
 const NFTIslandBadge = artifacts.require("NFTIslandBadge");
 const SaleFactory = artifacts.require("SaleFactory");
 const Sale = artifacts.require("Sale");
-let ssafyTokenContract, saleFactoryContract, nftContract, saleContract;
+let ssafyTokenContract, saleFactoryContract, nftContract;
+// let saleContract;
 let itemId = 0;
 
 contract("Sale Contract Testing", (accounts) => {
-  const contractOwner = accounts[0];
-  const seller = accounts[1];
-  const purchaser = accounts[2];
+  const contractOwner = accounts[3];
+  const seller = accounts[4];
+  const purchaser = accounts[5];
 
   const uri = "testURI";
-  const price = 1;
+  const price = 100;
   const initPurchaserBalance = 100;
 
   async function printBalance() {
@@ -25,19 +26,19 @@ contract("Sale Contract Testing", (accounts) => {
   }
 
   async function createSale() {
-    ssafyTokenContract = await SsafyToken.new("SsafyToken", "SSF", 18, {
-      from: contractOwner,
-    });
+    // ssafyTokenContract = await SsafyToken.new("SsafyToken", "SSF", 18, {
+    //   from: contractOwner,
+    // });
 
-    await ssafyTokenContract.mint(10000, { from: contractOwner });
-    await ssafyTokenContract.forceToTransfer(
-      contractOwner,
-      purchaser,
-      initPurchaserBalance,
-      {
-        from: contractOwner,
-      }
-    );
+    // await ssafyTokenContract.mint(10000, { from: contractOwner });
+    // await ssafyTokenContract.forceToTransfer(
+    //   contractOwner,
+    //   purchaser,
+    //   initPurchaserBalance,
+    //   {
+    //     from: contractOwner,
+    //   }
+    // );
 
     nftContract = await NFTIslandBadge.new(
       "Non Fungible Token For NFTIsland",
@@ -56,7 +57,7 @@ contract("Sale Contract Testing", (accounts) => {
     await saleFactoryContract.createSale(
       itemId,
       price,
-      ssafyTokenContract.address,
+      // ssafyTokenContract.address,
       nftContract.address,
       {
         from: seller,
@@ -82,31 +83,31 @@ contract("Sale Contract Testing", (accounts) => {
       "itemId in SaleInfo is not correct"
     );
 
-    assert.equal(
-      nftContract.address,
-      saleInfo["3"],
-      "nft-address in SaleInfo is not correct"
-    );
+    // assert.equal(
+    //   nftContract.address,
+    //   saleInfo["3"],
+    //   "nft-address in SaleInfo is not correct"
+    // );
   });
 
   it("Purchase", async () => {
     await createSale();
 
-    await ssafyTokenContract.approve(saleContract.address, 100000, {
-      from: purchaser,
-    });
+    // await ssafyTokenContract.approve(saleContract.address, 100000, {
+    //   from: purchaser,
+    // });
 
-    await saleContract.purchase({ from: purchaser });
+    await saleContract.purchase({ from: purchaser, value: price });
 
     var owner = await nftContract.ownerOf.call(itemId);
-    var purchaserBalance = await ssafyTokenContract.balanceOf.call(purchaser);
+    // var purchaserBalance = await ssafyTokenContract.balanceOf.call(purchaser);
 
     assert.equal(purchaser, owner, "Not Owned By Purchaser");
-    assert.equal(
-      initPurchaserBalance - price,
-      purchaserBalance,
-      "Transfer Failed"
-    );
+    // assert.equal(
+    //   initPurchaserBalance - price,
+    //   purchaserBalance,
+    //   "Transfer Failed"
+    // );
   });
 
   it("Cancel", async () => {

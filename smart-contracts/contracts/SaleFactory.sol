@@ -28,14 +28,13 @@ contract SaleFactory is Ownable {
     function createSale(
         uint256 itemId,
         uint256 purchasePrice,
-        address currencyAddress,
         address nftAddress
     ) public returns (address) {
         address seller = msg.sender;
         require(erc721Contract.ownerOf(itemId) == seller, "SaleFactory: seller is not owner of this item");
         require(erc721Contract.isPublic(itemId), "SaleFactory: this token can't be sold");
         
-        Sale sale = new Sale(admin, seller, itemId, purchasePrice, currencyAddress, nftAddress);
+        Sale sale = new Sale(admin, seller, itemId, purchasePrice, nftAddress);
         sales.push(address(sale));
         return address(sale);
     }
@@ -55,11 +54,9 @@ contract Sale {
     address admin;
     uint256 public purchasePrice;
     uint256 public tokenId;
-    address public currencyAddress;
     address public nftAddress;
     bool public ended;
 
-    IERC20 public erc20Contract;
     NFTIslandBadge public erc721Contract;
 
     event SaleEnded(address winner, uint256 amount);
@@ -69,27 +66,23 @@ contract Sale {
         address _seller,
         uint256 _tokenId,
         uint256 _purchasePrice,
-        address _currencyAddress,
         address _nftAddress
     ) {
         tokenId = _tokenId;
         purchasePrice = _purchasePrice;
         seller = _seller;
         admin = _admin;
-        currencyAddress = _currencyAddress;
         nftAddress = _nftAddress;
         ended = false;
-        erc20Contract = IERC20(_currencyAddress);
         erc721Contract = NFTIslandBadge(_nftAddress);
     }
 
-    function purchase() public {   
+    function purchase() public payable {   
         require(!ended, "Sale: This Sale is ended");
         require(msg.sender != seller, "Sale: Purchase caller is seller");
-        require(purchasePrice <= erc20Contract.allowance(msg.sender, address(this)), "Sale: Purchase caller is not approved in ERC20");
-        require(purchasePrice <= _getCurrencyAmount(), "Sale: buyer's currency amount is not enough to buy this nft");
+        require(msg.value >= purchasePrice, "Sale: buyer sent lower than purchase-price");
 
-        erc20Contract.transferFrom(msg.sender, seller, purchasePrice);
+        payable(seller).transfer(msg.value);
         erc721Contract.transferFrom(address(this), msg.sender, tokenId);
 
         buyer = msg.sender;
@@ -112,14 +105,12 @@ contract Sale {
         returns (
             uint256,
             uint256,
-            address,
             address
         )
     {
         return (
             purchasePrice,
             tokenId,
-            currencyAddress,
             nftAddress
         );
     }
@@ -127,10 +118,6 @@ contract Sale {
     // internal 혹은 private 함수 선언시 아래와 같이 _로 시작하도록 네이밍합니다.
     function _end() internal {
         ended = true;
-    }
-
-    function _getCurrencyAmount() private view returns (uint256) {
-        return erc20Contract.balanceOf(msg.sender);
     }
 
     modifier onlySeller() {
