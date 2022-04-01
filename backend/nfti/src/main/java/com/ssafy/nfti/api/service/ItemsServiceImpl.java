@@ -1,18 +1,19 @@
 package com.ssafy.nfti.api.service;
 
-import com.ssafy.nfti.api.request.FileUploadReq;
 import com.ssafy.nfti.api.request.ItemsReq;
-import com.ssafy.nfti.api.response.FileUploadRes;
-import com.ssafy.nfti.api.response.ItemsRes;
+import com.ssafy.nfti.api.response.ItemsCreateRes;
+import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
+import com.ssafy.nfti.common.exception.response.ApiException;
+import com.ssafy.nfti.db.entity.Community;
 import com.ssafy.nfti.db.entity.Items;
+import com.ssafy.nfti.db.entity.User;
+import com.ssafy.nfti.db.repository.CommunityRepository;
 import com.ssafy.nfti.db.repository.ItemsRepository;
-import java.time.LocalDateTime;
+import com.ssafy.nfti.db.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service("itemsService")
 public class ItemsServiceImpl implements ItemsService {
@@ -20,67 +21,35 @@ public class ItemsServiceImpl implements ItemsService {
     @Autowired
     ItemsRepository itemsRepository;
 
-    @Override
-    @Transactional
-    public Items createItems(String url, FileUploadReq file) {
-        Items items = new Items();
-        items.setItemUrl(url);
-        items.setAuthorName(file.getAuthorName());
-        items.setItemTitle(file.getItemTitle());
-        items.setItemDescription(file.getItemDescription());
-        items.setCreatedAt(LocalDateTime.now());
-        items.setTokenId(file.getTokenId());
-        items.setOwnerAddress(file.getOwnerAddress());
+    @Autowired
+    UserRepository userRepository;
 
-        return itemsRepository.save(items);
-    }
+    @Autowired
+    CommunityRepository communityRepository;
 
     @Override
-    public Items updateItemTokenIdAndOwnerAddress(Long itemId, Long tokenId, String ownerAddress) {
-        Items item = itemsRepository.findById(itemId).orElseThrow();
-        item.setTokenId(tokenId);
-        item.setOwnerAddress(ownerAddress);
+    public ItemsCreateRes createItems(ItemsReq req) {
+        User owner = userRepository.findByAddress(req.getOwnerAddress())
+            .orElseThrow(() -> new ApiException(
+                ExceptionEnum.NOT_FOUND_USER));
+        Community community = communityRepository.findById(req.getCommunityId())
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY));
 
-        return itemsRepository.save(item);
-    }
+        List<Items> items = new ArrayList<>();
+        for (Long id : req.getTokenIds()) {
+            Items item = new Items();
+            item.setTokenId(id);
+            item.setOwner(owner);
+            item.setCommunity(community);
+            item.setItemDescription(req.getItemDescription());
+            item.setItemTitle(req.getItemTitle());
+            item.setItemUrl(req.getItemUrl());
 
-    @Override
-    public List<ItemsRes> getItems() {
-        List<Items> list = itemsRepository.findAll();
-        List<ItemsRes> res = new ArrayList<>();
-        for (Items item : list) {
-            res.add(ItemsRes.of(item));
+            items.add(item);
         }
 
+        List<Items> resItems = itemsRepository.saveAll(items);
+        ItemsCreateRes res = ItemsCreateRes.of(resItems);
         return res;
-    }
-
-    @Override
-    public List<ItemsRes> getItemsWithAddress(String address) {
-        List<Items> list = itemsRepository.findByOwnerAddress(address);
-        List<ItemsRes> res = new ArrayList<>();
-        for (Items item : list) {
-            res.add(ItemsRes.of(item));
-        }
-
-        return res;
-    }
-
-
-    @Override
-    public ItemsRes getRecentItems() {
-        Items recentItem = itemsRepository.findTopByOrderByIdDesc();
-        return ItemsRes.of(recentItem);
-    }
-
-    @Override
-    public ItemsRes getItemByTokenId(Long tokenId) {
-        Items item = itemsRepository.findByTokenId(tokenId);
-        return ItemsRes.of(item);
-    }
-
-    @Override
-    public void updateItemOwnerAddress(Long tokenId, Long ownerAddress) {
-
     }
 }
