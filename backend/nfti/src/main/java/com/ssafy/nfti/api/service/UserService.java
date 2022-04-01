@@ -9,4 +9,6 @@ public interface UserService {
     User getUserByAddress(String address);
 
     //UserRepository 만들기
+
+    String getUserByCommunityId(Long communityId);
 }

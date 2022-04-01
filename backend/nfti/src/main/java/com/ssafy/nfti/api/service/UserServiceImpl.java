@@ -1,7 +1,10 @@
 package com.ssafy.nfti.api.service;
 
 
+import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
+import com.ssafy.nfti.common.exception.response.ApiException;
 import com.ssafy.nfti.db.entity.User;
+import com.ssafy.nfti.db.repository.CommunityRepository;
 import com.ssafy.nfti.db.repository.UserRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +15,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
-
+    @Autowired
+    CommunityRepository communityRepository;
 
     @Override
     public User getUserByAddress(String address) {
@@ -32,5 +36,14 @@ public class UserServiceImpl implements UserService {
             user = userRepository.save(newUser);
         }
         return user;
+    }
+
+    @Override
+    public String getUserByCommunityId(Long id) {
+        User user = communityRepository.findById(id)
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY))
+            .getUser();
+
+        return user.getAddress();
     }
 }

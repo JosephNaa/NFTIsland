@@ -17,6 +17,7 @@ public class CommunityListRes {
     Long id;
     String hostAddress;
     String hostNickName;
+    String hostProfile;
     String name;
     String description;
     Boolean payable;
@@ -29,6 +30,7 @@ public class CommunityListRes {
             .id(community.getId())
             .hostAddress(community.getUser().getAddress())
             .hostNickName(community.getUser().getNickname())
+            .hostProfile(community.getUser().getProfile_path())
             .name(community.getName())
             .description(community.getDescription())
             .payable(community.getPayable())
