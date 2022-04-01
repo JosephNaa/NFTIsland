@@ -1,17 +1,20 @@
 package com.ssafy.nfti.api.request;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.List;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
+@Builder
+@JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class ItemsReq {
-    Long tokenId;
+    List<Long> tokenIds;
     String ownerAddress;
-    String image;
-    String authorName;
-    String itemTitle;
+    Long communityId;
     String itemDescription;
-    LocalDateTime createdAt;
+    String itemTitle;
+    String itemUrl;
 }

@@ -1,6 +1,8 @@
 package com.ssafy.nfti.db.entity;
 
 
+import java.util.List;
+import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,4 +35,7 @@ public class User {
             name = "profile_path"
     )
     private String profile_path;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Items> items;
 }

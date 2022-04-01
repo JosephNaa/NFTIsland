@@ -1,20 +1,18 @@
 package com.ssafy.nfti.db.entity;
 
-import java.time.LocalDateTime;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 
 @Getter
 @Setter
 @Entity(name = "items")
-public class Items extends BaseEntity {
+public class Items {
 
+    @Id
     private Long tokenId;
 
     private String itemUrl;
@@ -23,11 +21,11 @@ public class Items extends BaseEntity {
 
     private String itemDescription;
 
-    private String authorName;
+    private Boolean onSaleYn;
 
-    private String ownerAddress;
-
-    private String onSaleYn;
+    @ManyToOne
+    @JoinColumn(name="owner_address", nullable=false)
+    private User owner;
 
     @ManyToOne
     private Community community;
