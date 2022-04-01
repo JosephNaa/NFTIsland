@@ -19,12 +19,8 @@ export default function App() {
 			});
 			// 메타마스크에 로그인이 되어있는 경우
 			if (userAccount[0]) {
-				const res = await getUserAPI(userAccount[0]);
-				userContext.setUserInfo(
-					res.data.address,
-					res.data.nickname,
-					res.data.profile_path
-				);
+				const { data } = await getUserAPI(userAccount[0]);
+				userContext.setUserInfo(data.address, data.nickname, data.profile_path);
 			}
 			// 메타마스크 로그인이 되어있지않은 경우
 			else {

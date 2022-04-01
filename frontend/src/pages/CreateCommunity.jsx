@@ -54,7 +54,6 @@ function CreateCommunity() {
 			formData.append('payable', payable);
 
 			createCommunityAPI(formData).then(res => {
-				console.log(res);
 				if (res.status !== 200) return;
 				navigate(`/community/${res.data.id}`);
 			});
