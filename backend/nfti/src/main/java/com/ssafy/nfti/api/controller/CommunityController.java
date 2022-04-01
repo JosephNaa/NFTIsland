@@ -6,6 +6,7 @@ import com.ssafy.nfti.api.response.CommunityListRes;
 import com.ssafy.nfti.api.response.CommunityRes;
 import com.ssafy.nfti.api.service.AWSS3Service;
 import com.ssafy.nfti.api.service.CommunityService;
+import com.ssafy.nfti.api.service.UserService;
 import com.ssafy.nfti.common.model.response.BaseResponseBody;
 import com.ssafy.nfti.db.entity.Community;
 import java.util.List;
@@ -39,6 +40,9 @@ public class CommunityController {
 
     @Autowired
     AWSS3Service awss3Service;
+
+    @Autowired
+    UserService userService;
 
     // 생성
     @PostMapping(consumes = {"multipart/form-data"})
@@ -99,6 +103,8 @@ public class CommunityController {
         @PathVariable Long id,
         @RequestBody CommunityReq req
     ) {
+//        String url = awss3Service.uploadFile(req.getFile());
+
         CommunityRes res = communityService.updateCommunity(id, req);
         return ResponseEntity.ok(res);
     }
