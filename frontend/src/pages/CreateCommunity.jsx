@@ -48,7 +48,7 @@ function CreateCommunity() {
 			const formData = new FormData();
 
 			formData.append('file', image);
-			formData.append('host_address', userContext.account);
+			formData.append('host_address', userContext.loggedUser.account);
 			formData.append('name', value.communityName);
 			formData.append('description', value.description);
 			formData.append('payable', payable);

@@ -1,22 +1,15 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Box, Button, Container, Stack, Typography, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import Web3 from 'web3';
 import Page from '../components/Page';
 import logo from '../image/logo.png';
 import metamask from '../image/metamask.png';
 import UserContext from '../context/UserContext';
+import { getUserAPI } from '../api/auth';
 
-/**
- * [메인 화면]
- */
 function Intro() {
 	const navigate = useNavigate();
-	// // Web3
-	// const web3 = new Web3(
-	// 	new Web3.providers.HttpProvider(process.env.REACT_APP_ETHEREUM_RPC_URL)
-	// );
 
 	const BoxStyle = styled(Box)(({ theme }) => ({
 		[theme.breakpoints.down('md')]: {
@@ -29,26 +22,30 @@ function Intro() {
 	const connectAccount = async () => {
 		try {
 			if (window.ethereum) {
-				if (window.ethereum.isConnected()) {
-					// 지갑 주소 가져오기
-					const userAccounts = await window.ethereum.request({
-						method: 'eth_accounts',
-					});
-					if (userAccounts[0]) {
-						userContext.setAccount(userAccounts[0]);
-					} else {
-						userContext.setAccount('');
-					}
-				}
-				// 지갑 연결 요청
-				await window.ethereum.request({
-					method: 'eth_requestAccounts',
+				const userAccount = await window.ethereum.request({
+					method: 'eth_accounts',
 				});
+				// 메타마스크에 로그인이 되어있는 경우
+				if (userAccount[0]) {
+					const { data } = await getUserAPI(userAccount[0]);
+					userContext.setLoggedUser({
+						account: data.account,
+						nickname: data.nickname,
+						profileImage: data.profile_path,
+					});
+				}
+				// 메타마스크 로그인을 해야하는 경우
+				else {
+					// 지갑 연결 요청
+					await window.ethereum.request({
+						method: 'eth_requestAccounts',
+					});
+				}
 			} else {
 				alert('Install Metamask!');
 			}
 		} catch (error) {
-			console.error(error);
+			console.dir(error);
 		}
 	};
 
@@ -57,7 +54,7 @@ function Intro() {
 	};
 
 	useEffect(() => {
-		if (userContext.account) {
+		if (userContext.loggedIn) {
 			navigate('/community', { replace: true });
 		}
 	}, []);

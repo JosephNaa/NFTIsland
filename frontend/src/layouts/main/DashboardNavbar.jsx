@@ -46,7 +46,10 @@ function DashboardNavbar() {
 					<Button
 						to='/'
 						size='large'
-						sx={{ fontSize: 17, display: userContext.account ? 'none' : 'block' }}
+						sx={{
+							fontSize: 17,
+							display: userContext.loggedIn ? 'none' : 'block',
+						}}
 						component={RouterLink}
 					>
 						소개

@@ -47,12 +47,12 @@ export default function DropDownMenu() {
 				});
 				// 메타마스크에 로그인이 되어있는 경우
 				if (userAccount[0]) {
-					const res = await getUserAPI(userAccount[0]);
-					userContext.setUserInfo(
-						res.data.address,
-						res.data.nickname,
-						res.data.profile_path
-					);
+					const { data } = await getUserAPI(userAccount[0]);
+					userContext.setLoggedUser({
+						account: data.account,
+						nickname: data.nickname,
+						profileImage: data.profile_path,
+					});
 				}
 				// 메타마스크 로그인을 해야하는 경우
 				else {
@@ -73,7 +73,7 @@ export default function DropDownMenu() {
 		connectAccount();
 	};
 	const onClickLogout = () => {
-		userContext.clearUserInfo();
+		userContext.clearLoggedUser();
 	};
 
 	return (
@@ -88,7 +88,7 @@ export default function DropDownMenu() {
 						aria-haspopup='true'
 						aria-expanded={open ? 'true' : undefined}
 					>
-						{userContext.account ? (
+						{userContext.loggedIn ? (
 							<Avatar sx={{ width: 32, height: 32 }}>
 								<PersonIcon />
 							</Avatar>
@@ -98,7 +98,7 @@ export default function DropDownMenu() {
 					</IconButton>
 				</Tooltip>
 			</Box>
-			{userContext.account ? (
+			{userContext.loggedIn ? (
 				<Menu
 					anchorEl={anchorEl}
 					id='My-menu'
