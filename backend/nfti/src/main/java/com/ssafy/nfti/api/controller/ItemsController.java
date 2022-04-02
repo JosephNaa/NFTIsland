@@ -1,13 +1,18 @@
 package com.ssafy.nfti.api.controller;
 
 import com.ssafy.nfti.api.request.ItemsReq;
-import com.ssafy.nfti.api.response.ItemListRes;
 import com.ssafy.nfti.api.response.ItemsCreateRes;
+import com.ssafy.nfti.api.response.ItemsRes;
 import com.ssafy.nfti.api.service.AWSS3Service;
 import com.ssafy.nfti.api.service.ItemsService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,10 +47,20 @@ public class ItemsController {
         return ResponseEntity.ok(res);
     }
 
-//    @GetMapping()
-//    public ResponseEntity<ItemListRes> getItems(
-//        @RequestParam String address
-//    ) {
-//        return null;
-//    }
+    @GetMapping()
+    public ResponseEntity<List<ItemsRes>> listItems(
+        @PageableDefault(sort = "community_id", size = 30) Pageable pageable,
+        @RequestParam(required = true) String address,
+        @RequestParam(required = false) Long communityId,
+        @RequestParam(required = true) Boolean onSaleYn
+    ) {
+        List<ItemsRes> res = itemsService.listItems(pageable, address, communityId, onSaleYn);
+        return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/{tokenId}")
+    public ResponseEntity<ItemsRes> getItem(@PathVariable Long tokenId) {
+        ItemsRes res = itemsService.getItem(tokenId);
+        return ResponseEntity.ok(res);
+    }
 }

@@ -29,6 +29,9 @@ public enum ExceptionEnum {
 
     NOT_FOUND_LIKES(HttpStatus.NOT_FOUND, "501", "좋아요를 찾을 수 없습니다."),
 
+    BAD_REQUEST_ITEM(HttpStatus.BAD_REQUEST, "601", "잘못된 Item 요청입니다."),
+    NOT_FOUND_ITEM(HttpStatus.NOT_FOUND, "602", "해당 Item이 존재하지 않습니다."),
+
 
     UNAUTHORIZED_REDIRECT_URI(HttpStatus.UNAUTHORIZED, "904", "인증되지 않은 리디렉션 URI 입니다. 인증을 진행할 수 없습니다.");
 
