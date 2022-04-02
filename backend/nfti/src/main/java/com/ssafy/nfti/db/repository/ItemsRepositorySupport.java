@@ -26,7 +26,7 @@ public class ItemsRepositorySupport extends QuerydslRepositorySupport {
         this.jpaQueryFactory = new JPAQueryFactory(em);
     }
 
-    public List<Community> findAllMyCommunityId(Pageable pageable, String address) {
+    public List<Community> findAllMyCommunityId(Pageable pageable, String address, Boolean onSaleYn) {
         JPAQuery<Community> query = jpaQueryFactory
             .selectFrom(community)
             .where(community.id.in(
@@ -34,7 +34,9 @@ public class ItemsRepositorySupport extends QuerydslRepositorySupport {
                     .select(items.community.id)
                     .distinct()
                     .from(items)
-                    .where(items.owner.address.eq(address))));
+                    .where(
+                        items.owner.address.eq(address)
+                    .and(items.onSaleYn.eq(onSaleYn)))));
 
         return Objects.requireNonNull(getQuerydsl())
             .applyPagination(pageable, query)
