@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
 	Box,
 	Button,
@@ -11,8 +11,10 @@ import {
 	Paper,
 	Stack,
 	Typography,
+	CircularProgress,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import InfiniteScroll from 'react-infinite-scroller';
 import Page from '../components/Page';
 import CommunityCard from '../layouts/market/CommunityCard';
 import { getCommunityListAPI } from '../api/community';
@@ -20,16 +22,23 @@ import { getCommunityListAPI } from '../api/community';
 function Community() {
 	const [communityList, setCommunityList] = useState([]);
 	const [filterOption, setFilterOption] = useState('newest');
+	const [hasMoreItems, setHasMoreItems] = useState(true);
 
-	const getCommunityList = async key => {
-		const { data } = await getCommunityListAPI(1, 10, key);
-		setCommunityList(_prev => data);
-		setFilterOption(_prev => key);
+	const getCommunityList = async (page, key) => {
+		const { data } = await getCommunityListAPI(page, 8, key);
+		return data;
 	};
 
 	useEffect(() => {
-		getCommunityList('newest');
-	}, []);
+		setCommunityList(_prev => []);
+		setHasMoreItems(_prev => true);
+	}, [filterOption]);
+
+	const loadItems = async page => {
+		const data = await getCommunityList(page, filterOption);
+		setCommunityList(prev => prev.concat(data));
+		setHasMoreItems(_prev => !!data.length);
+	};
 
 	return (
 		<Page title='Community' maxWidth='100%' minHeight='100%' display='flex'>
@@ -62,7 +71,7 @@ function Community() {
 						direction='row'
 						spacing={1}
 					>
-						<Button onClick={() => getCommunityList('newest')}>
+						<Button onClick={() => setFilterOption(_prev => 'newest')}>
 							<Typography
 								sx={
 									filterOption === 'newest'
@@ -74,7 +83,7 @@ function Community() {
 							</Typography>
 						</Button>
 						<Divider sx={{ height: 18 }} orientation='vertical' />
-						<Button onClick={() => getCommunityList('member')}>
+						<Button onClick={() => setFilterOption(_prev => 'member')}>
 							<Typography
 								sx={
 									filterOption === 'member'
@@ -86,7 +95,7 @@ function Community() {
 							</Typography>
 						</Button>
 						<Divider sx={{ height: 18 }} orientation='vertical' />
-						<Button onClick={() => getCommunityList('board')}>
+						<Button onClick={() => setFilterOption(_prev => 'board')}>
 							<Typography
 								sx={
 									filterOption === 'board'
@@ -98,20 +107,41 @@ function Community() {
 							</Typography>
 						</Button>
 					</Stack>
-					<Grid container spacing={4}>
-						{communityList.map(item => (
-							<Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
-								<CommunityCard
-									onClickURL={`/community/${item.id}`}
-									communityName={item.name}
-									communityDescription={item.description}
-									communityHost={item.host_nick_name}
-									communityLogo={item.logo_path}
-									hostProfile={item.host_profile}
-								/>
-							</Grid>
-						))}
-					</Grid>
+
+					<InfiniteScroll
+						pageStart={0}
+						key={filterOption}
+						loadMore={loadItems}
+						hasMore={hasMoreItems}
+						loader={
+							<Box
+								sx={{
+									display: 'flex',
+									justifyContent: 'center',
+									alignItems: 'center',
+									m: 4,
+								}}
+								key={0}
+							>
+								<CircularProgress />
+							</Box>
+						}
+					>
+						<Grid container spacing={4}>
+							{communityList.map(item => (
+								<Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
+									<CommunityCard
+										onClickURL={`/community/${item.id}`}
+										communityName={item.name}
+										communityDescription={item.description}
+										communityHost={item.host_nick_name}
+										communityLogo={item.logo_path}
+										hostProfile={item.host_profile}
+									/>
+								</Grid>
+							))}
+						</Grid>
+					</InfiniteScroll>
 				</Stack>
 			</Container>
 		</Page>
