@@ -2,6 +2,7 @@ package com.ssafy.nfti.api.service;
 
 import com.ssafy.nfti.api.request.ItemsReq;
 import com.ssafy.nfti.api.response.ItemsCreateRes;
+import com.ssafy.nfti.api.response.ItemsRes;
 import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
 import com.ssafy.nfti.common.exception.response.ApiException;
 import com.ssafy.nfti.db.entity.Community;
@@ -12,7 +13,9 @@ import com.ssafy.nfti.db.repository.ItemsRepository;
 import com.ssafy.nfti.db.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service("itemsService")
@@ -51,6 +54,34 @@ public class ItemsServiceImpl implements ItemsService {
 
         List<Items> resItems = itemsRepository.saveAll(items);
         ItemsCreateRes res = ItemsCreateRes.of(resItems);
+        return res;
+    }
+
+    @Override
+    public List<ItemsRes> listItems(Pageable pageable, String address, Long communityId,
+        Boolean onSaleYn) {
+        if (onSaleYn == null) {
+            throw new ApiException(ExceptionEnum.BAD_REQUEST_ITEM);
+        }
+
+        List<Items> resList = null;
+
+        if (communityId == null) {
+            resList = itemsRepository.findByOwnerAddressAndOnSaleYn(pageable, address, onSaleYn);
+        } else {
+            resList = itemsRepository.findByOwnerAddressAndCommunityIdAndOnSaleYn(
+                pageable, address, communityId, onSaleYn);
+        }
+        List<ItemsRes> res = resList.stream().map(items -> ItemsRes.of(items))
+            .collect(Collectors.toList());
+        return res;
+    }
+
+    @Override
+    public ItemsRes getItem(Long tokenId) {
+        Items item = itemsRepository.findByTokenId(tokenId)
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_ITEM));
+        ItemsRes res = ItemsRes.of(item);
         return res;
     }
 }
