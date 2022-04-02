@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
 	Avatar,
 	Box,
@@ -18,16 +19,25 @@ import {
 	Search as SearchIcon,
 	Add as AddIcon,
 } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Page from '../components/Page';
 import PostCard from '../layouts/community-detail/PostCard';
 import logo from '../image/logo.png';
+import { getBoardsAPI } from '../api/board';
 
 function CommunityDetail() {
 	const navigate = useNavigate();
+	const params = useParams();
+	const [boards, setBoards] = useState();
+
+	useEffect(() => {
+		getBoardsAPI(params.communityId).then(res => {
+			setBoards(res.data.boards);
+		});
+	}, []);
 
 	const onClickButton = () => {
-		navigate('/postwrite');
+		navigate(`/community/postwrite/${params.communityId}`);
 	};
 
 	const onClickNFTBtn = () => {
@@ -131,27 +141,19 @@ function CommunityDetail() {
 				</Box>
 				<Box maxWidth='xl' sx={{ pt: '30px' }}>
 					<Grid container spacing={6}>
-						<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-							<PostCard />
-						</Grid>
-						<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-							<PostCard />
-						</Grid>
-						<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-							<PostCard />
-						</Grid>
-						<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-							<PostCard />
-						</Grid>
-						<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-							<PostCard />
-						</Grid>
-						<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-							<PostCard />
-						</Grid>
-						<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-							<PostCard />
-						</Grid>
+						{boards?.map(board => (
+							<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3} key={board.id}>
+								<PostCard
+									boardId={board.id}
+									title={board.title}
+									content={board.content}
+									author={board.nick_name}
+									commentCnt={board.comment_count}
+									likeCnt={board.likes_count}
+									createAt={board.created_at.substr(0, 10)}
+								/>
+							</Grid>
+						))}
 					</Grid>
 				</Box>
 			</Container>

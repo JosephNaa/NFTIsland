@@ -5,23 +5,34 @@ import {
 	InsertComment as InsertCommentIcon,
 	FavoriteBorder as LikeIcon,
 } from '@mui/icons-material';
+import PropTypes from 'prop-types';
 import { useNavigate, useParams } from 'react-router-dom';
 
-function PostCard() {
+PostCard.propTypes = {
+	boardId: PropTypes.number.isRequired,
+	title: PropTypes.string.isRequired,
+	content: PropTypes.string.isRequired,
+	author: PropTypes.string.isRequired,
+	commentCnt: PropTypes.number.isRequired,
+	likeCnt: PropTypes.number.isRequired,
+	createAt: PropTypes.string.isRequired,
+};
+
+function PostCard({
+	boardId,
+	title,
+	content,
+	author,
+	commentCnt,
+	likeCnt,
+	createAt,
+}) {
 	const navigate = useNavigate();
-
 	const { communityId } = useParams();
-
 	const theme = useTheme();
-	const ImgStyle = styled('img')({
-		width: '100%',
-		height: '50%',
-		objectFit: 'cover',
-	});
 
 	const onClickCard = () => {
-		navigate(`/community/${communityId}/a`);
-		console.log('card');
+		navigate(`/community/${communityId}/${boardId}`);
 	};
 
 	return (
@@ -43,18 +54,32 @@ function PostCard() {
 		>
 			<Stack direction='column' padding='20px  20px 5px 20px '>
 				{/* 게시글 제목 */}
-				<Typography variant='h5' mb='10px' textAlign='center'>
-					제목 제목 제목 제목
+				<Typography
+					width='100%'
+					variant='h5'
+					mb='10px'
+					textAlign='center'
+					overflow='hidden'
+					textOverflow='ellipsis'
+					whiteSpace='nowrap'
+				>
+					{title}
 				</Typography>
 				<Box height='200px'>
 					{/* 게시글 내용 */}
-					<Typography mb='10px' textAlign='center'>
-						내용 미리보기 내용 미리보기 내용 미리보기 내용 미리보기 내용 미리보기
+					<Typography
+						height='190px'
+						mb='10px'
+						textAlign='center'
+						overflow='hidden'
+						sx={{ wordBreak: 'break-all' }}
+					>
+						{content}
 					</Typography>
 					{/* 게시글 작성일 */}
-					<Typography mb='10px' fontSize='10px' textAlign='right'>
-						2022.03.21
-					</Typography>
+					{/* <Typography mb='10px' fontSize='10px' textAlign='right'>
+						{createAt}
+					</Typography> */}
 				</Box>
 				<Stack direction='row'>
 					<Box width='60%'>
@@ -65,9 +90,16 @@ function PostCard() {
 							</Avatar>
 							{/* 작성자 이미지
 							<PersonIcon sx={{ width: 30, height: 30 }} /> */}
-							<Typography ml='5px' mb='10px' fontSize='14px' pt='5px'>
+							<Typography
+								ml='5px'
+								mb='10px'
+								fontSize='14px'
+								pt='5px'
+								overflow='hidden'
+								textOverflow='ellipsis'
+							>
 								{/* 작성자 닉네임 */}
-								hhhhhdong
+								{author}
 							</Typography>
 						</Stack>
 					</Box>
@@ -75,11 +107,13 @@ function PostCard() {
 						<Stack direction='row' justifyContent='right' pt='5px' spacing={1}>
 							<InsertCommentIcon sx={{ width: 18, height: 18 }} />
 							<Typography ml='5px' mb='10px' fontSize='10px'>
-								{/* 댓글 개수 */}3
+								{/* 댓글 개수 */}
+								{commentCnt}
 							</Typography>
 							<LikeIcon sx={{ width: 18, height: 18 }} />
 							<Typography ml='5px' mb='10px' fontSize='10px'>
-								{/* 좋아요 개수 */}3
+								{/* 좋아요 개수 */}
+								{likeCnt}
 							</Typography>
 						</Stack>
 					</Box>
