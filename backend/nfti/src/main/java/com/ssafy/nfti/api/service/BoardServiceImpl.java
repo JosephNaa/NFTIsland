@@ -96,8 +96,8 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void delete(Long id, String userAddress) {
-        User user = userRepository.findByAddress(userAddress)
-            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
+        User user = boardRepository.findById(id)
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER)).getUser();
 
         if (user.getAddress().equals(userAddress)) {
             boardRepository.deleteById(id);
