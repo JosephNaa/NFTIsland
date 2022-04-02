@@ -6,6 +6,7 @@ import {
 	MenuItem,
 	IconButton,
 	Tooltip,
+	Link,
 } from '@mui/material';
 import {
 	Person as PersonIcon,
@@ -34,10 +35,6 @@ export default function DropDownMenu() {
 	};
 
 	const navigate = useNavigate();
-
-	const onClickMyIcon = () => {
-		navigate('/userpage');
-	};
 
 	const connectAccount = async () => {
 		try {
@@ -134,9 +131,20 @@ export default function DropDownMenu() {
 					transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 					anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 				>
-					<MenuItem onClick={onClickMyIcon}>
-						<PersonIcon /> 마이 페이지
-					</MenuItem>
+					<Link
+						href={`/user/${userContext.loggedUser.nickname}`}
+						underline='none'
+						color='inherit'
+						onClick={e => {
+							e.preventDefault();
+							navigate(`/user/${userContext.loggedUser.nickname}`);
+						}}
+					>
+						<MenuItem>
+							<PersonIcon />
+							마이 페이지
+						</MenuItem>
+					</Link>
 					<MenuItem>
 						<AppsIcon /> 내 뱃지 컬렉션
 					</MenuItem>
