@@ -93,7 +93,16 @@ function CommunityCard({
 							}}
 							onClick={onClickNickname}
 						>
-							{communityHost}
+							<Link
+								href={`/user/${communityHost}`}
+								underline='none'
+								onClick={e => {
+									e.preventDefault();
+									navigate(`/user/${communityHost}`);
+								}}
+							>
+								{communityHost}
+							</Link>
 						</Typography>
 					</Stack>
 
