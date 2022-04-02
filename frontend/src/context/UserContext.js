@@ -4,7 +4,6 @@ export default createContext({
 	account: '',
 	nickname: '',
 	profileImage: '',
-	setAccount: () => {},
-	setNickname: () => {},
-	setProfileImage: () => {},
+	setLoggedUser: () => {},
+	clearLoggedUser: () => {},
 });

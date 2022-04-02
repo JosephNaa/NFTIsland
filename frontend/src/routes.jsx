@@ -47,14 +47,15 @@ export default function Router() {
 			children: [
 				{ path: '', element: <Community /> },
 				{ path: ':communityId', element: <CommunityDetail /> },
+				{ path: 'postwrite/:communityId', element: <PostWrite /> },
 				{ path: ':communityId/:postId', element: <PostDetail /> },
 			],
 		},
-		{
-			path: '/postwrite',
-			element: <MainLayout />,
-			children: [{ path: '', element: <PostWrite /> }],
-		},
+		// {
+		// 	path: '/postwrite',
+		// 	element: <MainLayout />,
+		// 	children: [{ path: '', element: <PostWrite /> }],
+		// },
 		{
 			path: '/user',
 			element: <MainLayout />,
