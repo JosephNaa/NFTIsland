@@ -7,6 +7,7 @@ import com.ssafy.nfti.common.exception.response.ApiException;
 import com.ssafy.nfti.db.entity.User;
 import com.ssafy.nfti.db.repository.CommunityRepository;
 import com.ssafy.nfti.db.repository.UserRepository;
+import com.ssafy.nfti.db.repository.UserRepositorySupport;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     CommunityRepository communityRepository;
+
+    @Autowired
+    UserRepositorySupport userRepositorySupport;
 
     @Override
     public User getUserOrCreateUser(String address) {
@@ -62,16 +66,20 @@ public class UserServiceImpl implements UserService {
         return user.getAddress();
     }
 
+    @Override
     public UserRes updateNickname(String address, String nickname) {
         User user = userRepository.findByAddress(address)
                 .orElseThrow();
 
+        Boolean flag = userRepositorySupport.findUserByNickname(nickname).isPresent();
+        if (flag == true) {
+            throw new ApiException(ExceptionEnum.CONFLICT_USER_NICKNAME);
+        }
+
         user.setNickname(nickname);
-
         User newUser = userRepository.save(user);
-
-
         return UserRes.of(newUser);
+
     }
 
 

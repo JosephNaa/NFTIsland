@@ -16,7 +16,7 @@ public enum ExceptionEnum {
     NOT_FOUND_USER(HttpStatus.NOT_FOUND, "101", "해당 유저를 찾을 수 없습니다."),
     CONFLICT_USER(HttpStatus.CONFLICT, "102", "해당 유저에게 권한이 없습니다."),
     BAD_REQUEST_USER(HttpStatus.BAD_REQUEST, "103", "유저 필수 항목을 모두 입력해야 합니다."),
-
+    CONFLICT_USER_NICKNAME(HttpStatus.CONFLICT, "104", "사용중인 닉네임입니다."),
 
     BAD_REQUEST_COMMUNITY(HttpStatus.BAD_REQUEST, "201", "커뮤니티 필수 항목을 모두 입력해야 합니다."),
     NOT_FOUND_COMMUNITY(HttpStatus.NOT_FOUND, "202", "해당 커뮤니티를 찾을 수 없습니다."),
