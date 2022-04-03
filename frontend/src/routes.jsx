@@ -28,7 +28,7 @@ export default function Router() {
 			element: <MainLayout />,
 			children: [
 				{ path: 'community', element: <CreateCommunity /> },
-				{ path: 'item', element: <CreateItem /> },
+				{ path: 'item/:communityId', element: <CreateItem /> },
 				{ path: '', element: <Navigate to='/404' replace /> },
 			],
 		},
