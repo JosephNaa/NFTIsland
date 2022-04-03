@@ -78,13 +78,13 @@ function CreateItem() {
 
 			// S3이미지 URL 받아오기
 			const res = await getImageURL(formData);
-			// const nft = await nftContract.methods
-			// 	.create(userContext.loggedUser.address, res.data, payable, value.supply)
-			// 	.send({ from: userContext.loggedUser.address });
+			const nft = await nftContract.methods
+				.create(userContext.loggedUser.address, res.data, payable, value.supply)
+				.send({ from: userContext.loggedUser.address });
 			// await nftContract.methods
 			// 	.create(userContext.loggedUser.address, res.data, payable, value.supply)
 			// 	.send({ from: userContext.loggedUser.address });
-			// console.log(nft);
+			console.log(nft);
 			const tmp = await saveNFTInfo({
 				token_ids: ['2', '1', '3'],
 				owner_address: userContext.loggedUser.address,
