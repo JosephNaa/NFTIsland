@@ -29,7 +29,6 @@ public class CommentController {
     CommentService commentService;
 
     @PostMapping()
-    @Transactional
     @ApiOperation(value = "댓글 생성", notes = "댓글을 생성한다.")
     public ResponseEntity<CommentRes> addComment(@RequestBody CommentReq req) {
         CommentRes res = commentService.addComment(req);
@@ -37,7 +36,6 @@ public class CommentController {
     }
 
     @PutMapping("/{id}")
-    @Transactional
     @ApiOperation(value = "댓글 수정", notes = "댓글을 수정한다.")
     public ResponseEntity<CommentRes> updateComment(@PathVariable Long id, @RequestBody CommentReq req) {
         CommentRes res = commentService.updateComment(id, req);
@@ -46,7 +44,6 @@ public class CommentController {
     }
 
     @DeleteMapping("/{id}")
-    @Transactional
     @ApiOperation(value = "댓글 삭제", notes = "댓글을 삭제한다.")
     public ResponseEntity<BaseResponseBody> deleteComment(
         @PathVariable Long id,
