@@ -7,13 +7,11 @@ import {
 	Container,
 	Typography,
 	Grid,
-	TextField,
 	Paper,
 	InputBase,
 	Divider,
 	IconButton,
 } from '@mui/material';
-
 import {
 	Person as PersonIcon,
 	Search as SearchIcon,
@@ -22,17 +20,33 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import Page from '../components/Page';
 import PostCard from '../layouts/community-detail/PostCard';
-import logo from '../image/logo.png';
 import { getBoardsAPI } from '../api/board';
+import PageHeder from '../layouts/PageHeader';
 
 function CommunityDetail() {
 	const navigate = useNavigate();
 	const params = useParams();
 	const [boards, setBoards] = useState();
+	const [communityInfo, setCommunityInfo] = useState({
+		hostAddress: '',
+		hostNickname: '',
+		hostProfile: '',
+		communityDes: '',
+		communityName: '',
+		communityLogo: '',
+	});
 
 	useEffect(() => {
-		getBoardsAPI(params.communityId).then(res => {
-			setBoards(res.data.boards);
+		getBoardsAPI(params.communityId).then(({ data }) => {
+			setBoards(data.boards);
+			setCommunityInfo({
+				hostAddress: data.host_address,
+				hostNickname: data.host_nick_name,
+				hostProfile: '',
+				communityDes: data.description,
+				communityName: data.name,
+				communityLogo: data.logo_path,
+			});
 		});
 	}, []);
 
@@ -47,63 +61,45 @@ function CommunityDetail() {
 	return (
 		<Page>
 			<Container>
-				<Box>
-					<Typography variant='h3' align='center'>
-						{/* 커뮤니티 이름 */}리사모
-					</Typography>
-					<Typography position='absolute' right='10%' mt='-50px'>
-						{/* 커뮤니티 뱃지수..? */}341/513
-					</Typography>
-				</Box>
+				<PageHeder title='커뮤니티 상세' />
 				<Box ml='10%' mr='10%' mt='3%' mb='3%'>
-					<Stack direction='row'>
-						<Stack flex='1'>
+					<Stack direction='row' justifyContent='space-between'>
+						<Stack direction='column' alignItems='center' width='30%'>
+							{/* 커뮤니티 이미지 */}
+							<img src={communityInfo.communityLogo} alt='' />
 							<Stack direction='row'>
 								<Avatar sx={{ ml: '10px', width: 35, height: 35 }}>
 									<PersonIcon />
 									{/* 커뮤니티장 아이콘 */}
 								</Avatar>
 								<Typography ml='10px' mt='5px'>
-									hhhhhdong{/* 커뮤니티장 닉네임 */}
+									{/* 커뮤니티장 닉네임 */}
+									{communityInfo.hostNickname}
 								</Typography>
 							</Stack>
-							<img src={logo} alt='' width='90%' />
-							{/* 커뮤니티 이미지 */}
+							<Button
+								sx={{
+									mt: '10px',
+									fontSize: '12px',
+									alignContent: 'center',
+								}}
+								size='small'
+								variant='contained'
+								disableElevation
+								onClick={onClickNFTBtn}
+							>
+								NFT 발행
+							</Button>
 						</Stack>
-						<Stack flex='2'>
-							<Typography fontSize='30px' mb='15px'>
-								<b>Get Popular NFT</b>
-								{/* 커뮤니티 대표 설명 */}
+						<Stack direction='column' width='60%'>
+							{/* 커뮤니티 이름 */}
+							<Typography fontSize='30px'>
+								<b>{communityInfo.communityName}</b>
 							</Typography>
-							<Typography>
-								Get Popular NFT Get Popular NFT Get Popular NFT Get Popular NFT Get
-								Popular NFT Get Popular NFT Get Popular NFT Get Popular NFT Get Popular
-								NFT Get Popular NFT Get Popular NFT Get Popular NFT Get Popular NFT Get
-								Popular NFT Get Popular NFT Get Popular NFT Get Popular NFT Get Popular
-								NFT Get Popular NFT Get Popular NFT Get Popular NFT Get Popular NFT Get
-								Popular NFT Get Popular NFT Get Popular NFT Get Popular NFT Get Popular
-								NFT Get Popular NFT Get Popular NFT Get Popular NFT Get Popular NFT Get
-								Popular NFT Get Popular NFT Get Popular NFT Get Popular NFT Get Popular
-								NFT Get Popular NFT Get Popular NFT Get Popular NFT Get Popular NFT Get
-								Popular NFT Get Popular NFT Get Popular NFT Get Popular NFT Get Popular
-								NFT
-								{/* 커뮤니티 설명 */}
-							</Typography>
+							{/* 커뮤니티 설명 */}
+							<Typography>{communityInfo.communityDes}</Typography>
 						</Stack>
 					</Stack>
-					<Button
-						sx={{
-							ml: '10%',
-							mt: '10px',
-							fontSize: '12px',
-						}}
-						size='small'
-						variant='contained'
-						disableElevation
-						onClick={onClickNFTBtn}
-					>
-						NFT 발행
-					</Button>
 				</Box>
 				<Box mt='5%' mb='3%'>
 					<Stack direction='row'>
