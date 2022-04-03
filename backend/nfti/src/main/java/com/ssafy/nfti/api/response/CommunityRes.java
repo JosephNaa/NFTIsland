@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.ssafy.nfti.db.entity.Board;
 import com.ssafy.nfti.db.entity.Community;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,7 @@ import lombok.Setter;
 @Data
 @Builder
 @JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class)
+@ApiModel("커뮤니티 Response")
 public class CommunityRes {
     Long id;
     String hostAddress;
