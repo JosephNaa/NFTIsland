@@ -55,7 +55,7 @@ function CommunityDetail() {
 	};
 
 	const onClickNFTBtn = () => {
-		navigate('-1');
+		navigate(`/create/item/${params.communityId}`);
 	};
 
 	return (

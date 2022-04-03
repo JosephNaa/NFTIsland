@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import {
 	Container,
 	Stack,
@@ -13,20 +13,37 @@ import {
 	MenuItem,
 	Select,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Form, FormikProvider, useFormik } from 'formik';
 import * as Yup from 'yup';
 import Header from '../layouts/PageHeader';
 import Page from '../components/Page';
+import { getImageURL, saveNFTInfo } from '../api/item';
+import { getBoardsAPI } from '../api/board';
+import UserContext from '../context/UserContext';
+import { nftContract } from '../web3Config';
 
 function CreateItem() {
 	const imageSelect = useRef();
-	const [imgae, setImage] = useState('');
+	const navigate = useNavigate();
+	const params = useParams();
+	const userContext = useContext(UserContext);
+
+	const [image, setImage] = useState('');
 	const [imageName, setImageName] = useState('');
 	const [itemName, setItemName] = useState('');
 	const [description, setDescription] = useState('');
 	const [supply, setSupply] = useState(1);
 	const [community, setCommunity] = useState('');
+	const [communityName, setCommunityName] = useState('');
+	const [payable, setPayable] = useState(true);
+
+	useEffect(() => {
+		getBoardsAPI(params.communityId).then(({ data }) => {
+			setPayable(data.payable);
+			setCommunityName(data.name);
+		});
+	}, []);
 
 	const handleChangeSelect = event => {
 		setCommunity(event.target.value);
@@ -49,19 +66,34 @@ function CreateItem() {
 			supply: 1,
 		},
 		validationSchema: typeSchema,
-		onSubmit: value => {
+		onSubmit: async value => {
 			setItemName(value.itemName);
 			setDescription(value.description);
 			setSupply(value.supply);
+
 			// 여기서 백엔드호출해서 커뮤니티 만들기
 
-			// onClick={
-			// 	Object.keys(touched).length &&
-			// 	!Object.keys(errors).length &&
-			// 	item.length !== 0
-			// 		? toggleApprove
-			// 		: null
-			// }
+			const formData = new FormData();
+			formData.append('file', image);
+
+			// S3이미지 URL 받아오기
+			const res = await getImageURL(formData);
+			const nft = await nftContract.methods
+				.create(userContext.loggedUser.address, res.data, payable, value.supply)
+				.send({ from: userContext.loggedUser.address });
+			// await nftContract.methods
+			// 	.create(userContext.loggedUser.address, res.data, payable, value.supply)
+			// 	.send({ from: userContext.loggedUser.address });
+			console.log(nft);
+			const tmp = await saveNFTInfo({
+				token_ids: ['2', '1', '3'],
+				owner_address: userContext.loggedUser.address,
+				community_id: params.communityId,
+				item_description: value.description,
+				item_title: value.itemName,
+				item_url: res.data,
+			});
+			console.log(tmp);
 		},
 	});
 
@@ -74,8 +106,6 @@ function CreateItem() {
 
 	// 이미지 업로드 핸들링
 	const handleImage = value => {
-		console.log(value);
-		// S3에 이미지 보내고 URL받아오기
 		setImage(value);
 
 		if (value !== '') setImageName(value.name);
@@ -144,7 +174,7 @@ function CreateItem() {
 								error={Boolean(touched.description && errors.description)}
 								helperText={touched.description && errors.description}
 							/>
-							<FormControl>
+							{/* <FormControl>
 								<InputLabel id='demo-simple-select-label'>커뮤니티</InputLabel>
 								<Select
 									labelId='demo-simple-select-label'
@@ -157,7 +187,7 @@ function CreateItem() {
 									<MenuItem value={20}>Twenty</MenuItem>
 									<MenuItem value={30}>Thirty</MenuItem>
 								</Select>
-							</FormControl>
+							</FormControl> */}
 							<Box maxWidth='150px'>
 								<TextField
 									type='number'
