@@ -15,6 +15,7 @@ import java.util.List;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("commentService")
 public class CommentServiceImpl implements CommentService{
@@ -29,6 +30,7 @@ public class CommentServiceImpl implements CommentService{
     UserRepository userRepository;
 
     @Override
+    @Transactional
     public CommentRes addComment(CommentReq req) {
         Board board = boardRepository.findById(req.getBoardId())
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_BOARD));
@@ -61,6 +63,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
+    @Transactional
     public CommentRes updateComment(Long id, CommentReq req) {
         Comment comment = commentRepository.findById(id)
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMENT));
@@ -82,6 +85,7 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
+    @Transactional
     public void deleteComment(Long id, String address) {
         User user = userRepository.findByAddress(address)
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));

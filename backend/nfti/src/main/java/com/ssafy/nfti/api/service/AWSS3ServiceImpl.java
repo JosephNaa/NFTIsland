@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import java.io.IOException;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -18,6 +19,9 @@ public class AWSS3ServiceImpl implements AWSS3Service {
     @Autowired
     private AmazonS3Client awsS3Client;
 
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
+
     @Override
     public String uploadFile(MultipartFile file) {
         String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
@@ -29,15 +33,14 @@ public class AWSS3ServiceImpl implements AWSS3Service {
         metadata.setContentType(file.getContentType());
 
         try {
-            // bucketName 비밀키로 관리하기
-            awsS3Client.putObject("kgw012-nft-bucket", key, file.getInputStream(), metadata);
+            awsS3Client.putObject(bucket, key, file.getInputStream(), metadata);
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "An exception occured while uploading the file");
         }
 
-        awsS3Client.setObjectAcl("kgw012-nft-bucket", key, CannedAccessControlList.PublicRead);
+        awsS3Client.setObjectAcl(bucket, key, CannedAccessControlList.PublicRead);
 
-        return awsS3Client.getResourceUrl("kgw012-nft-bucket", key);
+        return awsS3Client.getResourceUrl(bucket, key);
 
     }
 }

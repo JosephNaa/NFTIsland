@@ -52,6 +52,10 @@ contract("Sale Contract Testing", (accounts) => {
       from: contractOwner,
     });
 
+    await nftContract.setSaleFactoryAddress(saleFactoryContract.address, {
+      from: contractOwner,
+    });
+
     await nftContract.create(seller, uri, true, 1, { from: seller });
 
     await saleFactoryContract.createSale(
@@ -67,9 +71,9 @@ contract("Sale Contract Testing", (accounts) => {
     var sales = await saleFactoryContract.allSales();
     saleContract = await Sale.at(sales[0]);
 
-    await nftContract.transferFrom(seller, saleContract.address, itemId, {
-      from: seller,
-    });
+    // await nftContract.transferFrom(seller, saleContract.address, itemId, {
+    //   from: seller,
+    // });
   }
 
   it("Create Sale", async () => {

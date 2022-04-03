@@ -4,15 +4,12 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
-@Getter
-@Setter
+@Data
 @JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class)
-@ApiModel(value = "커뮤니티 Request")
-public class CommunityReq {
+public class CommunityUpdateReq {
     @ApiModelProperty(value = "로고 이미지")
     MultipartFile file;
 
@@ -23,7 +20,5 @@ public class CommunityReq {
     String name;
     @ApiModelProperty(value = "커뮤니티 설명")
     String description;
-    @ApiModelProperty(value = "공개 여부")
-    Boolean payable;
 
 }

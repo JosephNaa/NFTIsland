@@ -1,6 +1,7 @@
 package com.ssafy.nfti.api.service;
 
 import com.ssafy.nfti.api.request.CommunityReq;
+import com.ssafy.nfti.api.request.CommunityUpdateReq;
 import com.ssafy.nfti.api.response.CommunityCreateRes;
 import com.ssafy.nfti.api.response.CommunityListRes;
 import com.ssafy.nfti.api.response.CommunityRes;
@@ -35,6 +36,7 @@ public class CommunityServiceImpl implements CommunityService {
     UserRepository userRepository;
 
     @Override
+    @Transactional
     public CommunityCreateRes createCommunity(CommunityReq req, String url) {
 
         User user =  userRepository.findByAddress(req.getHostAddress())
@@ -102,7 +104,8 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public CommunityRes updateCommunity(Long id, CommunityReq req) {
+    @Transactional
+    public CommunityRes updateCommunity(Long id, CommunityUpdateReq req) {
         Community community = communityRepository.findById(id)
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY));
 
@@ -123,6 +126,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    @Transactional
     public void deleteCommunity(Long id, String hostId) {
         Community community = communityRepository.findById(id)
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY));

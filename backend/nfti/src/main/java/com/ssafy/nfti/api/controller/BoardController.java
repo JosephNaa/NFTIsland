@@ -1,10 +1,13 @@
 package com.ssafy.nfti.api.controller;
 
 import com.ssafy.nfti.api.request.BoardReq;
+import com.ssafy.nfti.api.request.DeleteReq;
 import com.ssafy.nfti.api.response.BoardCreateRes;
 import com.ssafy.nfti.api.response.BoardRes;
 import com.ssafy.nfti.api.service.BoardService;
 import com.ssafy.nfti.common.model.response.BaseResponseBody;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -22,18 +25,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/board")
+@Api(value = "게시글 API", tags = {"Board."})
 public class BoardController {
 
     @Autowired
     BoardService boardService;
 
     @PostMapping()
+    @ApiOperation(value = "게시글 생성", notes = "게시글을 생성한다.")
     public ResponseEntity<BoardCreateRes> postBoard(@RequestBody BoardReq req) {
         BoardCreateRes res = boardService.save(req);
         return ResponseEntity.ok(res);
     }
 
     @GetMapping("/{id}/list")
+    @ApiOperation(value = "게시글 목록", notes = "게시글 목록을 불러온다. (사용X)")
     public ResponseEntity<List<BoardRes>> getList(
         @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable,
         @PathVariable Long id
@@ -43,12 +49,14 @@ public class BoardController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "게시글 정보", notes = "게시글의 정보를 불러온다.")
     public ResponseEntity<BoardRes> getBoard(@PathVariable Long id) {
         BoardRes res = boardService.getOne(id);
         return ResponseEntity.ok(res);
     }
 
     @PutMapping("/{id}")
+    @ApiOperation(value = "게시글 수정", notes = "게시글을 수정한다.")
     public ResponseEntity<BoardRes> updateBoard(
         @PathVariable Long id,
         @RequestBody BoardReq req
@@ -58,9 +66,10 @@ public class BoardController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation(value = "게시글 삭제", notes = "게시글을 삭제한다.")
     public ResponseEntity<BaseResponseBody> deleteBoard(
         @PathVariable("id") Long id,
-        @RequestBody BoardReq req
+        @RequestBody DeleteReq req
     ) {
         boardService.delete(id, req.getUserAddress());
         return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
