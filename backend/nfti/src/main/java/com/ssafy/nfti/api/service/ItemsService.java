@@ -8,6 +8,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface ItemsService {
     ItemsCreateRes createItems(ItemsReq req);
-    List<ItemsRes> listItems(Pageable pageable, String address, Long communityId, Boolean onSaleYn);
+    List<ItemsRes> listItems(Pageable pageable, String findBy, String search, Long communityId, Boolean onSaleYn);
     ItemsRes getItem(Long tokenId);
 }

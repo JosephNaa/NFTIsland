@@ -6,6 +6,6 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 public interface MyPageService {
-    List<MyActivityRes> myActivityList(Pageable pageable, String address);
-    List<CommunityListRes> myCommunityList(Pageable pageable, String address, Boolean onSaleYn);
+    List<MyActivityRes> myActivityList(Pageable pageable, String findBy, String search);
+    List<CommunityListRes> myCommunityList(Pageable pageable, String findBy, String search, Boolean onSaleYn);
 }

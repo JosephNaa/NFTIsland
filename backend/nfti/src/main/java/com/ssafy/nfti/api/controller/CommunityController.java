@@ -56,7 +56,6 @@ public class CommunityController {
     UserService userService;
 
     @PostMapping(consumes = {"multipart/form-data"})
-    @Transactional
     @ApiOperation(value = "커뮤니티 생성", notes = "커뮤니티를 생성한다.", response = CommunityCreateRes.class)
     public ResponseEntity<CommunityCreateRes> createCommunity(
         @ModelAttribute CommunityReq req
@@ -110,7 +109,6 @@ public class CommunityController {
     }
 
     @PutMapping("/{id}")
-    @Transactional
     @ApiOperation(value = "커뮤니티 정보 수정", notes = "커뮤니티의 정보를 수정한다. payable은 수정 x", response = CommunityRes.class)
     public ResponseEntity<CommunityRes> updateCommunity(
         @PathVariable Long id,
@@ -123,7 +121,6 @@ public class CommunityController {
     }
 
     @DeleteMapping("/{id}")
-    @Transactional
     @ApiOperation(value = "커뮤니티 삭제", notes = "커뮤니티를 삭제한다. Body에는 <strong>host_address</strong>만 필요하다.", response = BaseResponseBody.class)
     public ResponseEntity<BaseResponseBody> deleteCommunity(
         @PathVariable Long id,

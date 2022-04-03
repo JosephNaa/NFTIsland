@@ -54,11 +54,12 @@ public class ItemsController {
     @GetMapping()
     public ResponseEntity<List<ItemsRes>> listItems(
         @PageableDefault(sort = "community_id", size = 30) Pageable pageable,
-        @RequestParam(required = true) String address,
+        @RequestParam(required = true) String findBy,
+        @RequestParam(required = true) String search,
         @RequestParam(required = false) Long communityId,
         @RequestParam(required = true) Boolean onSaleYn
     ) {
-        List<ItemsRes> res = itemsService.listItems(pageable, address, communityId, onSaleYn);
+        List<ItemsRes> res = itemsService.listItems(pageable, findBy, search, communityId, onSaleYn);
         return ResponseEntity.ok(res);
     }
 

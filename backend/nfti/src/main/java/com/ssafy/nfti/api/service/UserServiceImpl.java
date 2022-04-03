@@ -1,6 +1,7 @@
 package com.ssafy.nfti.api.service;
 
 
+import com.ssafy.nfti.api.response.UserRes;
 import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
 import com.ssafy.nfti.common.exception.response.ApiException;
 import com.ssafy.nfti.db.entity.User;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
+
     @Autowired
     UserRepository userRepository;
 
@@ -19,7 +21,7 @@ public class UserServiceImpl implements UserService {
     CommunityRepository communityRepository;
 
     @Override
-    public User getUserByAddress(String address) {
+    public User getUserOrCreateUser(String address) {
         // 디비에 유저 정보 조회 (지갑주소를 통한 조회).
         User user = userRepository.findByAddress(address).orElse(null);
 
@@ -30,10 +32,23 @@ public class UserServiceImpl implements UserService {
             newUser.setAddress(address);
             String newNick = RandomStringUtils.random(15, true, true);
             newUser.setNickname(newNick);
-            newUser.setProfile_path("https://kgw012-nft-bucket.s3.ap-northeast-2.amazonaws.com/f2596e19-e353-4f7f-9afc-eb22582121ca.png");
-
+            newUser.setProfile_path(
+                "https://kgw012-nft-bucket.s3.ap-northeast-2.amazonaws.com/f2596e19-e353-4f7f-9afc-eb22582121ca.png");
 
             user = userRepository.save(newUser);
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserInfo(String findBy, String search) {
+        User user = null;
+        if ("address".equals(findBy)) {
+            user = userRepository.findByAddress(search).orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
+        } else if ("nickname".equals(findBy)) {
+            user = userRepository.findByNickname(search).orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
+        } else {
+            throw new ApiException(ExceptionEnum.BAD_REQUEST_OPTION);
         }
         return user;
     }
@@ -46,4 +61,35 @@ public class UserServiceImpl implements UserService {
 
         return user.getAddress();
     }
+
+    public UserRes updateNickname(String address, String nickname) {
+        User user = userRepository.findByAddress(address)
+                .orElseThrow();
+
+        user.setNickname(nickname);
+
+        User newUser = userRepository.save(user);
+
+
+        return UserRes.of(newUser);
+    }
+
+
+//    public UserRes updateNickname(String address, UserReq req, String url) {
+//        User user = userRepository.findByAddress(address)
+//                .orElseThrow();
+//
+//        if (!user.getAddress().equals(req.getAddress())) {
+//            throw new ApiException(ExceptionEnum.NOT_FOUND_USER);
+//        }
+//
+//        user.setNickname(req.getNickname());
+//        //url null 분기 처리
+//
+////        user.setProfile_path(req.getProfile_path());
+//
+//        userRepository.save(user);
+//
+//        return UserRes.of(user);
+//    }
 }
