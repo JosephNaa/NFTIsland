@@ -10,6 +10,7 @@ public interface UserService {
     User getUserOrCreateUser(String address);
 
     User getUserInfo(String findBy, String search);
+
     UserRes updateNickname(String address, String nickname);
 
 
