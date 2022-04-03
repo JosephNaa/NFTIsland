@@ -6,7 +6,10 @@ import com.ssafy.nfti.db.entity.User;
 public interface UserService {
 
     // 인터페이스 만들고  메서드 UserServiceImpl에서 만들기
-    User getUserByAddress(String address);
+    User getUserOrCreateUser(String address);
+
+    User getUserInfo(String findBy, String search);
+
 
     //UserRepository 만들기
 

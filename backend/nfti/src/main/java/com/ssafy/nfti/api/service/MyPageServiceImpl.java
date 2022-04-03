@@ -31,9 +31,9 @@ public class MyPageServiceImpl implements MyPageService {
     ItemsRepositorySupport itemsRepositorySupport;
 
     @Override
-    public List<MyActivityRes> myActivityList(Pageable pageable, String address) {
+    public List<MyActivityRes> myActivityList(Pageable pageable, String findBy, String search) {
 
-        List<Board> boardList = boardRepositorySupport.findAllByPageSortAndUser(pageable, address);
+        List<Board> boardList = boardRepositorySupport.findAllByPageSortAndUser(pageable, findBy, search);
         List<MyActivityRes> res = new ArrayList<>();
         for (Board board : boardList) {
             res.add(MyActivityRes.of(board));
@@ -43,8 +43,9 @@ public class MyPageServiceImpl implements MyPageService {
     }
 
     @Override
-    public List<CommunityListRes> myCommunityList(Pageable pageable, String address, Boolean onSaleYn) {
-        List<Community> resList = itemsRepositorySupport.findAllMyCommunityId(pageable, address, onSaleYn);
+    public List<CommunityListRes> myCommunityList(Pageable pageable, String findBy, String search, Boolean onSaleYn) {
+        List<Community> resList = itemsRepositorySupport.findAllMyCommunityId(pageable, findBy, search, onSaleYn);
+
         List<CommunityListRes> res = resList.stream()
             .map(community -> CommunityListRes.of(community)).collect(
                 Collectors.toList());

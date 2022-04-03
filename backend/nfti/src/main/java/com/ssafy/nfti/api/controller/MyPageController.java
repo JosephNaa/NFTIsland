@@ -24,9 +24,10 @@ public class MyPageController {
     @GetMapping("activity")
     public ResponseEntity<List<MyActivityRes>> getMyList(
         @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable,
-        @RequestParam String address
+        @RequestParam(required = true) String findBy,
+        @RequestParam(required = true) String search
     ) {
-        List<MyActivityRes> res = myPageService.myActivityList(pageable, address);
+        List<MyActivityRes> res = myPageService.myActivityList(pageable, findBy, search);
 
         return ResponseEntity.ok(res);
     }
@@ -34,10 +35,11 @@ public class MyPageController {
     @GetMapping("community")
     public ResponseEntity<List<CommunityListRes>> getMyCommunityList(
         @PageableDefault(size = 30) Pageable pageable,
-        @RequestParam String address,
+        @RequestParam(required = true) String findBy,
+        @RequestParam(required = true) String search,
         @RequestParam(required = true) Boolean onSaleYn
     ) {
-        List<CommunityListRes> res = myPageService.myCommunityList(pageable, address, onSaleYn);
+        List<CommunityListRes> res = myPageService.myCommunityList(pageable, findBy, search, onSaleYn);
         return ResponseEntity.ok(res);
     }
 }

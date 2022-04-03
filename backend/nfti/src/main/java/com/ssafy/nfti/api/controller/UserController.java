@@ -27,9 +27,25 @@ public class UserController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     // 유저 정보 받아오기
-    public ResponseEntity<UserRes> getUserInfo(@RequestBody UserReq userReq) {
+    public ResponseEntity<UserRes> getUserInfoOrCreateUser(@RequestBody UserReq userReq) {
 
-        User user = userService.getUserByAddress(userReq.getAddress());
+        User user = userService.getUserOrCreateUser(userReq.getAddress());
+
+        return ResponseEntity.status(200).body(UserRes.of(user));
+    }
+
+    @PostMapping("/info")
+    @ApiOperation(value = "지갑 정보 조회", notes = "지갑 정보를 응답")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 401, message = "인증 실패"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+    // 유저 정보 받아오기
+    public ResponseEntity<UserRes> getUserInfo(
+        @RequestParam(required = true) String findBy,
+        @RequestParam(required = true) String search) {
+        User user = userService.getUserInfo(findBy, search);
 
         return ResponseEntity.status(200).body(UserRes.of(user));
     }

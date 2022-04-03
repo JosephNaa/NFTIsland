@@ -9,5 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ItemsRepository extends JpaRepository<Items, Long> {
     List<Items> findByOwnerAddressAndOnSaleYn(Pageable pageable, String address, Boolean onSaleYn);
     List<Items> findByOwnerAddressAndCommunityIdAndOnSaleYn(Pageable pageable, String address, Long communityId, Boolean onSaleYn);
+    List<Items> findByNicknameAndOnSaleYn(Pageable pageable, String nickname, Boolean onSaleYn);
+    List<Items> findByNicknameAndCommunityIdAndOnSaleYn(Pageable pageable, String nickname, Long communityId, Boolean onSaleYn);
     Optional<Items> findByTokenId(Long tokenId);
 }

@@ -58,7 +58,7 @@ public class ItemsServiceImpl implements ItemsService {
     }
 
     @Override
-    public List<ItemsRes> listItems(Pageable pageable, String address, Long communityId,
+    public List<ItemsRes> listItems(Pageable pageable, String findBy, String search, Long communityId,
         Boolean onSaleYn) {
         if (onSaleYn == null) {
             throw new ApiException(ExceptionEnum.BAD_REQUEST_ITEM);
@@ -67,10 +67,23 @@ public class ItemsServiceImpl implements ItemsService {
         List<Items> resList = null;
 
         if (communityId == null) {
-            resList = itemsRepository.findByOwnerAddressAndOnSaleYn(pageable, address, onSaleYn);
+            if ("address".equals(findBy)) {
+                resList = itemsRepository.findByOwnerAddressAndOnSaleYn(pageable, search, onSaleYn);
+            } else if ("nickname".equals(findBy)) {
+                resList = itemsRepository.findByNicknameAndOnSaleYn(pageable, search, onSaleYn);
+            } else {
+                throw new ApiException(ExceptionEnum.BAD_REQUEST_OPTION);
+            }
         } else {
-            resList = itemsRepository.findByOwnerAddressAndCommunityIdAndOnSaleYn(
-                pageable, address, communityId, onSaleYn);
+            if ("address".equals(findBy)) {
+                resList = itemsRepository.findByOwnerAddressAndCommunityIdAndOnSaleYn(
+                    pageable, search, communityId, onSaleYn);
+            } else if ("nickname".equals(findBy)) {
+                resList = itemsRepository.findByNicknameAndCommunityIdAndOnSaleYn(
+                    pageable, search, communityId, onSaleYn);
+            } else {
+                throw new ApiException(ExceptionEnum.BAD_REQUEST_OPTION);
+            }
         }
         List<ItemsRes> res = resList.stream().map(items -> ItemsRes.of(items))
             .collect(Collectors.toList());
