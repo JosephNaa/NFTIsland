@@ -34,7 +34,7 @@ public class UserController {
         return ResponseEntity.status(200).body(UserRes.of(user));
     }
 
-    @PostMapping("/info")
+    @GetMapping("/info")
     @ApiOperation(value = "지갑 정보 조회", notes = "지갑 정보를 응답")
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
