@@ -25,14 +25,12 @@ public class CommentController {
     CommentService commentService;
 
     @PostMapping()
-    @Transactional
     public ResponseEntity<CommentRes> addComment(@RequestBody CommentReq req) {
         CommentRes res = commentService.addComment(req);
         return ResponseEntity.ok(res);
     }
 
     @PutMapping("/{id}")
-    @Transactional
     public ResponseEntity<CommentRes> updateComment(@PathVariable Long id, @RequestBody CommentReq req) {
         CommentRes res = commentService.updateComment(id, req);
 
@@ -40,7 +38,6 @@ public class CommentController {
     }
 
     @DeleteMapping("/{id}")
-    @Transactional
     public ResponseEntity<BaseResponseBody> deleteComment(
         @PathVariable Long id,
         @RequestBody CommentReq req

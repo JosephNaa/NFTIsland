@@ -35,6 +35,7 @@ public class CommunityServiceImpl implements CommunityService {
     UserRepository userRepository;
 
     @Override
+    @Transactional
     public CommunityCreateRes createCommunity(CommunityReq req, String url) {
 
         User user =  userRepository.findByAddress(req.getHostAddress())
@@ -102,6 +103,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    @Transactional
     public CommunityRes updateCommunity(Long id, CommunityReq req) {
         Community community = communityRepository.findById(id)
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY));
@@ -123,6 +125,7 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    @Transactional
     public void deleteCommunity(Long id, String hostId) {
         Community community = communityRepository.findById(id)
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY));

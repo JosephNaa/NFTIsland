@@ -2,9 +2,9 @@ package com.ssafy.nfti.api.request;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class LikesReq {
 

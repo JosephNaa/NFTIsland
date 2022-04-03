@@ -46,7 +46,6 @@ public class CommunityController {
 
     // 생성
     @PostMapping(consumes = {"multipart/form-data"})
-    @Transactional
     public ResponseEntity<CommunityCreateRes> createCommunity(
         @ModelAttribute CommunityReq req
     ) {
@@ -98,7 +97,6 @@ public class CommunityController {
 
     // 수정
     @PutMapping("/{id}")
-    @Transactional
     public ResponseEntity<CommunityRes> updateCommunity(
         @PathVariable Long id,
         @RequestBody CommunityReq req
@@ -111,7 +109,6 @@ public class CommunityController {
 
     // 삭제
     @DeleteMapping("/{id}")
-    @Transactional
     public ResponseEntity<BaseResponseBody> deleteCommunity(
         @PathVariable Long id,
         @RequestBody CommunityReq req
