@@ -10,6 +10,8 @@ contract SaleFactory is Ownable {
     address[] public sales;
 
     NFTIslandBadge public erc721Contract;
+    
+    event CreatedSaleAddress(address saleAddress);
 
     event NewSale(
         address indexed _saleContract,
@@ -36,6 +38,10 @@ contract SaleFactory is Ownable {
         
         Sale sale = new Sale(admin, seller, itemId, purchasePrice, nftAddress);
         sales.push(address(sale));
+        erc721Contract.transferFrom(msg.sender, address(sale), itemId);
+
+        emit CreatedSaleAddress(address(sale));
+        
         return address(sale);
     }
 

@@ -4,6 +4,7 @@ import com.ssafy.nfti.api.request.UserReq;
 import com.ssafy.nfti.api.response.UserRes;
 import com.ssafy.nfti.api.service.UserService;
 import com.ssafy.nfti.db.entity.User;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/users")
+@Api(value = "유저 API", tags = {"User."})
 public class UserController {
 
     @Autowired

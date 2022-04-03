@@ -5,6 +5,8 @@ import com.ssafy.nfti.api.response.ItemsCreateRes;
 import com.ssafy.nfti.api.response.ItemsRes;
 import com.ssafy.nfti.api.service.AWSS3Service;
 import com.ssafy.nfti.api.service.ItemsService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/v1/items")
+@Api(value = "토큰 API", tags = {"Items."})
 public class ItemsController {
 
     @Autowired
@@ -32,6 +35,7 @@ public class ItemsController {
     AWSS3Service awss3Service;
 
     @PostMapping("/image")
+    @ApiOperation(value = "민팅", notes = "토큰을 S3에 업로드한다.")
     public ResponseEntity<String> uploadItemImage(
         @RequestPart(value = "file") MultipartFile file) {
         String url = awss3Service.uploadFile(file);

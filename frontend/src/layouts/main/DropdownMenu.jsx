@@ -6,6 +6,7 @@ import {
 	MenuItem,
 	IconButton,
 	Tooltip,
+	Link,
 } from '@mui/material';
 import {
 	Person as PersonIcon,
@@ -35,10 +36,6 @@ export default function DropDownMenu() {
 
 	const navigate = useNavigate();
 
-	const onClickMyIcon = () => {
-		navigate('/userpage');
-	};
-
 	const connectAccount = async () => {
 		try {
 			if (window.ethereum) {
@@ -47,12 +44,12 @@ export default function DropDownMenu() {
 				});
 				// 메타마스크에 로그인이 되어있는 경우
 				if (userAccount[0]) {
-					const res = await getUserAPI(userAccount[0]);
-					userContext.setUserInfo(
-						res.data.address,
-						res.data.nickname,
-						res.data.profile_path
-					);
+					const { data } = await getUserAPI(userAccount[0]);
+					userContext.setLoggedUser({
+						account: data.account,
+						nickname: data.nickname,
+						profileImage: data.profile_path,
+					});
 				}
 				// 메타마스크 로그인을 해야하는 경우
 				else {
@@ -73,7 +70,7 @@ export default function DropDownMenu() {
 		connectAccount();
 	};
 	const onClickLogout = () => {
-		userContext.clearUserInfo();
+		userContext.clearLoggedUser();
 	};
 
 	return (
@@ -88,7 +85,7 @@ export default function DropDownMenu() {
 						aria-haspopup='true'
 						aria-expanded={open ? 'true' : undefined}
 					>
-						{userContext.account ? (
+						{userContext.loggedIn ? (
 							<Avatar sx={{ width: 32, height: 32 }}>
 								<PersonIcon />
 							</Avatar>
@@ -98,7 +95,7 @@ export default function DropDownMenu() {
 					</IconButton>
 				</Tooltip>
 			</Box>
-			{userContext.account ? (
+			{userContext.loggedIn ? (
 				<Menu
 					anchorEl={anchorEl}
 					id='My-menu'
@@ -134,9 +131,20 @@ export default function DropDownMenu() {
 					transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 					anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 				>
-					<MenuItem onClick={onClickMyIcon}>
-						<PersonIcon /> 마이 페이지
-					</MenuItem>
+					<Link
+						href={`/user/${userContext.loggedUser.nickname}`}
+						underline='none'
+						color='inherit'
+						onClick={e => {
+							e.preventDefault();
+							navigate(`/user/${userContext.loggedUser.nickname}`);
+						}}
+					>
+						<MenuItem>
+							<PersonIcon />
+							마이 페이지
+						</MenuItem>
+					</Link>
 					<MenuItem>
 						<AppsIcon /> 내 뱃지 컬렉션
 					</MenuItem>

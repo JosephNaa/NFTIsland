@@ -1,24 +1,45 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { useState, useEffect } from 'react';
 import {
 	Box,
-	Card,
-	CardContent,
-	CardMedia,
-	Chip,
+	Button,
 	Container,
 	Divider,
 	Grid,
 	IconButton,
 	InputBase,
-	Link,
 	Paper,
 	Stack,
 	Typography,
+	CircularProgress,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import InfiniteScroll from 'react-infinite-scroller';
 import Page from '../components/Page';
 import CommunityCard from '../layouts/market/CommunityCard';
+import { getCommunityListAPI } from '../api/community';
 
 function Community() {
+	const [communityList, setCommunityList] = useState([]);
+	const [filterOption, setFilterOption] = useState('newest');
+	const [hasMoreItems, setHasMoreItems] = useState(true);
+
+	const getCommunityList = async (page, key) => {
+		const { data } = await getCommunityListAPI(page, 8, key);
+		return data;
+	};
+
+	useEffect(() => {
+		setCommunityList(_prev => []);
+		setHasMoreItems(_prev => true);
+	}, [filterOption]);
+
+	const loadItems = async page => {
+		const data = await getCommunityList(page, filterOption);
+		setCommunityList(prev => prev.concat(data));
+		setHasMoreItems(_prev => !!data.length);
+	};
+
 	return (
 		<Page title='Community' maxWidth='100%' minHeight='100%' display='flex'>
 			<Container>
@@ -50,37 +71,77 @@ function Community() {
 						direction='row'
 						spacing={1}
 					>
-						<Link href='#1'>가나다순</Link>
+						<Button onClick={() => setFilterOption(_prev => 'newest')}>
+							<Typography
+								sx={
+									filterOption === 'newest'
+										? { fontWeight: 'bold' }
+										: { fontWeight: 'regular' }
+								}
+							>
+								최신순
+							</Typography>
+						</Button>
 						<Divider sx={{ height: 18 }} orientation='vertical' />
-						<Link href='#2'>최신순</Link>
+						<Button onClick={() => setFilterOption(_prev => 'member')}>
+							<Typography
+								sx={
+									filterOption === 'member'
+										? { fontWeight: 'bold' }
+										: { fontWeight: 'regular' }
+								}
+							>
+								회원 많은순
+							</Typography>
+						</Button>
 						<Divider sx={{ height: 18 }} orientation='vertical' />
-						<Link href='#3'>회원 많은순</Link>
-						<Divider sx={{ height: 18 }} orientation='vertical' />
-						<Link href='#4'>게시글 많은순</Link>
+						<Button onClick={() => setFilterOption(_prev => 'board')}>
+							<Typography
+								sx={
+									filterOption === 'board'
+										? { fontWeight: 'bold' }
+										: { fontWeight: 'regular' }
+								}
+							>
+								게시글 많은순
+							</Typography>
+						</Button>
 					</Stack>
-					<Grid container spacing={4}>
-						<Grid item xs={12} sm={6} md={4} lg={3}>
-							<CommunityCard onClickURL='/community/a' />
+
+					<InfiniteScroll
+						pageStart={0}
+						key={filterOption}
+						loadMore={loadItems}
+						hasMore={hasMoreItems}
+						loader={
+							<Box
+								sx={{
+									display: 'flex',
+									justifyContent: 'center',
+									alignItems: 'center',
+									m: 4,
+								}}
+								key={0}
+							>
+								<CircularProgress />
+							</Box>
+						}
+					>
+						<Grid container spacing={4}>
+							{communityList.map(item => (
+								<Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
+									<CommunityCard
+										onClickURL={`/community/${item.id}`}
+										communityName={item.name}
+										communityDescription={item.description}
+										communityHost={item.host_nick_name}
+										communityLogo={item.logo_path}
+										hostProfile={item.host_profile}
+									/>
+								</Grid>
+							))}
 						</Grid>
-						<Grid item xs={12} sm={6} md={4} lg={3}>
-							<CommunityCard onClickURL='/community/a' />
-						</Grid>
-						<Grid item xs={12} sm={6} md={4} lg={3}>
-							<CommunityCard onClickURL='/community/a' />
-						</Grid>
-						<Grid item xs={12} sm={6} md={4} lg={3}>
-							<CommunityCard onClickURL='/community/a' />
-						</Grid>
-						<Grid item xs={12} sm={6} md={4} lg={3}>
-							<CommunityCard onClickURL='/community/a' />
-						</Grid>
-						<Grid item xs={12} sm={6} md={4} lg={3}>
-							<CommunityCard onClickURL='/community/a' />
-						</Grid>
-						<Grid item xs={12} sm={6} md={4} lg={3}>
-							<CommunityCard onClickURL='/community/a' />
-						</Grid>
-					</Grid>
+					</InfiniteScroll>
 				</Stack>
 			</Container>
 		</Page>

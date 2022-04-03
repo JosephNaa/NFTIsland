@@ -17,6 +17,7 @@ import lombok.Data;
 public class BoardListRes {
     Long id;
     String userAddress;
+    String userProfile;
     String nickName;
     String title;
     String content;
@@ -35,6 +36,7 @@ public class BoardListRes {
         return BoardListRes.builder()
             .id(board.getId())
             .userAddress(board.getUser().getAddress())
+            .userProfile(board.getUser().getProfile_path())
             .nickName(board.getUser().getNickname())
             .title(board.getTitle())
             .content(board.getContent())
