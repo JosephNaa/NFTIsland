@@ -1,6 +1,7 @@
 package com.ssafy.nfti.api.service;
 
 import com.ssafy.nfti.api.request.CommunityReq;
+import com.ssafy.nfti.api.request.CommunityUpdateReq;
 import com.ssafy.nfti.api.response.CommunityCreateRes;
 import com.ssafy.nfti.api.response.CommunityListRes;
 import com.ssafy.nfti.api.response.CommunityRes;
@@ -14,6 +15,6 @@ public interface CommunityService {
     List<CommunityListRes> getList(Pageable pageable);
     List<CommunityListRes> getListSortByMember(Pageable pageable);
     List<CommunityListRes> getListSortByBoard(Pageable pageable);
-    CommunityRes updateCommunity(Long id, CommunityReq req);
+    CommunityRes updateCommunity(Long id, CommunityUpdateReq req);
     void deleteCommunity(Long id, String hostId);
 }
