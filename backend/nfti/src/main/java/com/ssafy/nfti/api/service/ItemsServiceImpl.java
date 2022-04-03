@@ -70,7 +70,8 @@ public class ItemsServiceImpl implements ItemsService {
             if ("address".equals(findBy)) {
                 resList = itemsRepository.findByOwnerAddressAndOnSaleYn(pageable, search, onSaleYn);
             } else if ("nickname".equals(findBy)) {
-                resList = itemsRepository.findByNicknameAndOnSaleYn(pageable, search, onSaleYn);
+                User user = userRepository.findByNickname(search).orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
+                resList = itemsRepository.findByOwnerAddressAndOnSaleYn(pageable, user.getAddress(), onSaleYn);
             } else {
                 throw new ApiException(ExceptionEnum.BAD_REQUEST_OPTION);
             }
@@ -79,8 +80,9 @@ public class ItemsServiceImpl implements ItemsService {
                 resList = itemsRepository.findByOwnerAddressAndCommunityIdAndOnSaleYn(
                     pageable, search, communityId, onSaleYn);
             } else if ("nickname".equals(findBy)) {
-                resList = itemsRepository.findByNicknameAndCommunityIdAndOnSaleYn(
-                    pageable, search, communityId, onSaleYn);
+                User user = userRepository.findByNickname(search).orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
+                resList = itemsRepository.findByOwnerAddressAndCommunityIdAndOnSaleYn(
+                    pageable, user.getAddress(), communityId, onSaleYn);
             } else {
                 throw new ApiException(ExceptionEnum.BAD_REQUEST_OPTION);
             }
