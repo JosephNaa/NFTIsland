@@ -36,6 +36,7 @@ contract SaleFactory is Ownable {
         
         Sale sale = new Sale(admin, seller, itemId, purchasePrice, nftAddress);
         sales.push(address(sale));
+        erc721Contract.transferFrom(msg.sender, address(sale), itemId);
         return address(sale);
     }
 
