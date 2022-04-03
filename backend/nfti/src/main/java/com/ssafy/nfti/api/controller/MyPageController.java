@@ -23,7 +23,7 @@ public class MyPageController {
 
     @GetMapping("activity")
     public ResponseEntity<List<MyActivityRes>> getMyList(
-        @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 30) Pageable pageable,
+        @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 12) Pageable pageable,
         @RequestParam(required = true) String findBy,
         @RequestParam(required = true) String search
     ) {
