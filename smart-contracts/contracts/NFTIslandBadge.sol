@@ -10,6 +10,8 @@ contract NFTIslandBadge is ERC721, Ownable {
     mapping(uint256 => string) private _tokenURIs;
     mapping(uint256 => bool) private _publics;
     address private _saleFactoryAddress;
+    
+    event CreatedTokenIds(uint256[] tokenIdArray);
 
     constructor(string memory name, string memory symbol) ERC721(name, symbol) {
         _tokenIds = 0;
@@ -42,6 +44,8 @@ contract NFTIslandBadge is ERC721, Ownable {
             
             _tokenIds += 1;
         }
+
+        emit CreatedTokenIds(tokenIdArray);
 
         return tokenIdArray;
     }
