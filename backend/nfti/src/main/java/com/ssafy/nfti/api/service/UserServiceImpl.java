@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
+
     @Autowired
     UserRepository userRepository;
 
@@ -20,7 +21,7 @@ public class UserServiceImpl implements UserService {
     CommunityRepository communityRepository;
 
     @Override
-    public User getUserByAddress(String address) {
+    public User getUserOrCreateUser(String address) {
         // 디비에 유저 정보 조회 (지갑주소를 통한 조회).
         User user = userRepository.findByAddress(address).orElse(null);
 
@@ -31,10 +32,23 @@ public class UserServiceImpl implements UserService {
             newUser.setAddress(address);
             String newNick = RandomStringUtils.random(15, true, true);
             newUser.setNickname(newNick);
-            newUser.setProfile_path("https://kgw012-nft-bucket.s3.ap-northeast-2.amazonaws.com/f2596e19-e353-4f7f-9afc-eb22582121ca.png");
-
+            newUser.setProfile_path(
+                "https://kgw012-nft-bucket.s3.ap-northeast-2.amazonaws.com/f2596e19-e353-4f7f-9afc-eb22582121ca.png");
 
             user = userRepository.save(newUser);
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserInfo(String findBy, String search) {
+        User user = null;
+        if ("address".equals(findBy)) {
+            user = userRepository.findByAddress(search).orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
+        } else if ("nickname".equals(findBy)) {
+            user = userRepository.findByNickname(search).orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
+        } else {
+            throw new ApiException(ExceptionEnum.BAD_REQUEST_OPTION);
         }
         return user;
     }

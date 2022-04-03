@@ -29,10 +29,11 @@ public class MyPageController {
     @GetMapping("activity")
     @ApiOperation(value = "활동 기록", notes = "내 활동 기록을 불러온다.")
     public ResponseEntity<List<MyActivityRes>> getMyList(
-        @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable,
-        @RequestParam String address
+        @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 12) Pageable pageable,
+        @RequestParam(required = true) String findBy,
+        @RequestParam(required = true) String search
     ) {
-        List<MyActivityRes> res = myPageService.myActivityList(pageable, address);
+        List<MyActivityRes> res = myPageService.myActivityList(pageable, findBy, search);
 
         return ResponseEntity.ok(res);
     }
@@ -41,10 +42,11 @@ public class MyPageController {
     @ApiOperation(value = "커뮤니티 조회", notes = "내가 속한 커뮤니티를 조회한다.")
     public ResponseEntity<List<CommunityListRes>> getMyCommunityList(
         @PageableDefault(size = 30) Pageable pageable,
-        @RequestParam String address,
+        @RequestParam(required = true) String findBy,
+        @RequestParam(required = true) String search,
         @RequestParam(required = true) Boolean onSaleYn
     ) {
-        List<CommunityListRes> res = myPageService.myCommunityList(pageable, address, onSaleYn);
+        List<CommunityListRes> res = myPageService.myCommunityList(pageable, findBy, search, onSaleYn);
         return ResponseEntity.ok(res);
     }
 
