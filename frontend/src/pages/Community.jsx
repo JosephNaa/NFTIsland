@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from 'react';
 import {
 	Box,
@@ -163,6 +162,20 @@ function Community() {
 							</Box>
 						}
 					>
+						<Box
+							sx={
+								!itemInfo.communityList.length && !itemInfo.hasMoreItems
+									? { p: 16 }
+									: { visibility: 'hidden' }
+							}
+							display='flex'
+							alignItems='center'
+							justifyContent='center'
+						>
+							<Typography sx={{ fontWeight: 'light' }} variant='h3'>
+								There are no items
+							</Typography>
+						</Box>
 						<Grid container spacing={4}>
 							{itemInfo.communityList.map(item => (
 								<Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
