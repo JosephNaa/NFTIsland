@@ -12,4 +12,19 @@ const getUserInfoAPI = (findBy, search) =>
 			console.dir(err);
 		});
 
-export { getUserInfoAPI };
+const getUserCommunityListAPI = (findBy, search, onSaleYn, page, size) =>
+	http
+		.get('/mypage/community', {
+			params: {
+				find_by: findBy,
+				search,
+				on_sale_yn: onSaleYn,
+				page,
+				size,
+			},
+		})
+		.catch(err => {
+			console.dir(err);
+		});
+
+export { getUserInfoAPI, getUserCommunityListAPI };
