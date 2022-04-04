@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
 import {
 	Avatar,
 	Box,
@@ -24,6 +25,7 @@ import { getBoardsAPI } from '../api/board';
 import PageHeder from '../layouts/PageHeader';
 
 function CommunityDetail() {
+	const theme = useTheme();
 	const navigate = useNavigate();
 	const params = useParams();
 	const [boards, setBoards] = useState();
@@ -66,20 +68,48 @@ function CommunityDetail() {
 					<Stack direction='row' justifyContent='space-between'>
 						<Stack direction='column' alignItems='center' width='30%'>
 							{/* 커뮤니티 이미지 */}
-							<img src={communityInfo.communityLogo} alt='' />
+							<Box
+								sx={{
+									borderRadius: '15px',
+									overflow: 'hidden',
+									boxShadow: '10',
+								}}
+							>
+								<img
+									src={communityInfo.communityLogo}
+									alt=''
+									style={{ height: '300px', width: '400px', objectFit: 'scale-down' }}
+								/>
+							</Box>
+						</Stack>
+						<Stack direction='column' width='60%'>
+							{/* 커뮤니티 이름 */}
+							<Typography variant='h2'>
+								<b>{communityInfo.communityName}</b>
+							</Typography>
 							<Stack direction='row'>
-								<Avatar sx={{ ml: '10px', width: 35, height: 35 }}>
-									<PersonIcon />
-									{/* 커뮤니티장 아이콘 */}
-								</Avatar>
-								<Typography ml='10px' mt='5px'>
+								<Typography fontSize='12px'>Owned by</Typography>
+								<Typography ml='10px' fontSize='12px' color={theme.palette.info.dark}>
 									{/* 커뮤니티장 닉네임 */}
 									{communityInfo.hostNickname}
 								</Typography>
 							</Stack>
+							{/* 커뮤니티 설명 */}
+							<Box
+								sx={{
+									mt: '5px',
+									whiteSpace: 'normal',
+									width: '100%',
+									wordBreak: 'break-all',
+									height: '70%',
+								}}
+							>
+								<Typography mt='2%'>{communityInfo.communityDes}</Typography>
+							</Box>
 							<Button
 								sx={{
-									mt: '10px',
+									mt: '2%',
+									width: '100px',
 									fontSize: '12px',
 									alignContent: 'center',
 								}}
@@ -90,14 +120,6 @@ function CommunityDetail() {
 							>
 								NFT 발행
 							</Button>
-						</Stack>
-						<Stack direction='column' width='60%'>
-							{/* 커뮤니티 이름 */}
-							<Typography fontSize='30px'>
-								<b>{communityInfo.communityName}</b>
-							</Typography>
-							{/* 커뮤니티 설명 */}
-							<Typography>{communityInfo.communityDes}</Typography>
 						</Stack>
 					</Stack>
 				</Box>
