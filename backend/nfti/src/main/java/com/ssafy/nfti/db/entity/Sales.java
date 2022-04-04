@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,8 +16,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Setter
 @Entity(name = "sales")
 @EntityListeners(AuditingEntityListener.class)
-public class Sales extends BaseEntity {
+public class Sales {
 
+    @Id
     @Column(
         name = "sale_contract_address",
         nullable = false
@@ -23,13 +27,20 @@ public class Sales extends BaseEntity {
 
     private Boolean saleYn;
 
-    private Long tokenId;
+    @ManyToOne
+    @JoinColumn(name="token_id", nullable=false)
+    private Items item;
 
-    private String cashContractAddress;
+    @ManyToOne
+    @JoinColumn(name="seller_address", nullable=false)
+    private User seller;
 
-    private String sellerAddress;
+    @ManyToOne
+    @JoinColumn(name="buyer_address", nullable=true)
+    private User buyer;
 
-    private String buyerAddress;
+    @CreatedDate
+    private LocalDateTime createdAt;
 
     private LocalDateTime completedAt;
 

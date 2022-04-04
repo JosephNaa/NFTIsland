@@ -1,10 +1,11 @@
 package com.ssafy.nfti.db.entity;
 
+import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,5 +31,8 @@ public class Items {
 
     @ManyToOne
     private Community community;
+
+    @OneToMany(mappedBy = "item")
+    private List<Sales> sales;
 
 }

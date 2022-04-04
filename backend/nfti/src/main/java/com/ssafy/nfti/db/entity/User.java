@@ -38,4 +38,10 @@ public class User {
 
     @OneToMany(mappedBy = "owner")
     private List<Items> items;
+
+    @OneToMany(mappedBy = "seller")
+    private List<Sales> saleItems;
+
+    @OneToMany(mappedBy = "buyer")
+    private List<Sales> buyItems;
 }
