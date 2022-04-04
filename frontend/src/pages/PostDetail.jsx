@@ -58,7 +58,7 @@ function PostDetail() {
 	};
 
 	const onClickEditIcon = () => {
-		navigate('/postwrite');
+		navigate(`/community/postwrite/${communityId}?postId=${postId}`);
 	};
 
 	const onClickDeleteIcon = () => {
