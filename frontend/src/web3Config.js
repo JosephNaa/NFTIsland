@@ -71,6 +71,19 @@ const nftAbi = [
 		anonymous: false,
 		inputs: [
 			{
+				indexed: false,
+				internalType: 'uint256[]',
+				name: 'tokenIdArray',
+				type: 'uint256[]',
+			},
+		],
+		name: 'CreatedTokenIds',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
 				indexed: true,
 				internalType: 'address',
 				name: 'previousOwner',
@@ -491,7 +504,7 @@ const nftAbi = [
 	},
 ];
 
-const nftCA = '0x13934B47433f253Fac6c3122C673a9b0Cb40E412';
+const nftCA = '0xC00e939034155C25Fe0Ad6682750aDf449018338';
 
 export const web3 = new Web3(window.ethereum);
 
