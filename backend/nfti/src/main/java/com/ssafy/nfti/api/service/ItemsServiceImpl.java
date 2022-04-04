@@ -99,4 +99,11 @@ public class ItemsServiceImpl implements ItemsService {
         ItemsRes res = ItemsRes.of(item);
         return res;
     }
+
+    @Override
+    public Boolean checkHasItem(String address, Long communityId) {
+        List<Items> resList = itemsRepository.findByOwnerAddressAndCommunityIdAndOnSaleYn(address, communityId, false);
+
+        return resList.size() > 0 ? true : false;
+    }
 }
