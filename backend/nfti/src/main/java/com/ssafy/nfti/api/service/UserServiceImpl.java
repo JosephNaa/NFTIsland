@@ -1,6 +1,7 @@
 package com.ssafy.nfti.api.service;
 
 
+import com.ssafy.nfti.api.request.UserReq;
 import com.ssafy.nfti.api.response.UserRes;
 import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
 import com.ssafy.nfti.common.exception.response.ApiException;
@@ -83,21 +84,21 @@ public class UserServiceImpl implements UserService {
     }
 
 
-//    public UserRes updateNickname(String address, UserReq req, String url) {
-//        User user = userRepository.findByAddress(address)
-//                .orElseThrow();
-//
+    public UserRes updateProfilePath(String address, UserReq req, String url) {
+        User user = userRepository.findByAddress(address)
+                .orElseThrow();
+
 //        if (!user.getAddress().equals(req.getAddress())) {
 //            throw new ApiException(ExceptionEnum.NOT_FOUND_USER);
 //        }
 //
 //        user.setNickname(req.getNickname());
 //        //url null 분기 처리
-//
-////        user.setProfile_path(req.getProfile_path());
-//
-//        userRepository.save(user);
-//
-//        return UserRes.of(user);
-//    }
+
+        user.setProfile_path(url);
+
+        User newUser = userRepository.save(user);
+
+        return UserRes.of(newUser);
+    }
 }
