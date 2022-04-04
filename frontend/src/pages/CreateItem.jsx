@@ -3,15 +3,10 @@ import {
 	Container,
 	Stack,
 	Box,
-	Typography,
 	TextField,
 	Divider,
 	Button,
-	Switch,
-	FormControl,
-	InputLabel,
-	MenuItem,
-	Select,
+	CircularProgress,
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Form, FormikProvider, useFormik } from 'formik';
@@ -31,12 +26,13 @@ function CreateItem() {
 
 	const [image, setImage] = useState('');
 	const [imageName, setImageName] = useState('');
-	const [itemName, setItemName] = useState('');
-	const [description, setDescription] = useState('');
-	const [supply, setSupply] = useState(1);
-	const [community, setCommunity] = useState('');
+	// const [itemName, setItemName] = useState('');
+	// const [description, setDescription] = useState('');
+	// const [supply, setSupply] = useState(1);
+	// const [community, setCommunity] = useState('');
 	const [communityName, setCommunityName] = useState('');
 	const [payable, setPayable] = useState(true);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		getBoardsAPI(params.communityId).then(({ data }) => {
@@ -45,9 +41,9 @@ function CreateItem() {
 		});
 	}, []);
 
-	const handleChangeSelect = event => {
-		setCommunity(event.target.value);
-	};
+	// const handleChangeSelect = event => {
+	// 	setCommunity(event.target.value);
+	// };
 
 	// 타이핑 헬퍼
 	const typeSchema = Yup.object().shape({
@@ -67,33 +63,30 @@ function CreateItem() {
 		},
 		validationSchema: typeSchema,
 		onSubmit: async value => {
-			setItemName(value.itemName);
-			setDescription(value.description);
-			setSupply(value.supply);
-
-			// 여기서 백엔드호출해서 커뮤니티 만들기
-
 			const formData = new FormData();
 			formData.append('file', image);
-
-			// S3이미지 URL 받아오기
-			const res = await getImageURL(formData);
-			const nft = await nftContract.methods
-				.create(userContext.loggedUser.address, res.data, payable, value.supply)
-				.send({ from: userContext.loggedUser.address });
-			// await nftContract.methods
-			// 	.create(userContext.loggedUser.address, res.data, payable, value.supply)
-			// 	.send({ from: userContext.loggedUser.address });
-			console.log(nft);
-			const tmp = await saveNFTInfo({
-				token_ids: ['2', '1', '3'],
-				owner_address: userContext.loggedUser.address,
-				community_id: params.communityId,
-				item_description: value.description,
-				item_title: value.itemName,
-				item_url: res.data,
-			});
-			console.log(tmp);
+			setLoading(true);
+			try {
+				// S3이미지 URL 받아오기
+				const res = await getImageURL(formData);
+				// SC로 NFT 발행하기
+				const { events } = await nftContract.methods
+					.create(userContext.loggedUser.address, res.data, payable, value.supply)
+					.send({ from: userContext.loggedUser.address });
+				// 백엔드에 토큰정보 저장하기
+				await saveNFTInfo({
+					token_ids: events.CreatedTokenIds.returnValues.tokenIdArray,
+					owner_address: userContext.loggedUser.address,
+					community_id: params.communityId,
+					item_description: value.description,
+					item_title: value.itemName,
+					item_url: res.data,
+				});
+				navigate(`/user/${userContext.loggedUser.nickname}`);
+			} catch (error) {
+				console.dir(error);
+			}
+			setLoading(false);
 		},
 	});
 
@@ -114,6 +107,30 @@ function CreateItem() {
 
 	return (
 		<Page>
+			{loading && (
+				<Box
+					sx={{
+						position: 'absolute',
+						top: 0,
+						left: 0,
+						width: '100%',
+						height: '100%',
+						backgroundColor: 'rgba(0, 0, 0, 0.4)',
+						zIndex: 999,
+					}}
+				>
+					<Box
+						sx={{
+							position: 'absolute',
+							top: '50%',
+							left: '50%',
+							transform: 'translate(-50%, -50%)',
+						}}
+					>
+						<CircularProgress />
+					</Box>
+				</Box>
+			)}
 			<Container maxWidth='md'>
 				<Header title='NFT 발행' sx={{ marginBottom: '30px' }} />
 				<FormikProvider value={formik}>

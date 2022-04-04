@@ -1,9 +1,12 @@
 import { createContext } from 'react';
 
 export default createContext({
-	account: '',
-	nickname: '',
-	profileImage: '',
+	loggedUser: {
+		account: '',
+		nickname: '',
+		profileImage: '',
+	},
+	loggedIn: false,
 	setLoggedUser: () => {},
 	clearLoggedUser: () => {},
 });
