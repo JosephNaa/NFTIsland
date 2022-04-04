@@ -1,6 +1,7 @@
 package com.ssafy.nfti.api.service;
 
 import com.ssafy.nfti.api.request.UserRegisterPostReq;
+import com.ssafy.nfti.api.request.UserReq;
 import com.ssafy.nfti.api.response.UserRes;
 import com.ssafy.nfti.db.entity.User;
 
@@ -13,6 +14,7 @@ public interface UserService {
 
     UserRes updateNickname(String address, String nickname);
 
+    UserRes updateProfilePath(String address, UserReq req, String url);
 
     //UserRepository 만들기
 
