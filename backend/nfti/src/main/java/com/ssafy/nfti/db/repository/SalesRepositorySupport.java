@@ -33,6 +33,7 @@ public class SalesRepositorySupport extends QuerydslRepositorySupport {
     public List<Sales> findAllSalesOnCommunityId(Pageable pageable, Long communityId) {
         JPAQuery<Sales> query = jpaQueryFactory
             .selectFrom(sales)
+            .join(sales.item, items)
             .where(sales.item.tokenId.in(
                 JPAExpressions
                     .select(items.tokenId)

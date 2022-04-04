@@ -3,6 +3,7 @@ package com.ssafy.nfti.api.controller;
 import com.ssafy.nfti.api.request.CreateSaleReq;
 import com.ssafy.nfti.api.request.PurchaseReq;
 import com.ssafy.nfti.api.response.CommunityListRes;
+import com.ssafy.nfti.api.response.SaleAndItemRes;
 import com.ssafy.nfti.api.response.SalesRes;
 import com.ssafy.nfti.api.service.SalesService;
 import io.swagger.annotations.Api;
@@ -45,18 +46,18 @@ public class SalesController {
     }
 
     @GetMapping("/community/{communityId}")
-    public ResponseEntity<List<SalesRes>> listSalesOnCommunityId(
+    public ResponseEntity<List<SaleAndItemRes>> listSalesOnCommunityId(
         @PageableDefault(size = 30) Pageable pageable,
         @PathVariable Long communityId
     ) {
-        List<SalesRes> res = salesService.listSalesOnCommunityId(pageable, communityId);
+        List<SaleAndItemRes> res = salesService.listSalesOnCommunityId(pageable, communityId);
 
         return ResponseEntity.ok(res);
     }
 
     @GetMapping("/info/{saleContractAddress}")
-    public ResponseEntity<SalesRes> getSale(@PathVariable String saleContractAddress) {
-        SalesRes res = salesService.getSale(saleContractAddress);
+    public ResponseEntity<SaleAndItemRes> getSale(@PathVariable String saleContractAddress) {
+        SaleAndItemRes res = salesService.getSale(saleContractAddress);
 
         return ResponseEntity.ok(res);
     }
