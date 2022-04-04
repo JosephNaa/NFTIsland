@@ -38,11 +38,7 @@ function TabPanel(props) {
 			aria-labelledby={`simple-tab-${index}`}
 			{...other}
 		>
-			{value === index && (
-				<Box sx={{ p: 3 }}>
-					<Typography>{children}</Typography>
-				</Box>
-			)}
+			{value === index && <Box sx={{ p: 3 }}>{children}</Box>}
 		</div>
 	);
 }
@@ -250,9 +246,9 @@ function UserPage() {
 						</DialogContent>
 					</Dialog>
 				</Box>
-				<Typography mb='10px' align='center'>
+				<Box display='flex' alignItems='center' justifyContent='center'>
 					<Chip label={userAddress} variant='outlined' onClick={() => {}} />
-				</Typography>
+				</Box>
 				<Box sx={{ width: '100%' }}>
 					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 						<Tabs value={value} onChange={handleChange} centered>
@@ -264,7 +260,7 @@ function UserPage() {
 						</Tabs>
 					</Box>
 					<TabPanel value={value} index={0}>
-						<CommunityTab />
+						<CommunityTab userName={userName} />
 					</TabPanel>
 					<TabPanel value={value} index={1}>
 						<BadgeTab />
