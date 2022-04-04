@@ -1,3 +1,4 @@
+import { useEffect, useState, useContext } from 'react';
 import { useTheme, styled } from '@mui/material/styles';
 import { Box, Avatar, Typography, Stack, Card, Container } from '@mui/material';
 import {
@@ -7,19 +8,37 @@ import {
 	Edit as EditIcon,
 	FavoriteBorder as LikeIcon,
 } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import logo from '../../image/logo.png';
+import { useNavigate, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import UserContext from '../../context/UserContext';
+import { deleteCommentAPI } from '../../api/comment';
 
-function Comments() {
+Comments.propTypes = {
+	commentId: PropTypes.number.isRequired,
+	content: PropTypes.string.isRequired,
+	nickName: PropTypes.string.isRequired,
+	userAddress: PropTypes.string,
+	updatedAt: PropTypes.string.isRequired,
+};
+
+function Comments({ commentId, content, nickName, userAddress, updatedAt }) {
 	const theme = useTheme();
 	const navigate = useNavigate();
+	const { loggedUser } = useContext(UserContext);
+	const { communityId, postId } = useParams();
 
 	const onClickEditIcon = () => {
 		navigate('/postwrite');
 	};
 
 	const onClickDeleteIcon = () => {
-		navigate('/community/a');
+		// 댓글 삭제 API
+		deleteCommentAPI({
+			commentId,
+			user_address: loggedUser.address,
+		}).then(res => {
+			navigate(`/community/${communityId}/${postId}`);
+		});
 	};
 
 	return (
@@ -30,16 +49,16 @@ function Comments() {
 				<Box flex='1'>
 					<Typography mb='3px' fontSize='14px'>
 						{/* 작성자 닉네임 */}
-						hhhhhdong
+						{nickName}
 					</Typography>
 					<Typography mb='3px'>
 						{/* 댓글내용 */}
-						좋은글입니다!!
+						{content}
 					</Typography>
 				</Box>
 				<Typography mt='15px' fontSize='14px'>
 					{/* 댓글 작성일 */}
-					2022.03.22
+					{updatedAt}
 				</Typography>
 				<Stack direction='row' ml='30px' mt='15px' spacing={1}>
 					<Box>
