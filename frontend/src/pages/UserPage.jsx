@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { useState, useRef, useEffect, useContext } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
 	Avatar,
@@ -8,33 +8,24 @@ import {
 	Stack,
 	Container,
 	Typography,
-	Grid,
-	Tabs,
 	Tab,
-	FormHelperText,
-	FormControl,
-	Select,
-	MenuItem,
+	Tabs,
+	DialogTitle,
 	Dialog,
 	DialogContent,
-	DialogContentText,
-	DialogTitle,
 	Button,
 	TextField,
 } from '@mui/material';
 
-import {
-	Person as PersonIcon,
-	Search as SearchIcon,
-	Add as AddIcon,
-	Edit as EditIcon,
-} from '@mui/icons-material';
+import { Edit as EditIcon } from '@mui/icons-material';
 import { useNavigate, useParams } from 'react-router-dom';
 import Page from '../components/Page';
-import CommunityCard from '../layouts/userpage/CommunityCard';
-import ItemCard from '../layouts/userpage/ItemCard';
-import PostCard from '../layouts/userpage/PostCard';
 import { getUserInfoAPI } from '../api/user';
+import CommunityTab from '../layouts/userpage/CommunityTab';
+import BadgeTab from '../layouts/userpage/BadgeTab';
+import ActivityTab from '../layouts/userpage/ActivityTab';
+import MasterTab from '../layouts/userpage/MasterTab';
+import SellingTab from '../layouts/userpage/SellingTab';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -73,8 +64,6 @@ function UserPage() {
 	const [value, setValue] = useState(0);
 	const [userAddress, setUserAddress] = useState('');
 	const [profileUrl, setProfileUrl] = useState('');
-	const [category, setCategory] = useState('');
-	const [activity, setActivity] = useState('');
 
 	const imageSelect = useRef();
 	const [image, setImage] = useState('');
@@ -115,14 +104,6 @@ function UserPage() {
 	const onClickNameModify = () => {
 		setNameOpen(true);
 		console.log('닉네임 수정버튼 클릭');
-	};
-
-	const handleCategoryChange = event => {
-		setCategory(event.target.value);
-	};
-
-	const handleActivityChange = event => {
-		setActivity(event.target.value);
 	};
 
 	const handleClose = () => {
@@ -283,133 +264,19 @@ function UserPage() {
 						</Tabs>
 					</Box>
 					<TabPanel value={value} index={0}>
-						<Box maxWidth='xl' sx={{ pt: '30px' }}>
-							<Grid container spacing={6}>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<CommunityCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<CommunityCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<CommunityCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<CommunityCard />
-								</Grid>
-							</Grid>
-						</Box>
+						<CommunityTab />
 					</TabPanel>
 					<TabPanel value={value} index={1}>
-						<Box>
-							<FormControl sx={{ m: 1, minWidth: 120 }}>
-								<Select value={category} onChange={handleCategoryChange} displayEmpty>
-									<MenuItem value=''>
-										<em>Community</em>
-									</MenuItem>
-									{/* 가입된 커뮤니티 목록 */}
-									<MenuItem value='All'>All</MenuItem>
-									<MenuItem value='가입된 커뮤니티1'>가입된 커뮤니티1</MenuItem>
-									<MenuItem value='가입된 커뮤니티2'>가입된 커뮤니티2</MenuItem>
-								</Select>
-							</FormControl>
-						</Box>
-						<Box maxWidth='xl' sx={{ pt: '30px' }}>
-							<Grid container spacing={6}>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<ItemCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<ItemCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<ItemCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<ItemCard />
-								</Grid>
-							</Grid>
-						</Box>
+						<BadgeTab />
 					</TabPanel>
 					<TabPanel value={value} index={2}>
-						<Box>
-							<FormControl sx={{ m: 1, minWidth: 120 }}>
-								<Select value={category} onChange={handleCategoryChange} displayEmpty>
-									<MenuItem value=''>
-										<em>Community</em>
-									</MenuItem>
-									{/* 가입된 커뮤니티 목록 */}
-									<MenuItem value='All'>All</MenuItem>
-									<MenuItem value='가입된 커뮤니티1'>가입된 커뮤니티1</MenuItem>
-									<MenuItem value='가입된 커뮤니티2'>가입된 커뮤니티2</MenuItem>
-								</Select>
-							</FormControl>
-						</Box>
-						<Box maxWidth='xl' sx={{ pt: '30px' }}>
-							<Grid container spacing={6}>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<PostCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<PostCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<PostCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<PostCard />
-								</Grid>
-							</Grid>
-						</Box>
+						<ActivityTab />
 					</TabPanel>
 					<TabPanel value={value} index={3}>
-						<Box maxWidth='xl' sx={{ pt: '30px' }}>
-							<Grid container spacing={6}>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<CommunityCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<CommunityCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<CommunityCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<CommunityCard />
-								</Grid>
-							</Grid>
-						</Box>
+						<MasterTab />
 					</TabPanel>
 					<TabPanel value={value} index={4}>
-						<Box>
-							<FormControl sx={{ m: 1, minWidth: 120 }}>
-								<Select value={category} onChange={handleCategoryChange} displayEmpty>
-									<MenuItem value=''>
-										<em>Community</em>
-									</MenuItem>
-									{/* 가입된 커뮤니티 목록 */}
-									<MenuItem value='All'>All</MenuItem>
-									<MenuItem value='가입된 커뮤니티1'>가입된 커뮤니티1</MenuItem>
-									<MenuItem value='가입된 커뮤니티2'>가입된 커뮤니티2</MenuItem>
-								</Select>
-							</FormControl>
-						</Box>
-						<Box maxWidth='xl' sx={{ pt: '30px' }}>
-							<Grid container spacing={6}>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<ItemCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<ItemCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<ItemCard />
-								</Grid>
-								<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-									<ItemCard />
-								</Grid>
-							</Grid>
-						</Box>
+						<SellingTab />
 					</TabPanel>
 				</Box>
 			</Container>

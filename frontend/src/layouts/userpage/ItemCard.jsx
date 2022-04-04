@@ -1,4 +1,4 @@
-import { Box, Avatar, Typography, Stack, Card, Button } from '@mui/material';
+import { Box, Typography, Stack, Card, Button } from '@mui/material';
 import { useTheme, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../image/logo.png';
