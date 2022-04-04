@@ -50,6 +50,10 @@ public class SalesServiceImpl implements SalesService {
         User seller = userRepository.findByAddress(req.getSellerAddress())
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
 
+        if (!item.getOwner().getAddress().equals(seller.getAddress())) {
+            throw new ApiException(ExceptionEnum.UNAUTHORIZED_SALES);
+        }
+
         Sales sale = new Sales();
         sale.setSaleContractAddress(req.getSaleContractAddress());
         sale.setItem(item);
