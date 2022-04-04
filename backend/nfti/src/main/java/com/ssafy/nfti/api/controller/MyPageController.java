@@ -1,12 +1,15 @@
 package com.ssafy.nfti.api.controller;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.nfti.api.response.CommunityListRes;
 import com.ssafy.nfti.api.response.MyActivityRes;
 import com.ssafy.nfti.api.response.UserRes;
 import com.ssafy.nfti.api.service.MyPageService;
 import com.ssafy.nfti.api.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +33,7 @@ public class MyPageController {
     @ApiOperation(value = "활동 기록", notes = "내 활동 기록을 불러온다.")
     public ResponseEntity<List<MyActivityRes>> getMyList(
         @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 12) Pageable pageable,
-        @RequestParam(required = true) String findBy,
+        @RequestParam(required = true) @ApiParam(value = "<strong>address</strong> or <strong>nickname</strong>", name = "find_by") String findBy,
         @RequestParam(required = true) String search
     ) {
         List<MyActivityRes> res = myPageService.myActivityList(pageable, findBy, search);
@@ -42,9 +45,9 @@ public class MyPageController {
     @ApiOperation(value = "커뮤니티 조회", notes = "내가 속한 커뮤니티를 조회한다.")
     public ResponseEntity<List<CommunityListRes>> getMyCommunityList(
         @PageableDefault(size = 30) Pageable pageable,
-        @RequestParam(required = true) String findBy,
+        @RequestParam(required = true) @ApiParam(value = "<strong>address</strong> or <strong>nickname</strong>", name = "find_by") String findBy,
         @RequestParam(required = true) String search,
-        @RequestParam(required = true) Boolean onSaleYn
+        @RequestParam(required = true) @ApiParam(value = "<strong>true</strong> or <strong>false</strong>", name = "on_sale_yn") Boolean onSaleYn
     ) {
         List<CommunityListRes> res = myPageService.myCommunityList(pageable, findBy, search, onSaleYn);
         return ResponseEntity.ok(res);
