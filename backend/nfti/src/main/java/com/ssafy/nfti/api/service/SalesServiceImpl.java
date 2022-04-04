@@ -54,7 +54,11 @@ public class SalesServiceImpl implements SalesService {
             throw new ApiException(ExceptionEnum.UNAUTHORIZED_SALES);
         }
 
-        Sales sale = new Sales();
+        Sales sale = salesRepository.findBySaleContractAddress(req.getSaleContractAddress()).orElse(null);
+        if (sale != null) {
+            throw new ApiException(ExceptionEnum.CONFLICT_SALES2);
+        }
+        sale = new Sales();
         sale.setSaleContractAddress(req.getSaleContractAddress());
         sale.setItem(item);
         sale.setSeller(seller);
