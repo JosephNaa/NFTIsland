@@ -44,7 +44,7 @@ public class MyPageServiceImpl implements MyPageService {
 
     @Override
     public List<CommunityListRes> myCommunityList(Pageable pageable, String findBy, String search, Boolean onSaleYn) {
-        List<Community> resList = itemsRepositorySupport.findAllMyCommunityId(pageable, findBy, search, onSaleYn);
+        List<Community> resList = itemsRepositorySupport.findAllMyCommunity(pageable, findBy, search, onSaleYn);
 
         List<CommunityListRes> res = resList.stream()
             .map(community -> CommunityListRes.of(community)).collect(
