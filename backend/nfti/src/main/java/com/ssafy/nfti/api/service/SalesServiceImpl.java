@@ -1,17 +1,20 @@
 package com.ssafy.nfti.api.service;
 
 import com.ssafy.nfti.api.request.CreateSaleReq;
-import com.ssafy.nfti.api.request.SalesReq;
 import com.ssafy.nfti.api.response.SalesRes;
+import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
+import com.ssafy.nfti.common.exception.response.ApiException;
+import com.ssafy.nfti.db.entity.Items;
 import com.ssafy.nfti.db.entity.Sales;
+import com.ssafy.nfti.db.entity.User;
 import com.ssafy.nfti.db.repository.ItemsRepository;
 import com.ssafy.nfti.db.repository.SalesRepository;
-import java.time.LocalDateTime;
+import com.ssafy.nfti.db.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("salesService")
-public class SalesServiceImpl implements SalesService{
+public class SalesServiceImpl implements SalesService {
 
     @Autowired
     SalesRepository salesRepository;
@@ -19,38 +22,25 @@ public class SalesServiceImpl implements SalesService{
     @Autowired
     ItemsRepository itemsRepository;
 
-    @Override
-    public void createSales(CreateSaleReq createSaleReq) {
-
-        Sales newSale = new Sales();
-        newSale.setTokenId(createSaleReq.getTokenId());
-        newSale.setSellerAddress(createSaleReq.getSellerAddress());
-        newSale.setSaleContractAddress(createSaleReq.getSalesContractAddress());
-        newSale.setCashContractAddress(createSaleReq.getCashContractAddress());
-
-        newSale.setSaleYn(false);
-
-        salesRepository.save(newSale);
-    }
+    @Autowired
+    UserRepository userRepository;
 
     @Override
-    public SalesRes getSales(Long tokenId) {
-        Sales sale = salesRepository.findByTokenId(tokenId);
-        return SalesRes.of(sale);
-    }
+    public SalesRes createSales(CreateSaleReq req) {
+        Items item = itemsRepository.findByTokenId(req.getTokenId())
+            .orElseThrow(() -> new ApiException(
+                ExceptionEnum.NOT_FOUND_ITEM));
+        User seller = userRepository.findByAddress(req.getSellerAddress())
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
 
-    @Override
-    public void completeSales(Long tokenId, SalesReq salesReq) {
-        Sales updateSale = salesRepository.findByTokenId(tokenId);
-        updateSale.setBuyerAddress(salesReq.getBuyerAddress());
-        updateSale.setSaleYn(true);
+        Sales sale = new Sales();
+        sale.setSaleContractAddress(req.getSaleContractAddress());
+        sale.setItem(item);
+        sale.setSeller(seller);
+        sale.setSaleYn(false);
 
-        salesRepository.save(updateSale);
-    }
-
-    @Override
-    public void deleteSales(Long saleId) {
-        Sales delSale = salesRepository.findById(saleId).get();
-        salesRepository.delete(delSale);
+        Sales resSale = salesRepository.save(sale);
+        SalesRes res = SalesRes.of(resSale);
+        return res;
     }
 }
