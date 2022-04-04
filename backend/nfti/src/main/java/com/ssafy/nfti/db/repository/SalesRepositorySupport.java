@@ -38,7 +38,8 @@ public class SalesRepositorySupport extends QuerydslRepositorySupport {
                     .select(items.tokenId)
                     .from(items)
                     .where(items.community.id.eq(communityId)
-                        .and(items.onSaleYn.eq(true)))));
+                        .and(items.onSaleYn.eq(true))))
+                .and(sales.saleYn.eq(false)));
 
 
         return Objects.requireNonNull(getQuerydsl())
