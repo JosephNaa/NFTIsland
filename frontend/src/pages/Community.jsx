@@ -72,13 +72,17 @@ function Community() {
 						spacing={1}
 					>
 						<Button
-							onClick={() =>
-								setItemInfo(_prev => ({
+							onClick={() => {
+								if (itemInfo.filterOption === 'newest') {
+									return;
+								}
+								setItemInfo(prev => ({
+									...prev,
 									filterOption: 'newest',
 									communityList: [],
 									hasMoreItems: true,
-								}))
-							}
+								}));
+							}}
 						>
 							<Typography
 								sx={
@@ -92,13 +96,17 @@ function Community() {
 						</Button>
 						<Divider sx={{ height: 18 }} orientation='vertical' />
 						<Button
-							onClick={() =>
-								setItemInfo(_prev => ({
+							onClick={() => {
+								if (itemInfo.filterOption === 'member') {
+									return;
+								}
+								setItemInfo(prev => ({
+									...prev,
 									filterOption: 'member',
 									communityList: [],
 									hasMoreItems: true,
-								}))
-							}
+								}));
+							}}
 						>
 							<Typography
 								sx={
@@ -112,13 +120,17 @@ function Community() {
 						</Button>
 						<Divider sx={{ height: 18 }} orientation='vertical' />
 						<Button
-							onClick={() =>
-								setItemInfo(_prev => ({
+							onClick={() => {
+								if (itemInfo.filterOption === 'board') {
+									return;
+								}
+								setItemInfo(prev => ({
+									...prev,
 									filterOption: 'board',
 									communityList: [],
 									hasMoreItems: true,
-								}))
-							}
+								}));
+							}}
 						>
 							<Typography
 								sx={
