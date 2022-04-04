@@ -27,6 +27,7 @@ public class BoardRes {
     Integer commentCount;
     Integer likesCount;
     List<CommentRes> comments;
+    List<String> likes;
 
     public static BoardRes of(Board board) {
 
@@ -35,8 +36,10 @@ public class BoardRes {
             comments.add(CommentRes.of(comment));
         }
 
+        List<String> likes = new ArrayList<>();
         int count = 0;
-        for (Likes ignored : board.getLikes()) {
+        for (Likes _like : board.getLikes()) {
+            likes.add(_like.getUser().getAddress());
             count += 1;
         }
 
@@ -51,6 +54,7 @@ public class BoardRes {
             .commentCount(comments.size())
             .likesCount(count)
             .comments(comments)
+            .likes(likes)
             .build();
     }
 }
