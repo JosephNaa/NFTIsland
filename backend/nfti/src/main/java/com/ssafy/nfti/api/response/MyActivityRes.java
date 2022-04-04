@@ -20,6 +20,7 @@ public class MyActivityRes {
     Long communityId;
     String communityName;
     String userAddress;
+    String userProfile;
     String nickName;
     String title;
     String content;
@@ -45,6 +46,7 @@ public class MyActivityRes {
             .communityId(board.getCommunity().getId())
             .communityName(board.getCommunity().getName())
             .userAddress(board.getUser().getAddress())
+            .userProfile(board.getUser().getProfile_path())
             .nickName(board.getUser().getNickname())
             .title(board.getTitle())
             .content(board.getContent())
