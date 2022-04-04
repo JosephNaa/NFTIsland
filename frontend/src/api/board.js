@@ -18,6 +18,11 @@ const getBoardsAPI = communityId =>
 		console.dir(err);
 	});
 
+const editBoardAPI = (postId, data) =>
+	http.put(`/board/${postId}`, data).catch(err => {
+		console.dir(err);
+	});
+
 const deleteBoardAPI = data => {
 	console.log(data);
 	return http
@@ -40,4 +45,10 @@ const getBoardAPI = boardId =>
 		console.dir(err);
 	});
 
-export { createBoardAPI, getBoardsAPI, deleteBoardAPI, getBoardAPI };
+export {
+	createBoardAPI,
+	getBoardsAPI,
+	deleteBoardAPI,
+	getBoardAPI,
+	editBoardAPI,
+};

@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import {
 	Box,
 	Button,
@@ -8,48 +8,76 @@ import {
 	Typography,
 	TextField,
 } from '@mui/material';
+import { Form, FormikProvider, useFormik } from 'formik';
+import * as Yup from 'yup';
 import { ArrowBack as BackIcon } from '@mui/icons-material';
 import UserContext from '../context/UserContext';
 import Page from '../components/Page';
-import { createBoardAPI } from '../api/board';
+import { createBoardAPI, getBoardAPI, editBoardAPI } from '../api/board';
 
 function PostWrite() {
 	// account 정보 가져올 때 userContext.account
 	const { loggedUser } = useContext(UserContext);
 	const navigate = useNavigate();
 	const { communityId } = useParams();
-
-	const onClickBackIcon = () => {
-		navigate(-1);
-	};
+	const { search } = useLocation();
+	const query = new URLSearchParams(search);
 
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 
-	const handleTitleChange = event => {
-		setTitle(event.target.value);
-	};
+	useEffect(() => {
+		const postId = query.get('postId');
 
-	const handleContentChange = event => {
-		setContent(event.target.value);
-	};
-
-	const onClickCreate = () => {
-		if (title.length > 0 && content.length > 0) {
-			createBoardAPI({
-				community_id: communityId,
-				user_address: loggedUser.address,
-				title,
-				content,
-			}).then(() => {
-				navigate(`/community/${communityId}`);
+		if (postId) {
+			getBoardAPI(postId).then(({ data }) => {
+				setTitle(data.title);
+				setContent(data.content);
 			});
 		}
-		if (title.length === 0) {
-			alert('제목을 입력해주세요.');
-		} else if (content.length === 0) {
-			alert('내용을 입력해주세요.');
-		}
+	}, []);
+
+	// 타이핑 헬퍼
+	const typeSchema = Yup.object().shape({
+		title: Yup.string().required('제목 입력해주세요.'),
+		content: Yup.string().required('내용을 입력해주세요.'),
+	});
+
+	const formik = useFormik({
+		initialValues: {
+			title,
+			content,
+		},
+		enableReinitialize: true,
+		validationSchema: typeSchema,
+		onSubmit: value => {
+			const postId = query.get('postId');
+			if (postId) {
+				editBoardAPI(postId, {
+					community_id: communityId,
+					user_address: loggedUser.address,
+					title: value.title,
+					content: value.content,
+				}).then(() => {
+					navigate(`/community/${communityId}`);
+				});
+			} else {
+				createBoardAPI({
+					community_id: communityId,
+					user_address: loggedUser.address,
+					title: value.title,
+					content: value.content,
+				}).then(() => {
+					navigate(`/community/${communityId}`);
+				});
+			}
+		},
+	});
+
+	const { errors, touched, handleSubmit, handleReset, getFieldProps } = formik;
+
+	const onClickBackIcon = () => {
+		navigate(-1);
 	};
 
 	return (
@@ -65,41 +93,50 @@ function PostWrite() {
 				</Stack>
 			</Container>
 			<Box ml='20%' mr='20%' mt='4%'>
-				<Stack justifyContent='center'>
-					<Box mb='2%'>
-						<TextField
-							fullWidth
-							id='post-title'
-							label='제목'
-							variant='outlined'
-							onChange={handleTitleChange}
-						/>
-					</Box>
-					<Box mb='2%'>
-						<TextField
-							fullWidth
-							sx={{ height: '40%' }}
-							id='post-content'
-							label='내용'
-							multiline
-							rows={15}
-							variant='outlined'
-							onChange={handleContentChange}
-						/>
-					</Box>
-
-					<Button
-						sx={{
-							ml: '40%',
-							width: '20%',
-						}}
-						variant='contained'
-						disableElevation
-						onClick={onClickCreate}
+				<FormikProvider value={formik}>
+					<Form
+						autoComplete='off'
+						noValidate
+						onSubmit={handleSubmit}
+						onReset={handleReset}
 					>
-						CREATE
-					</Button>
-				</Stack>
+						<Stack justifyContent='center'>
+							<Box mb='2%'>
+								<TextField
+									fullWidth
+									type='text'
+									label='제목'
+									{...getFieldProps('title')}
+									error={Boolean(touched.title && errors.title)}
+									helperText={touched.title && errors.title}
+								/>
+							</Box>
+							<Box mb='2%'>
+								<TextField
+									fullWidth
+									type='text'
+									label='내용'
+									multiline
+									rows={15}
+									{...getFieldProps('content')}
+									error={Boolean(touched.content && errors.content)}
+									helperText={touched.content && errors.content}
+								/>
+							</Box>
+
+							<Button
+								sx={{
+									ml: '40%',
+									width: '20%',
+								}}
+								variant='contained'
+								type='submit'
+							>
+								CREATE
+							</Button>
+						</Stack>
+					</Form>
+				</FormikProvider>
 			</Box>
 		</Page>
 	);
