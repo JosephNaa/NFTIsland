@@ -18,4 +18,23 @@ const getBoardsAPI = communityId =>
 		console.dir(err);
 	});
 
-export { createBoardAPI, getBoardsAPI };
+
+const deleteBoardAPI = data => {
+	console.log(data);
+	return http
+		.delete(`/board/${data.id}`, { data: { user_address: data.user_address } }, {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+		.catch(err => {
+			console.dir(err);
+		});
+}
+
+const getBoardAPI = boardId =>
+	http.get(`/board/${boardId}`).catch(err => {
+		console.dir(err);
+	});
+
+export { createBoardAPI, getBoardsAPI, deleteBoardAPI, getBoardAPI };
