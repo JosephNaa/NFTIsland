@@ -3,6 +3,9 @@ package com.ssafy.nfti.api.controller;
 import com.ssafy.nfti.api.request.CreateSaleReq;
 import com.ssafy.nfti.api.request.PurchaseReq;
 import com.ssafy.nfti.api.response.CommunityListRes;
+import com.ssafy.nfti.api.response.GetSaleRes;
+import com.ssafy.nfti.api.response.ListCommunitiesOnSaleRes;
+import com.ssafy.nfti.api.response.ListSalesOnCommunityIdRes;
 import com.ssafy.nfti.api.response.SaleAndItemRes;
 import com.ssafy.nfti.api.response.SalesRes;
 import com.ssafy.nfti.api.service.SalesService;
@@ -37,27 +40,27 @@ public class SalesController {
     }
 
     @GetMapping("/community")
-    public ResponseEntity<List<CommunityListRes>> listCommunitiesOnSale(
+    public ResponseEntity<List<ListCommunitiesOnSaleRes>> listCommunitiesOnSale(
         @PageableDefault(size = 30) Pageable pageable
     ) {
-        List<CommunityListRes> res = salesService.listCommunitiesOnSale(pageable);
+        List<ListCommunitiesOnSaleRes> res = salesService.listCommunitiesOnSale(pageable);
 
         return ResponseEntity.ok(res);
     }
 
     @GetMapping("/community/{communityId}")
-    public ResponseEntity<List<SaleAndItemRes>> listSalesOnCommunityId(
+    public ResponseEntity<List<ListSalesOnCommunityIdRes>> listSalesOnCommunityId(
         @PageableDefault(size = 30) Pageable pageable,
         @PathVariable Long communityId
     ) {
-        List<SaleAndItemRes> res = salesService.listSalesOnCommunityId(pageable, communityId);
+        List<ListSalesOnCommunityIdRes> res = salesService.listSalesOnCommunityId(pageable, communityId);
 
         return ResponseEntity.ok(res);
     }
 
     @GetMapping("/info/{saleContractAddress}")
-    public ResponseEntity<SaleAndItemRes> getSale(@PathVariable String saleContractAddress) {
-        SaleAndItemRes res = salesService.getSale(saleContractAddress);
+    public ResponseEntity<GetSaleRes> getSale(@PathVariable String saleContractAddress) {
+        GetSaleRes res = salesService.getSale(saleContractAddress);
 
         return ResponseEntity.ok(res);
     }

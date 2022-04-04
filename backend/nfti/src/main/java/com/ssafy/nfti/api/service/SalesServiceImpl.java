@@ -3,6 +3,9 @@ package com.ssafy.nfti.api.service;
 import com.ssafy.nfti.api.request.CreateSaleReq;
 import com.ssafy.nfti.api.request.PurchaseReq;
 import com.ssafy.nfti.api.response.CommunityListRes;
+import com.ssafy.nfti.api.response.GetSaleRes;
+import com.ssafy.nfti.api.response.ListCommunitiesOnSaleRes;
+import com.ssafy.nfti.api.response.ListSalesOnCommunityIdRes;
 import com.ssafy.nfti.api.response.SaleAndItemRes;
 import com.ssafy.nfti.api.response.SalesRes;
 import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
@@ -76,30 +79,30 @@ public class SalesServiceImpl implements SalesService {
     }
 
     @Override
-    public List<CommunityListRes> listCommunitiesOnSale(Pageable pageable) {
+    public List<ListCommunitiesOnSaleRes> listCommunitiesOnSale(Pageable pageable) {
         List<Community> resList = itemsRepositorySupport.findAllCommunityOnSale(pageable);
 
-        List<CommunityListRes> res = resList.stream()
-            .map(community -> CommunityListRes.of(community)).collect(
+        List<ListCommunitiesOnSaleRes> res = resList.stream()
+            .map(community -> ListCommunitiesOnSaleRes.of(community)).collect(
                 Collectors.toList());
         return res;
     }
 
     @Override
-    public List<SaleAndItemRes> listSalesOnCommunityId(Pageable pageable, Long communityId) {
+    public List<ListSalesOnCommunityIdRes> listSalesOnCommunityId(Pageable pageable, Long communityId) {
         List<Sales> resList = salesRepositorySupport.findAllSalesOnCommunityId(pageable,
             communityId);
 
-        List<SaleAndItemRes> res = resList.stream()
-            .map(sales -> SaleAndItemRes.of(sales, sales.getItem())).collect(Collectors.toList());
+        List<ListSalesOnCommunityIdRes> res = resList.stream()
+            .map(sales -> ListSalesOnCommunityIdRes.of(sales)).collect(Collectors.toList());
         return res;
     }
 
     @Override
-    public SaleAndItemRes getSale(String saleContractAddress) {
+    public GetSaleRes getSale(String saleContractAddress) {
         Sales sale = salesRepository.findBySaleContractAddress(saleContractAddress)
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_SALES));
-        SaleAndItemRes res = SaleAndItemRes.of(sale, sale.getItem());
+        GetSaleRes res = GetSaleRes.of(sale);
         return res;
     }
 
