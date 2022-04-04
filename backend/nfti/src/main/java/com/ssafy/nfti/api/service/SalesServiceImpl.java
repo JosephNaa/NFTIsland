@@ -12,6 +12,7 @@ import com.ssafy.nfti.db.repository.SalesRepository;
 import com.ssafy.nfti.db.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("salesService")
 public class SalesServiceImpl implements SalesService {
@@ -26,6 +27,7 @@ public class SalesServiceImpl implements SalesService {
     UserRepository userRepository;
 
     @Override
+    @Transactional
     public SalesRes createSales(CreateSaleReq req) {
         Items item = itemsRepository.findByTokenId(req.getTokenId())
             .orElseThrow(() -> new ApiException(
@@ -41,6 +43,11 @@ public class SalesServiceImpl implements SalesService {
 
         Sales resSale = salesRepository.save(sale);
         SalesRes res = SalesRes.of(resSale);
+
+        // item의 onSaleYn 변경
+        item.setOnSaleYn(true);
+        itemsRepository.save(item);
+
         return res;
     }
 }
