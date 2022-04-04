@@ -10,6 +10,9 @@ import {
 	DialogContent,
 	DialogContentText,
 	DialogTitle,
+	TextField,
+	Divider,
+	IconButton,
 } from '@mui/material';
 
 import {
@@ -18,12 +21,14 @@ import {
 	Delete as DeleteIcon,
 	Edit as EditIcon,
 	FavoriteBorder as LikeIcon,
+	Add as AddIcon,
 } from '@mui/icons-material';
 import { useNavigate, useParams } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import Page from '../components/Page';
 import Comments from '../layouts/community-detail/Comments';
 import { deleteBoardAPI, getBoardAPI } from '../api/board';
+import { createCommentAPI } from '../api/comment';
 
 function PostDetail() {
 	// account 정보 가져올 때 userContext.account
@@ -39,9 +44,13 @@ function PostDetail() {
 
 	// 게시글 상세 정보 API
 	const [post, setPost] = useState();
+	const [comments, setComments] = useState();
+
 	useEffect(() => {
 		getBoardAPI(postId).then(res => {
 			setPost(res.data);
+			// 댓글 목록
+			setComments(res.data.comments);
 		});
 	}, []);
 
@@ -63,6 +72,27 @@ function PostDetail() {
 
 	const onClickDeleteIcon = () => {
 		setOpen(true);
+	};
+
+	// 댓글 생성 API
+	const [comment, setComment] = useState('');
+	const handleCommentChange = event => {
+		setComment(event.target.value);
+	};
+	const onClickComment = () => {
+		if (comment.length > 0) {
+			createCommentAPI({
+				board_id: postId,
+				user_address: loggedUser.address,
+				content: comment,
+			}).then(() => {
+				navigate(`/community/${communityId}/${postId}`);
+			});
+			setComment('');
+		}
+		if (comment.length === 0) {
+			alert('댓글을 입력해주세요.');
+		}
 	};
 
 	return (
@@ -141,10 +171,9 @@ function PostDetail() {
 				{/* 게시글 내용 */}
 				<Box sx={{ whiteSpace: 'normal', width: '100%', wordBreak: 'break-all' }}>
 					{post?.content}
-					{/* <Typography mb='7%'>{post?.content}</Typography> */}
 				</Box>
 
-				<Stack direction='row' mb='2%'>
+				<Stack direction='row' mt='2%' mb='2%'>
 					<LikeIcon />
 					{/* 좋아요 개수 */}
 					<Typography ml='10px'>좋아요{post?.likes_count}개</Typography>
@@ -153,9 +182,37 @@ function PostDetail() {
 				<Typography mt='4%' mb='2%'>
 					<b>comments</b>
 				</Typography>
-				<Comments />
-				<Comments />
-				<Comments />
+				<Box mt='2%' mb='3%'>
+					<Stack direction='row'>
+						<TextField
+							fullWidth
+							id='comment'
+							label='댓글 작성'
+							multiline
+							variant='outlined'
+							onChange={handleCommentChange}
+							value={comment}
+						/>
+						<IconButton
+							type='submit'
+							sx={{ p: '10px', m: '10px' }}
+							aria-label='search'
+							onClick={onClickComment}
+						>
+							<AddIcon />
+						</IconButton>
+					</Stack>
+				</Box>
+				{comments?.map(comment => (
+					<Comments
+						key={comment.id}
+						commentId={comment.id}
+						content={comment.content}
+						nickName={comment.nick_name}
+						userAddress={comment.user_address}
+						updatedAt={comment.updated_at.substr(0, 10)}
+					/>
+				))}
 			</Box>
 		</Page>
 	);
