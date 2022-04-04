@@ -9,24 +9,22 @@ import lombok.Setter;
 @Setter
 public class SalesRes {
     private String saleContractAddress;
-    private Boolean saleYn;
-    private Long saleId;
     private Long tokenId;
-    private String cashContractAddress;
     private String sellerAddress;
     private String buyerAddress;
+    private Boolean saleYn;
     private LocalDateTime createdAt;
     private LocalDateTime completedAt;
 
     public static SalesRes of(Sales sales) {
         SalesRes res = new SalesRes();
-        res.setSaleId(sales.getId());
         res.setSaleContractAddress(sales.getSaleContractAddress());
+        res.setTokenId(sales.getItem().getTokenId());
+        res.setSellerAddress(sales.getSeller().getAddress());
+        if (sales.getBuyer() != null) {
+            res.setBuyerAddress(sales.getBuyer().getAddress());
+        }
         res.setSaleYn(sales.getSaleYn());
-        res.setTokenId(sales.getTokenId());
-        res.setCashContractAddress(sales.getCashContractAddress());
-        res.setSellerAddress(sales.getSellerAddress());
-        res.setBuyerAddress(sales.getBuyerAddress());
         res.setCreatedAt(sales.getCreatedAt());
         res.setCompletedAt(sales.getCompletedAt());
 
