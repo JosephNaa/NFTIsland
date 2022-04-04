@@ -27,4 +27,18 @@ const getUserCommunityListAPI = (findBy, search, onSaleYn, page, size) =>
 			console.dir(err);
 		});
 
-export { getUserInfoAPI, getUserCommunityListAPI };
+const getUserActivityListAPI = (findBy, search, page, size) =>
+	http
+		.get('/mypage/activity', {
+			params: {
+				find_by: findBy,
+				search,
+				page,
+				size,
+			},
+		})
+		.catch(err => {
+			console.dir(err);
+		});
+
+export { getUserInfoAPI, getUserCommunityListAPI, getUserActivityListAPI };
