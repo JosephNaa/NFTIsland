@@ -1,12 +1,11 @@
 package com.ssafy.nfti.api.service;
 
+import com.ssafy.nfti.api.request.CancelSaleReq;
 import com.ssafy.nfti.api.request.CreateSaleReq;
 import com.ssafy.nfti.api.request.PurchaseReq;
-import com.ssafy.nfti.api.response.CommunityListRes;
 import com.ssafy.nfti.api.response.GetSaleRes;
 import com.ssafy.nfti.api.response.ListCommunitiesOnSaleRes;
 import com.ssafy.nfti.api.response.ListSalesOnCommunityIdRes;
-import com.ssafy.nfti.api.response.SaleAndItemRes;
 import com.ssafy.nfti.api.response.SalesRes;
 import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
 import com.ssafy.nfti.common.exception.response.ApiException;
@@ -58,7 +57,8 @@ public class SalesServiceImpl implements SalesService {
             throw new ApiException(ExceptionEnum.UNAUTHORIZED_SALES);
         }
 
-        Sales sale = salesRepository.findBySaleContractAddress(req.getSaleContractAddress()).orElse(null);
+        Sales sale = salesRepository.findBySaleContractAddress(req.getSaleContractAddress())
+            .orElse(null);
         if (sale != null) {
             throw new ApiException(ExceptionEnum.CONFLICT_SALES2);
         }
@@ -89,7 +89,8 @@ public class SalesServiceImpl implements SalesService {
     }
 
     @Override
-    public List<ListSalesOnCommunityIdRes> listSalesOnCommunityId(Pageable pageable, Long communityId) {
+    public List<ListSalesOnCommunityIdRes> listSalesOnCommunityId(Pageable pageable,
+        Long communityId) {
         List<Sales> resList = salesRepositorySupport.findAllSalesOnCommunityId(pageable,
             communityId);
 
@@ -133,5 +134,31 @@ public class SalesServiceImpl implements SalesService {
         itemsRepository.save(item);
 
         return res;
+    }
+
+    @Override
+    @Transactional
+    public void cancelSale(String saleContractAddress, CancelSaleReq req) {
+        User owner = userRepository.findByAddress(req.getSellerAddress())
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
+        Sales sale = salesRepository.findBySaleContractAddress(saleContractAddress)
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_SALES));
+
+        Items item = sale.getItem();
+
+        if (!sale.getSeller().getAddress().equals(owner.getAddress())) {
+            throw new ApiException(ExceptionEnum.UNAUTHORIZED_SALES);
+        }
+
+        if (sale.getSaleYn() == true || item.getOnSaleYn() == false) {
+            throw new ApiException(ExceptionEnum.CONFLICT_SALES3);
+        }
+
+        item.setOnSaleYn(false);
+        itemsRepository.save(item);
+
+        salesRepository.delete(sale);
+
+        return;
     }
 }

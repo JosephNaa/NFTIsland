@@ -1,6 +1,7 @@
 package com.ssafy.nfti.api.service;
 
 import com.ssafy.nfti.api.request.ItemsReq;
+import com.ssafy.nfti.api.request.TransferItemReq;
 import com.ssafy.nfti.api.response.ItemsCreateRes;
 import com.ssafy.nfti.api.response.ItemsRes;
 import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
@@ -97,6 +98,34 @@ public class ItemsServiceImpl implements ItemsService {
         Items item = itemsRepository.findByTokenId(tokenId)
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_ITEM));
         ItemsRes res = ItemsRes.of(item);
+        return res;
+    }
+
+    @Override
+    public ItemsRes transferItem(Long tokenId, TransferItemReq req) {
+        Items item = itemsRepository.findByTokenId(tokenId)
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_ITEM));
+
+        User from = userRepository.findByAddress(req.getFromAddress())
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
+        User to = userRepository.findByAddress(req.getToAddress())
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
+
+        if (!item.getOwner().getAddress().equals(from.getAddress())) {
+            throw new ApiException(ExceptionEnum.UNAUTHORIZED_ITEM);
+        }
+        if (item.getOnSaleYn()) {
+            throw new ApiException(ExceptionEnum.BAD_REQUEST_ITEM2);
+        }
+        if (item.getOwner().getAddress().equals(to.getAddress())) {
+            throw new ApiException(ExceptionEnum.BAD_REQUEST_ITEM3);
+        }
+
+        item.setOwner(to);
+        Items resItem = itemsRepository.save(item);
+
+        ItemsRes res = ItemsRes.of(resItem);
+
         return res;
     }
 

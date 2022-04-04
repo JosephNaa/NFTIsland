@@ -11,21 +11,24 @@ import lombok.Setter;
 @Setter
 @JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class ListCommunitiesOnSaleRes {
-    String logoPath;
+    Long communityId;
+    String communityLogoPath;
+    String communityName;
+    String communityDescription;
+
+    String ownerAddress;
     String ownerProfilePath;
-    String name;
     String ownerNickname;
-    Long id;
-    String description;
 
     public static ListCommunitiesOnSaleRes of(Community community) {
         ListCommunitiesOnSaleRes res = new ListCommunitiesOnSaleRes();
-        res.setLogoPath(community.getLogoPath());
-        res.setName(community.getName());
-        res.setId(community.getId());
-        res.setDescription(community.getDescription());
+        res.setCommunityId(community.getId());
+        res.setCommunityLogoPath(community.getLogoPath());
+        res.setCommunityName(community.getName());
+        res.setCommunityDescription(community.getDescription());
 
         User owner = community.getUser();
+        res.setOwnerAddress(owner.getAddress());
         res.setOwnerProfilePath(owner.getProfile_path());
         res.setOwnerNickname(owner.getNickname());
 

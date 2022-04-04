@@ -1,20 +1,22 @@
 package com.ssafy.nfti.api.controller;
 
+import com.ssafy.nfti.api.request.CancelSaleReq;
 import com.ssafy.nfti.api.request.CreateSaleReq;
 import com.ssafy.nfti.api.request.PurchaseReq;
-import com.ssafy.nfti.api.response.CommunityListRes;
 import com.ssafy.nfti.api.response.GetSaleRes;
 import com.ssafy.nfti.api.response.ListCommunitiesOnSaleRes;
 import com.ssafy.nfti.api.response.ListSalesOnCommunityIdRes;
-import com.ssafy.nfti.api.response.SaleAndItemRes;
 import com.ssafy.nfti.api.response.SalesRes;
 import com.ssafy.nfti.api.service.SalesService;
+import com.ssafy.nfti.common.model.response.BaseResponseBody;
 import io.swagger.annotations.Api;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,7 +55,8 @@ public class SalesController {
         @PageableDefault(size = 30) Pageable pageable,
         @PathVariable Long communityId
     ) {
-        List<ListSalesOnCommunityIdRes> res = salesService.listSalesOnCommunityId(pageable, communityId);
+        List<ListSalesOnCommunityIdRes> res = salesService.listSalesOnCommunityId(pageable,
+            communityId);
 
         return ResponseEntity.ok(res);
     }
@@ -66,9 +69,19 @@ public class SalesController {
     }
 
     @PutMapping("/info/{saleContractAddress}")
-    public ResponseEntity<SalesRes> purchase(@PathVariable String saleContractAddress, @RequestBody PurchaseReq req) {
+    public ResponseEntity<SalesRes> purchase(@PathVariable String saleContractAddress,
+        @RequestBody PurchaseReq req) {
         SalesRes res = salesService.purchase(saleContractAddress, req);
 
         return ResponseEntity.ok(res);
+    }
+
+    @DeleteMapping("/info/{saleContractAddress}")
+    public ResponseEntity<? extends ResponseEntity> cancelSale(
+        @PathVariable String saleContractAddress,
+        @RequestBody CancelSaleReq req) {
+        salesService.cancelSale(saleContractAddress, req);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

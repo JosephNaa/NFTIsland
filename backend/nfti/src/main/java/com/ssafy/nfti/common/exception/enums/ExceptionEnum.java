@@ -31,6 +31,9 @@ public enum ExceptionEnum {
 
     BAD_REQUEST_ITEM(HttpStatus.BAD_REQUEST, "601", "잘못된 Item 요청입니다."),
     NOT_FOUND_ITEM(HttpStatus.NOT_FOUND, "602", "해당 Item이 존재하지 않습니다."),
+    UNAUTHORIZED_ITEM(HttpStatus.UNAUTHORIZED, "603", "해당 요청에 대한 권한이 없습니다."),
+    BAD_REQUEST_ITEM2(HttpStatus.BAD_REQUEST, "604", "판매중인 Item은 선물할 수 없습니다."),
+    BAD_REQUEST_ITEM3(HttpStatus.BAD_REQUEST, "605", "본인에게 선물할 수 없습니다."),
 
     BAD_REQUEST_OPTION(HttpStatus.BAD_REQUEST, "701", "findBy 옵션이 잘못되었습니다."),
 
@@ -38,6 +41,7 @@ public enum ExceptionEnum {
     CONFLICT_SALES(HttpStatus.CONFLICT, "802", "판매자는 구매할 수 없습니다."),
     UNAUTHORIZED_SALES(HttpStatus.UNAUTHORIZED, "803", "사용자는 해당 Sale 권한이 없습니다."),
     CONFLICT_SALES2(HttpStatus.CONFLICT, "804", "이미 등록된 saleContractAddress입니다."),
+    CONFLICT_SALES3(HttpStatus.CONFLICT, "805", "이미 완료된 saleContractAddress입니다."),
 
     UNAUTHORIZED_REDIRECT_URI(HttpStatus.UNAUTHORIZED, "904", "인증되지 않은 리디렉션 URI 입니다. 인증을 진행할 수 없습니다.");
 

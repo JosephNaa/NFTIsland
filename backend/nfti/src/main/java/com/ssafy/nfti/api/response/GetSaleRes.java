@@ -16,11 +16,17 @@ import lombok.Setter;
 public class GetSaleRes {
     String saleContractAddress;
     LocalDateTime saleCreatedAt;
+
+    Long itemTokenId;
     String itemName;
     String itemDescription;
     String itemUrl;
-    String ownerNickname;
+
+    Long communityId;
     String communityName;
+
+    String ownerAddress;
+    String ownerNickname;
 
     public static GetSaleRes of(Sales sale) {
         GetSaleRes res = new GetSaleRes();
@@ -28,16 +34,18 @@ public class GetSaleRes {
         res.setSaleCreatedAt(sale.getCreatedAt());
 
         Items item = sale.getItem();
-        res.setCommunityName(item.getCommunity().getName());
+        res.setItemTokenId(item.getTokenId());
         res.setItemName(item.getItemTitle());
         res.setItemDescription(item.getItemDescription());
         res.setItemUrl(item.getItemUrl());
 
-        User owner = sale.getSeller();
-        res.setOwnerNickname(owner.getNickname());
-
         Community community = item.getCommunity();
+        res.setCommunityId(community.getId());
         res.setCommunityName(community.getName());
+
+        User owner = sale.getSeller();
+        res.setOwnerAddress(owner.getAddress());
+        res.setOwnerNickname(owner.getNickname());
 
         return res;
     }
