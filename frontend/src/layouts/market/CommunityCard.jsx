@@ -54,11 +54,11 @@ function CommunityCard({
 			}}
 		>
 			<Card
+				variant='outlined'
 				sx={{
-					cursor: 'pointer',
-					transition: 'transform .2s ease-in-out',
+					boxShadow: 0,
 					'&:hover': {
-						transform: 'scale(1.01)',
+						boxShadow: 5,
 					},
 				}}
 			>
@@ -84,25 +84,9 @@ function CommunityCard({
 						<Typography
 							variant='subtitle1'
 							color={theme.palette.info.dark}
-							sx={{
-								transition: 'all .2s ease-in-out',
-								'&:hover': {
-									// transform: 'scale(1.01)',
-									fontSize: '17px',
-								},
-							}}
 							onClick={onClickNickname}
 						>
-							<Link
-								href={`/user/${communityHost}`}
-								underline='none'
-								onClick={e => {
-									e.preventDefault();
-									navigate(`/user/${communityHost}`);
-								}}
-							>
-								{communityHost}
-							</Link>
+							{communityHost}
 						</Typography>
 					</Stack>
 
