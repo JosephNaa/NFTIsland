@@ -28,7 +28,7 @@ public class ItemsRepositorySupport extends QuerydslRepositorySupport {
         this.jpaQueryFactory = new JPAQueryFactory(em);
     }
 
-    public List<Community> findAllMyCommunityId(Pageable pageable, String findBy, String search, Boolean onSaleYn) {
+    public List<Community> findAllMyCommunity(Pageable pageable, String findBy, String search, Boolean onSaleYn) {
         JPAQuery<Community> query = null;
 
         if ("address".equals(findBy)) {
@@ -57,6 +57,21 @@ public class ItemsRepositorySupport extends QuerydslRepositorySupport {
             throw new ApiException(ExceptionEnum.BAD_REQUEST_OPTION);
         }
 
+        return Objects.requireNonNull(getQuerydsl())
+            .applyPagination(pageable, query)
+            .fetch();
+    }
+
+
+    public List<Community> findAllCommunityOnSale(Pageable pageable) {
+        JPAQuery<Community> query = jpaQueryFactory
+            .selectFrom(community)
+            .where(community.id.in(
+                JPAExpressions
+                    .select(items.community.id)
+                    .distinct()
+                    .from(items)
+                    .where(items.onSaleYn.eq(true))));
         return Objects.requireNonNull(getQuerydsl())
             .applyPagination(pageable, query)
             .fetch();
