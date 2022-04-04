@@ -24,6 +24,7 @@ public class SalesRepositorySupport extends QuerydslRepositorySupport {
     private final JPAQueryFactory jpaQueryFactory;
     QSales sales = QSales.sales;
     QItems items = QItems.items;
+    QCommunity community = QCommunity.community;
 
     public SalesRepositorySupport(EntityManager em) {
         super(Sales.class);
@@ -34,6 +35,7 @@ public class SalesRepositorySupport extends QuerydslRepositorySupport {
         JPAQuery<Sales> query = jpaQueryFactory
             .selectFrom(sales)
             .join(sales.item, items)
+            .join(sales.item.community, community)
             .where(sales.item.tokenId.in(
                 JPAExpressions
                     .select(items.tokenId)

@@ -9,6 +9,7 @@ import com.ssafy.nfti.db.entity.Community;
 import com.ssafy.nfti.db.entity.Items;
 import com.ssafy.nfti.db.entity.QCommunity;
 import com.ssafy.nfti.db.entity.QItems;
+import com.ssafy.nfti.db.entity.QUser;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.EntityManager;
@@ -21,6 +22,7 @@ public class ItemsRepositorySupport extends QuerydslRepositorySupport {
 
     private final JPAQueryFactory jpaQueryFactory;
     QItems items = QItems.items;
+    QUser user = QUser.user;
     QCommunity community = QCommunity.community;
 
     public ItemsRepositorySupport(EntityManager em) {
@@ -66,6 +68,7 @@ public class ItemsRepositorySupport extends QuerydslRepositorySupport {
     public List<Community> findAllCommunityOnSale(Pageable pageable) {
         JPAQuery<Community> query = jpaQueryFactory
             .selectFrom(community)
+            .join(community.user, user)
             .where(community.id.in(
                 JPAExpressions
                     .select(items.community.id)
