@@ -1,6 +1,5 @@
 package com.ssafy.nfti.api.controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.nfti.api.response.CommunityListRes;
 import com.ssafy.nfti.api.response.MyActivityRes;
 import com.ssafy.nfti.api.response.UserRes;
