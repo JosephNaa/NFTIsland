@@ -1,6 +1,7 @@
 package com.ssafy.nfti.api.controller;
 
 import com.ssafy.nfti.api.request.ItemsReq;
+import com.ssafy.nfti.api.request.TransferItemReq;
 import com.ssafy.nfti.api.response.ItemsCreateRes;
 import com.ssafy.nfti.api.response.ItemsRes;
 import com.ssafy.nfti.api.service.AWSS3Service;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,6 +68,15 @@ public class ItemsController {
     @GetMapping("/{tokenId}")
     public ResponseEntity<ItemsRes> getItem(@PathVariable Long tokenId) {
         ItemsRes res = itemsService.getItem(tokenId);
+        return ResponseEntity.ok(res);
+    }
+
+    @PutMapping("/{tokenId}")
+    public ResponseEntity<ItemsRes> transferItem(
+        @PathVariable Long tokenId,
+        @RequestBody TransferItemReq req
+    ) {
+        ItemsRes res = itemsService.transferItem(tokenId, req);
         return ResponseEntity.ok(res);
     }
 

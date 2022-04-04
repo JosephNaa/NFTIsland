@@ -1,5 +1,6 @@
 package com.ssafy.nfti.api.service;
 
+import com.ssafy.nfti.api.request.CancelSaleReq;
 import com.ssafy.nfti.api.request.CreateSaleReq;
 import com.ssafy.nfti.api.request.PurchaseReq;
 import com.ssafy.nfti.api.response.GetSaleRes;
@@ -16,4 +17,5 @@ public interface SalesService {
     List<ListSalesOnCommunityIdRes> listSalesOnCommunityId(Pageable pageable, Long communityId);
     GetSaleRes getSale(String saleContractAddress);
     SalesRes purchase(String saleContractAddress, PurchaseReq req);
+    void cancelSale(String saleContractAddress, CancelSaleReq req);
 }
