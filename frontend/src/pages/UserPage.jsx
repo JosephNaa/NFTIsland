@@ -1,4 +1,5 @@
-import { useState, useRef, useContext } from 'react';
+/* eslint-disable camelcase */
+import { useState, useRef, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
 	Avatar,
@@ -28,11 +29,12 @@ import {
 	Add as AddIcon,
 	Edit as EditIcon,
 } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Page from '../components/Page';
 import CommunityCard from '../layouts/userpage/CommunityCard';
 import ItemCard from '../layouts/userpage/ItemCard';
 import PostCard from '../layouts/userpage/PostCard';
+import { getUserInfoAPI } from '../api/user';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -69,12 +71,41 @@ function a11yProps(index) {
 
 function UserPage() {
 	const [value, setValue] = useState(0);
+	const [userAddress, setUserAddress] = useState('');
+	const [profileUrl, setProfileUrl] = useState('');
+	const [category, setCategory] = useState('');
+	const [activity, setActivity] = useState('');
+
+	const imageSelect = useRef();
+	const [image, setImage] = useState('');
+	const [imageName, setImageName] = useState('');
+
+	// 다이얼로그
+	const [imgOpen, setImgOpen] = useState(false);
+	const [nameOpen, setNameOpen] = useState(false);
+	const [name, setName] = useState('');
+
+	const { userName } = useParams();
+	const navigate = useNavigate();
+
+	const getUserInfo = async (findBy, nickname) => {
+		try {
+			const { data } = await getUserInfoAPI(findBy, nickname);
+			setUserAddress(_prev => data.address);
+			setProfileUrl(_prev => data.profile_path);
+		} catch (error) {
+			console.dir(error);
+			navigate('/404', { replace: true });
+		}
+	};
+
+	useEffect(async () => {
+		await getUserInfo('nickname', userName);
+	}, []);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
-
-	const navigate = useNavigate();
 
 	const onClickImgModify = () => {
 		setImgOpen(true);
@@ -86,21 +117,13 @@ function UserPage() {
 		console.log('닉네임 수정버튼 클릭');
 	};
 
-	const [category, setCategory] = useState('');
-
 	const handleCategoryChange = event => {
 		setCategory(event.target.value);
 	};
 
-	const [activity, setActivity] = useState('');
-
 	const handleActivityChange = event => {
 		setActivity(event.target.value);
 	};
-	// 다이얼로그
-	const [imgOpen, setImgOpen] = useState(false);
-	const [nameOpen, setNameOpen] = useState(false);
-	const [name, setName] = useState('');
 
 	const handleClose = () => {
 		setImgOpen(false);
@@ -111,9 +134,6 @@ function UserPage() {
 		// 이미지 변경 PUT API
 		setImgOpen(false);
 	};
-	const imageSelect = useRef();
-	const [image, setImage] = useState('');
-	const [imageName, setImageName] = useState('');
 
 	// 찾기 버튼 클릭 핸들링
 	const handleImageClick = () => {
@@ -142,20 +162,18 @@ function UserPage() {
 			<Container>
 				<Box display='flex' alignItems='center' justifyContent='center' mb='2%'>
 					<Stack direction='row'>
-						<Avatar sx={{ width: 140, height: 140 }}>
-							<img
-								alt=''
-								src='https://blog.kakaocdn.net/dn/bTEhUV/btqECug9iOs/mxgZUk4MLJVCK3xtcNe6NK/img.jpg'
-							/>
-							{/* 사용자 이미지 */}
-						</Avatar>
+						<Avatar src={profileUrl} sx={{ width: 140, height: 140 }} />
 						<Box pt='110px'>
 							<EditIcon sx={{ width: 15, height: 15 }} onClick={onClickImgModify} />
 						</Box>
 						<Dialog open={imgOpen} onClose={handleClose}>
 							<DialogTitle id='alert-dialog-title'>
-								<Typography fontSize='14px' textalign='center'>
-									<b>프로필 이미지 변경</b>
+								<Typography
+									fontSize='14px'
+									textalign='center'
+									sx={{ fontWeight: 'bold' }}
+								>
+									프로필 이미지 변경
 								</Typography>
 							</DialogTitle>
 							<DialogContent>
@@ -215,10 +233,7 @@ function UserPage() {
 				</Box>
 				<Box display='flex' alignItems='center' justifyContent='center'>
 					<Stack direction='row' spacing={1} mb='10px'>
-						<Typography variant='h4'>
-							hhhhhhhdong
-							{/* 사용자 닉네임 */}
-						</Typography>
+						<Typography variant='h4'>{userName}</Typography>
 						<Box pt='10px'>
 							<EditIcon sx={{ width: 15, height: 15 }} onClick={onClickNameModify} />
 						</Box>
@@ -255,8 +270,7 @@ function UserPage() {
 					</Dialog>
 				</Box>
 				<Typography mb='10px' align='center'>
-					<Chip label='0x394...3923' variant='outlined' onClick={() => {}} />
-					{/* 지갑주소 */}
+					<Chip label={userAddress} variant='outlined' onClick={() => {}} />
 				</Typography>
 				<Box sx={{ width: '100%' }}>
 					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
