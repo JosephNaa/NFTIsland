@@ -45,10 +45,40 @@ const getBoardAPI = boardId =>
 		console.dir(err);
 	});
 
+const createLikeAPI = data => {
+	console.log(data);
+	return http
+		.post('/likes', data, {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+		.catch(err => {
+			console.dir(err);
+		});
+};
+
+
+const deleteLikeAPI = data => {
+	console.log('Delete', data);
+	return http
+		.delete('/likes', { data: { board_id: data.board_id, user_address: data.user_address } }, {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		}
+		)
+		.catch(err => {
+			console.dir(err);
+		});
+};
+
 export {
 	createBoardAPI,
 	getBoardsAPI,
 	deleteBoardAPI,
 	getBoardAPI,
 	editBoardAPI,
+	createLikeAPI,
+	deleteLikeAPI,
 };

@@ -27,7 +27,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import Page from '../components/Page';
 import Comments from '../layouts/community-detail/Comments';
-import { deleteBoardAPI, getBoardAPI } from '../api/board';
+import {
+	deleteBoardAPI,
+	getBoardAPI,
+	createLikeAPI,
+	deleteLikeAPI,
+} from '../api/board';
 import { createCommentAPI } from '../api/comment';
 
 function PostDetail() {
@@ -45,10 +50,12 @@ function PostDetail() {
 	// 게시글 상세 정보 API
 	const [post, setPost] = useState();
 	const [comments, setComments] = useState();
+	const [likes, setLikes] = useState();
 
 	useEffect(() => {
 		getBoardAPI(postId).then(res => {
 			setPost(res.data);
+			setLikes(res.data.likes);
 			// 댓글 목록
 			setComments(res.data.comments);
 		});
@@ -72,6 +79,28 @@ function PostDetail() {
 
 	const onClickDeleteIcon = () => {
 		setOpen(true);
+	};
+
+	// 좋아요 API
+	const onClickLikeIcon = () => {
+		if (likes.includes(loggedUser.address)) {
+			console.log('좋아요 목록에 존재함');
+			// 좋아요 삭제API
+			deleteLikeAPI({
+				board_id: postId,
+				user_address: loggedUser.address,
+			}).then(res => {
+				navigate(`/community/${communityId}/${postId}`);
+			});
+		} else {
+			// 좋아요 등록API
+			createLikeAPI({
+				board_id: postId,
+				user_address: loggedUser.address,
+			}).then(() => {
+				navigate(`/community/${communityId}/${postId}`);
+			});
+		}
 	};
 
 	// 댓글 생성 API
@@ -161,7 +190,7 @@ function PostDetail() {
 							{post?.nick_name}
 						</Typography>
 						{/* 게시글 작성일 */}
-						<Typography fontSize='12px'>{post?.updated_at}</Typography>
+						<Typography fontSize='12px'>{post?.updated_at.substr(0, 10)}</Typography>
 					</Stack>
 				</Stack>
 				{/* 게시글 제목 */}
@@ -173,10 +202,14 @@ function PostDetail() {
 					{post?.content}
 				</Box>
 
-				<Stack direction='row' mt='2%' mb='2%'>
-					<LikeIcon />
+				<Stack direction='row' mt='5%' mb='3%'>
+					<IconButton type='submit' onClick={onClickLikeIcon}>
+						<LikeIcon />
+					</IconButton>
 					{/* 좋아요 개수 */}
-					<Typography ml='10px'>좋아요{post?.likes_count}개</Typography>
+					<Typography ml='3px' mt='10px'>
+						좋아요 {post?.likes_count}개
+					</Typography>
 				</Stack>
 				<hr />
 				<Typography mt='4%' mb='2%'>
@@ -196,7 +229,6 @@ function PostDetail() {
 						<IconButton
 							type='submit'
 							sx={{ p: '10px', m: '10px' }}
-							aria-label='search'
 							onClick={onClickComment}
 						>
 							<AddIcon />
