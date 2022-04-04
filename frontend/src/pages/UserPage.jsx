@@ -101,7 +101,7 @@ function UserPage() {
 						<BadgeTab />
 					</TabPanel>
 					<TabPanel value={userInfo.currentTab} index={2}>
-						<ActivityTab />
+						<ActivityTab userName={userInfo.userName} />
 					</TabPanel>
 					<TabPanel value={userInfo.currentTab} index={3}>
 						<MasterTab />
