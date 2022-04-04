@@ -49,9 +49,8 @@ function PostDetail() {
 	const handleDeleteClose = () => {
 		setOpen(false);
 		deleteBoardAPI({ postId, user_address: loggedUser.address }).then(res => {
-			console.log('DeletePost: ', res);
+			navigate(`/community/${communityId}`);
 		});
-		navigate(`/community/${communityId}`);
 	};
 
 	const onClickBackIcon = () => {
@@ -140,7 +139,7 @@ function PostDetail() {
 					{post?.title}
 				</Typography>
 				{/* 게시글 내용 */}
-				<Box sx={{ whiteSpace: 'normal', width: '100%' }}>
+				<Box sx={{ whiteSpace: 'normal', width: '100%', wordBreak: 'break-all' }}>
 					{post?.content}
 					{/* <Typography mb='7%'>{post?.content}</Typography> */}
 				</Box>
