@@ -3,6 +3,7 @@ package com.ssafy.nfti.api.service;
 import com.ssafy.nfti.api.request.CreateSaleReq;
 import com.ssafy.nfti.api.request.PurchaseReq;
 import com.ssafy.nfti.api.response.CommunityListRes;
+import com.ssafy.nfti.api.response.SaleAndItemRes;
 import com.ssafy.nfti.api.response.SalesRes;
 import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
 import com.ssafy.nfti.common.exception.response.ApiException;
@@ -85,20 +86,20 @@ public class SalesServiceImpl implements SalesService {
     }
 
     @Override
-    public List<SalesRes> listSalesOnCommunityId(Pageable pageable, Long communityId) {
+    public List<SaleAndItemRes> listSalesOnCommunityId(Pageable pageable, Long communityId) {
         List<Sales> resList = salesRepositorySupport.findAllSalesOnCommunityId(pageable,
             communityId);
 
-        List<SalesRes> res = resList.stream()
-            .map(sales -> SalesRes.of(sales)).collect(Collectors.toList());
+        List<SaleAndItemRes> res = resList.stream()
+            .map(sales -> SaleAndItemRes.of(sales, sales.getItem())).collect(Collectors.toList());
         return res;
     }
 
     @Override
-    public SalesRes getSale(String saleContractAddress) {
+    public SaleAndItemRes getSale(String saleContractAddress) {
         Sales sale = salesRepository.findBySaleContractAddress(saleContractAddress)
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_SALES));
-        SalesRes res = SalesRes.of(sale);
+        SaleAndItemRes res = SaleAndItemRes.of(sale, sale.getItem());
         return res;
     }
 

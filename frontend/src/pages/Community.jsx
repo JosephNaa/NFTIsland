@@ -1,5 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
 	Box,
 	Button,
@@ -20,24 +19,24 @@ import CommunityCard from '../layouts/market/CommunityCard';
 import { getCommunityListAPI } from '../api/community';
 
 function Community() {
-	const [communityList, setCommunityList] = useState([]);
-	const [filterOption, setFilterOption] = useState('newest');
-	const [hasMoreItems, setHasMoreItems] = useState(true);
+	const [itemInfo, setItemInfo] = useState({
+		communityList: [],
+		hasMoreItems: true,
+		filterOption: 'newest',
+	});
 
 	const getCommunityList = async (page, key) => {
-		const { data } = await getCommunityListAPI(page, 8, key);
+		const { data } = await getCommunityListAPI(page, 12, key);
 		return data;
 	};
 
-	useEffect(() => {
-		setCommunityList(_prev => []);
-		setHasMoreItems(_prev => true);
-	}, [filterOption]);
-
 	const loadItems = async page => {
-		const data = await getCommunityList(page, filterOption);
-		setCommunityList(prev => prev.concat(data));
-		setHasMoreItems(_prev => !!data.length);
+		const data = await getCommunityList(page, itemInfo.filterOption);
+		setItemInfo(prev => ({
+			...prev,
+			communityList: prev.communityList.concat(data),
+			hasMoreItems: !!data.length,
+		}));
 	};
 
 	return (
@@ -71,10 +70,22 @@ function Community() {
 						direction='row'
 						spacing={1}
 					>
-						<Button onClick={() => setFilterOption(_prev => 'newest')}>
+						<Button
+							onClick={() => {
+								if (itemInfo.filterOption === 'newest') {
+									return;
+								}
+								setItemInfo(prev => ({
+									...prev,
+									filterOption: 'newest',
+									communityList: [],
+									hasMoreItems: true,
+								}));
+							}}
+						>
 							<Typography
 								sx={
-									filterOption === 'newest'
+									itemInfo.filterOption === 'newest'
 										? { fontWeight: 'bold' }
 										: { fontWeight: 'regular' }
 								}
@@ -83,10 +94,22 @@ function Community() {
 							</Typography>
 						</Button>
 						<Divider sx={{ height: 18 }} orientation='vertical' />
-						<Button onClick={() => setFilterOption(_prev => 'member')}>
+						<Button
+							onClick={() => {
+								if (itemInfo.filterOption === 'member') {
+									return;
+								}
+								setItemInfo(prev => ({
+									...prev,
+									filterOption: 'member',
+									communityList: [],
+									hasMoreItems: true,
+								}));
+							}}
+						>
 							<Typography
 								sx={
-									filterOption === 'member'
+									itemInfo.filterOption === 'member'
 										? { fontWeight: 'bold' }
 										: { fontWeight: 'regular' }
 								}
@@ -95,10 +118,22 @@ function Community() {
 							</Typography>
 						</Button>
 						<Divider sx={{ height: 18 }} orientation='vertical' />
-						<Button onClick={() => setFilterOption(_prev => 'board')}>
+						<Button
+							onClick={() => {
+								if (itemInfo.filterOption === 'board') {
+									return;
+								}
+								setItemInfo(prev => ({
+									...prev,
+									filterOption: 'board',
+									communityList: [],
+									hasMoreItems: true,
+								}));
+							}}
+						>
 							<Typography
 								sx={
-									filterOption === 'board'
+									itemInfo.filterOption === 'board'
 										? { fontWeight: 'bold' }
 										: { fontWeight: 'regular' }
 								}
@@ -110,9 +145,9 @@ function Community() {
 
 					<InfiniteScroll
 						pageStart={0}
-						key={filterOption}
+						key={itemInfo.filterOption}
 						loadMore={loadItems}
-						hasMore={hasMoreItems}
+						hasMore={itemInfo.hasMoreItems}
 						loader={
 							<Box
 								sx={{
@@ -127,8 +162,22 @@ function Community() {
 							</Box>
 						}
 					>
+						<Box
+							sx={
+								!itemInfo.communityList.length && !itemInfo.hasMoreItems
+									? { p: 16 }
+									: { visibility: 'hidden' }
+							}
+							display='flex'
+							alignItems='center'
+							justifyContent='center'
+						>
+							<Typography sx={{ fontWeight: 'light' }} variant='h3'>
+								There are no items
+							</Typography>
+						</Box>
 						<Grid container spacing={4}>
-							{communityList.map(item => (
+							{itemInfo.communityList.map(item => (
 								<Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
 									<CommunityCard
 										onClickURL={`/community/${item.id}`}
