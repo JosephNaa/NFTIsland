@@ -68,4 +68,10 @@ public class ItemsController {
         ItemsRes res = itemsService.getItem(tokenId);
         return ResponseEntity.ok(res);
     }
+
+    @GetMapping("/hasItem")
+    public ResponseEntity<Boolean> checkHasItem(@RequestParam String address, @RequestParam Long communityId) {
+        Boolean res = itemsService.checkHasItem(address, communityId);
+        return ResponseEntity.ok(res);
+    }
 }
