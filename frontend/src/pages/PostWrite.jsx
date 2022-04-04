@@ -23,8 +23,6 @@ function PostWrite() {
 		navigate(-1);
 	};
 
-	// const [account, setAccount] = useState('');
-	// const [communityId, setCommunityId] = useState('');
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 
@@ -44,7 +42,7 @@ function PostWrite() {
 				title,
 				content,
 			}).then(() => {
-				navigate(-1);
+				navigate(`/community/${communityId}`);
 			});
 		}
 		if (title.length === 0) {
