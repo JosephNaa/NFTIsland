@@ -110,7 +110,7 @@ function CreateItem() {
 			{loading && (
 				<Box
 					sx={{
-						position: 'absolute',
+						position: 'fixed',
 						top: 0,
 						left: 0,
 						width: '100%',
@@ -127,7 +127,10 @@ function CreateItem() {
 							transform: 'translate(-50%, -50%)',
 						}}
 					>
-						<CircularProgress />
+						<Stack alignItems='center'>
+							<CircularProgress />
+							<Box mt='10px'>NFT 발행중...</Box>
+						</Stack>
 					</Box>
 				</Box>
 			)}

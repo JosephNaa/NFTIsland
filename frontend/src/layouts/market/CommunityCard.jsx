@@ -43,6 +43,8 @@ function CommunityCard({
 
 	const onClickNickname = e => {
 		e.stopPropagation();
+		e.preventDefault();
+		navigate(`/user/${communityHost}`);
 	};
 	return (
 		<Link

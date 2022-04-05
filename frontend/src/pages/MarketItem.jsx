@@ -1,18 +1,29 @@
 import { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useTheme, styled } from '@mui/material/styles';
-import { Container, Box, Stack, Typography, Button, Grid } from '@mui/material';
+import {
+	Container,
+	Box,
+	CircularProgress,
+	Typography,
+	Button,
+	Grid,
+	Stack,
+} from '@mui/material';
 import Page from '../components/Page';
-import { getItemSaleInfo } from '../api/market';
+import { getItemSaleInfo, buyItem } from '../api/market';
 import { createSaleContract } from '../web3Config';
 import UserContext from '../context/UserContext';
 
 function MarketItem() {
 	const theme = useTheme();
 	const { saleCA } = useParams();
+	const navigate = useNavigate();
 	const userContext = useContext(UserContext);
-	const [saleInfo, setSaleInfo] = useState({});
 	const saleContract = createSaleContract(saleCA);
+
+	const [saleInfo, setSaleInfo] = useState({});
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		getItemSaleInfo(saleCA).then(({ data }) => {
@@ -48,19 +59,64 @@ function MarketItem() {
 
 	const onClickCommunity = e => {
 		e.stopPropagation();
-		console.log('nickname');
+		navigate(`/community/${saleInfo.communityId}`);
+	};
+	const onClickNickname = e => {
+		e.stopPropagation();
+		navigate(`/user/${saleInfo.ownerNickname}`);
 	};
 
 	const onClickBuy = async () => {
-		const buy = await saleContract.methods
-			.purchase()
-			.send({ from: userContext.loggedUser.address, value: saleInfo.price });
+		setLoading(true);
+		try {
+			await saleContract.methods
+				.purchase()
+				.send({ from: userContext.loggedUser.address, value: saleInfo.price });
 
-		console.log(buy);
+			const res = await buyItem({
+				saleCA,
+				address: userContext.loggedUser.address,
+				value: saleInfo.price,
+			});
+			if (res.status === 200) {
+				// 해당 커뮤니티로 이동
+				navigate(`/community/${saleInfo.communityId}`);
+			}
+		} catch (error) {
+			console.dir(error);
+		}
+		setLoading(false);
 	};
 
 	return (
 		<Page>
+			{loading && (
+				<Box
+					sx={{
+						position: 'fixed',
+						top: 0,
+						left: 0,
+						width: '100%',
+						height: '100%',
+						backgroundColor: 'rgba(0, 0, 0, 0.4)',
+						zIndex: 999,
+					}}
+				>
+					<Box
+						sx={{
+							position: 'absolute',
+							top: '50%',
+							left: '50%',
+							transform: 'translate(-50%, -50%)',
+						}}
+					>
+						<Stack alignItems='center'>
+							<CircularProgress />
+							<Box mt='10px'>NFT 구매중...</Box>
+						</Stack>
+					</Box>
+				</Box>
+			)}
 			<Container>
 				<Grid container spacing={6}>
 					<Grid item xs={12} md={6}>
@@ -73,17 +129,27 @@ function MarketItem() {
 							{/* 컬랙션 이름 */}
 							<Typography
 								variant='subtitle1'
-								color={theme.palette.info.dark}
 								onClick={onClickCommunity}
+								sx={{ cursor: 'pointer' }}
 							>
 								{saleInfo.communityName}
 							</Typography>
 							{/* NFT 이름 */}
 							<Typography variant='h3'>{saleInfo.name}</Typography>
 							{/* NFT 발행자 */}
-							<Typography variant='body1'>
-								Created by <span>{saleInfo.ownerNickname}</span>
-							</Typography>
+							<Stack direction='row'>
+								<Typography variant='body1' mr='5px' fontSize='14px'>
+									Created by
+								</Typography>
+								<Typography
+									onClick={onClickNickname}
+									fontSize='14px'
+									color={theme.palette.info.dark}
+									sx={{ cursor: 'pointer' }}
+								>
+									{saleInfo.ownerNickname}
+								</Typography>
+							</Stack>
 							{/* NFT 설명 */}
 							<Typography variant='h5' paddingTop='20px'>
 								Description

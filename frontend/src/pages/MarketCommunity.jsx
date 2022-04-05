@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import { Container, Box, Avatar, Stack, Typography, Grid } from '@mui/material';
 import Page from '../components/Page';
@@ -11,6 +11,7 @@ import { createSaleContract } from '../web3Config';
 function MarketCommunity() {
 	const { communityId } = useParams();
 	const theme = useTheme();
+	const navigate = useNavigate();
 
 	const [communityInfo, setCommunityInfo] = useState({});
 	const [itemList, setItemList] = useState([]);
@@ -46,8 +47,7 @@ function MarketCommunity() {
 		});
 	}, []);
 	const onClickNickname = () => {
-		console.log(itemList);
-		console.log('nickname');
+		navigate(`/user/${communityInfo.hostNickname}`);
 	};
 
 	return (
