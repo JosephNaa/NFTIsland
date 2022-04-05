@@ -84,4 +84,22 @@ public class SalesController {
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @GetMapping("/community/{communityId}/count/items")
+    public ResponseEntity<Long> getCommunityItemCount(@PathVariable Long communityId) {
+        Long res = salesService.getCommunityItemCount(communityId);
+        return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/community/{communityId}/count/owners")
+    public ResponseEntity<Long> getCommunityOwnerCount(@PathVariable Long communityId) {
+        Long res = salesService.getCommunityOwnerCount(communityId);
+        return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/community/{communityId}/count/traded")
+    public ResponseEntity<Long> getCommunityTradedCount(@PathVariable Long communityId) {
+        Long res = salesService.getCommunityTradedCount(communityId);
+        return ResponseEntity.ok(res);
+    }
 }

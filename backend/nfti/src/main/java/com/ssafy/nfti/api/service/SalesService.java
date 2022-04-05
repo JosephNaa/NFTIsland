@@ -18,4 +18,8 @@ public interface SalesService {
     GetSaleRes getSale(String saleContractAddress);
     SalesRes purchase(String saleContractAddress, PurchaseReq req);
     void cancelSale(String saleContractAddress, CancelSaleReq req);
+
+    Long getCommunityItemCount(Long communityId);
+    Long getCommunityOwnerCount(Long communityId);
+    Long getCommunityTradedCount(Long communityId);
 }

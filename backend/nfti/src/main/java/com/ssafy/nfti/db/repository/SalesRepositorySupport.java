@@ -49,4 +49,16 @@ public class SalesRepositorySupport extends QuerydslRepositorySupport {
             .applyPagination(pageable, query)
             .fetch();
     }
+
+    public Long getCommunityTradedCount(Long communityId) {
+        List<Long> res = jpaQueryFactory
+            .select(sales.count())
+            .from(sales)
+//            .join(sales.item, items)
+//            .join(sales.item.community, community)
+            .where(sales.saleYn.eq(true)
+                .and(sales.item.community.id.eq(communityId)))
+            .fetch();
+        return res.get(0);
+    }
 }

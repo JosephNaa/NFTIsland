@@ -161,4 +161,22 @@ public class SalesServiceImpl implements SalesService {
 
         return;
     }
+
+    @Override
+    public Long getCommunityItemCount(Long communityId) {
+        Long res = itemsRepositorySupport.getCommunityItemCount(communityId);
+        return res;
+    }
+
+    @Override
+    public Long getCommunityOwnerCount(Long communityId) {
+        Long res = itemsRepositorySupport.getCommunityOwnerCount(communityId);
+        return res;
+    }
+
+    @Override
+    public Long getCommunityTradedCount(Long communityId) {
+        Long res = salesRepositorySupport.getCommunityTradedCount(communityId);
+        return res;
+    }
 }
