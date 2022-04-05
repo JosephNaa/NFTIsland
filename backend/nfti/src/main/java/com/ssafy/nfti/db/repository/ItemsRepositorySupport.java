@@ -64,7 +64,6 @@ public class ItemsRepositorySupport extends QuerydslRepositorySupport {
             .fetch();
     }
 
-
     public List<Community> findAllCommunityOnSale(Pageable pageable) {
         JPAQuery<Community> query = jpaQueryFactory
             .selectFrom(community)
@@ -78,5 +77,25 @@ public class ItemsRepositorySupport extends QuerydslRepositorySupport {
         return Objects.requireNonNull(getQuerydsl())
             .applyPagination(pageable, query)
             .fetch();
+    }
+
+    public Long getCommunityItemCount(Long communityId) {
+        List<Long> res = jpaQueryFactory
+            .select(items.count())
+            .from(items)
+            .where(items.community.id.eq(communityId))
+            .fetch();
+
+        return res.get(0);
+    }
+
+    public Long getCommunityOwnerCount(Long communityId) {
+        List<Long> res = jpaQueryFactory
+            .select(items.owner.countDistinct())
+            .from(items)
+            .where(items.community.id.eq(communityId))
+            .fetch();
+
+        return res.get(0);
     }
 }
