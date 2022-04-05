@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useTheme } from '@mui/material/styles';
 import {
 	Avatar,
@@ -21,7 +21,9 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import Page from '../components/Page';
 import PostCard from '../layouts/community-detail/PostCard';
+import UserContext from '../context/UserContext';
 import { getBoardsAPI } from '../api/board';
+import { getHasItem } from '../api/item';
 import PageHeder from '../layouts/PageHeader';
 
 function CommunityDetail() {
@@ -37,6 +39,8 @@ function CommunityDetail() {
 		communityName: '',
 		communityLogo: '',
 	});
+	const { loggedUser } = useContext(UserContext);
+	const [has, setHas] = useState();
 
 	useEffect(() => {
 		getBoardsAPI(params.communityId).then(({ data }) => {
@@ -50,10 +54,21 @@ function CommunityDetail() {
 				communityLogo: data.logo_path,
 			});
 		});
+		getHasItem({
+			address: loggedUser.address,
+			community_id: params.communityId,
+		}).then(res => {
+			setHas(res.data);
+		});
 	}, []);
 
 	const onClickButton = () => {
-		navigate(`/community/postwrite/${params.communityId}`);
+		if (has === true) {
+			navigate(`/community/postwrite/${params.communityId}`);
+		}
+		if (has === false) {
+			alert('게시글 작성 권한이 없습니다.');
+		}
 	};
 
 	const onClickNFTBtn = () => {
