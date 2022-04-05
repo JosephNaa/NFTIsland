@@ -8,4 +8,5 @@ import org.springframework.data.domain.Pageable;
 public interface MyPageService {
     List<MyActivityRes> myActivityList(Pageable pageable, String findBy, String search);
     List<CommunityListRes> myCommunityList(Pageable pageable, String findBy, String search, Boolean onSaleYn);
+    List<CommunityListRes> myCommunityMasterList(Pageable pageable, String findBy, String search);
 }

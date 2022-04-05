@@ -59,6 +59,17 @@ public class MyPageController {
         return ResponseEntity.ok(res);
     }
 
+    @GetMapping("/community/master")
+    @ApiOperation(value = "내가 마스터인 커뮤니티 조회", notes = "내가 마스터인 커뮤니티들을 조회한다.")
+    public ResponseEntity<List<CommunityListRes>> getMyCommunityMasterList(
+        @PageableDefault(size = 30) Pageable pageable,
+        @RequestParam @ApiParam(value = "<strong>address</strong> or <strong>nickname</strong>", name = "find_by") String findBy,
+        @RequestParam String search
+    ) {
+        List<CommunityListRes> res = myPageService.myCommunityMasterList(pageable, findBy, search);
+        return ResponseEntity.ok(res);
+    }
+
     @PutMapping("/{address}")
     public ResponseEntity<UserRes> updateNickname(
             @PathVariable String address,
