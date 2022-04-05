@@ -3,12 +3,12 @@ import { useTheme, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../image/logo.png';
 
-function ItemCard() {
+function ItemCard({ saleCA, communityName, itemName, price }) {
 	const navigate = useNavigate();
 	const theme = useTheme();
 
 	const onClickCard = () => {
-		navigate('/market/item/sadgirl');
+		navigate(`/market/item/${saleCA}`);
 	};
 
 	const ImgStyle = styled('img')({
@@ -38,17 +38,17 @@ function ItemCard() {
 				<Box>
 					{/* 커뮤니티 이름 */}
 					<Typography variant='body2' color={theme.palette.grey[500]}>
-						Sad Girls Bar
+						{communityName}
 					</Typography>
 					{/* NFT 이름 */}
-					<Typography variant='subtitle1'>Sad Girls #12435</Typography>
+					<Typography variant='subtitle1'>{itemName}</Typography>
 				</Box>
 				<Box textAlign='right'>
 					{/* 가격 */}
 					<Typography variant='body2' color={theme.palette.grey[500]}>
 						Price
 					</Typography>
-					<Typography variant='subtitle2'>0.324</Typography>
+					<Typography variant='subtitle2'>{price}</Typography>
 					{/* 남은 거래 일? */}
 				</Box>
 			</Stack>

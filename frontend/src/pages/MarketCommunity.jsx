@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import { Container, Box, Avatar, Stack, Typography, Grid } from '@mui/material';
@@ -6,27 +6,46 @@ import Page from '../components/Page';
 import logo from '../image/logo.png';
 import ItemCard from '../layouts/market/ItemCard';
 import { getSalesItem } from '../api/market';
+import { getBoardsAPI } from '../api/board';
 import { createSaleContract } from '../web3Config';
 
 function MarketCommunity() {
 	const { communityId } = useParams();
 	const theme = useTheme();
 
-	useEffect(() => {
-		// 판매중인 nft불러와야함
-		getSalesItem(communityId).then(({ data }) => {
-			data.map(v => {
-				console.log(v);
-				const saleContract = createSaleContract(v.saleContractAddress);
-				console.log(saleContract);
-				const saleInfo = saleContract.methods.getSaleInfo().call();
-				console.log(saleInfo);
-				return v;
+	const [communityInfo, setCommunityInfo] = useState({});
+	const [itemList, setItemList] = useState([]);
+
+	useEffect(async () => {
+		getBoardsAPI(communityId).then(({ data }) => {
+			setCommunityInfo({
+				name: data.name,
+				hostNickname: data.host_nick_name,
 			});
 		});
-	}, []);
+		// 판매중인 nft 목록불러오기
+		const { data } = await getSalesItem(communityId);
 
+		data.map(async v => {
+			const saleContract = createSaleContract(v.sale_contract_address);
+			const saleInfo = await saleContract.methods.getSaleInfo().call();
+
+			setItemList(prev => [
+				...prev,
+				{
+					price: saleInfo[0],
+					tokenId: saleInfo[1],
+					nftAddress: saleInfo[2],
+					communityName: v.community_name,
+					name: v.item_name,
+					imageUrl: v.item_url,
+					saleCA: v.sale_contract_address,
+				},
+			]);
+		});
+	}, []);
 	const onClickNickname = () => {
+		console.log(itemList);
 		console.log('nickname');
 	};
 
@@ -38,7 +57,7 @@ function MarketCommunity() {
 						<Avatar sx={{ width: 200, height: 200 }} src={logo} alt='' />
 					</Box>
 					{/* 커뮤니티 이름 */}
-					<Typography variant='h2'>Sad Girls Bar</Typography>
+					<Typography variant='h2'>{communityInfo.name}</Typography>
 					<Stack direction='row'>
 						<Typography variant='subtitle3' paddingRight='7px'>
 							by
@@ -49,7 +68,7 @@ function MarketCommunity() {
 							onClick={onClickNickname}
 							sx={{ cursor: 'pointer' }}
 						>
-							sadGirlsBar
+							{communityInfo.hostNickname}
 						</Typography>
 					</Stack>
 					{/* 커뮤니티 아이템 정보 박스 */}
@@ -90,30 +109,16 @@ function MarketCommunity() {
 
 				{/* NFT List */}
 				<Grid container spacing={6}>
-					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<ItemCard />
-					</Grid>
-					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<ItemCard />
-					</Grid>
-					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<ItemCard />
-					</Grid>
-					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<ItemCard />
-					</Grid>
-					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<ItemCard />
-					</Grid>
-					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<ItemCard />
-					</Grid>
-					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<ItemCard />
-					</Grid>
-					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<ItemCard />
-					</Grid>
+					{itemList.map(item => (
+						<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3} key={item.tokenId}>
+							<ItemCard
+								communityName={item.communityName}
+								itemName={item.name}
+								price={item.price}
+								saleCA={item.saleCA}
+							/>
+						</Grid>
+					))}
 				</Grid>
 			</Container>
 		</Page>
