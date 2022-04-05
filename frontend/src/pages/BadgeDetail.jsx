@@ -1,18 +1,47 @@
-import { useEffect, useState } from 'react';
-import { Avatar, Box, Stack, Container, Typography } from '@mui/material';
+import { useEffect, useState, useContext } from 'react';
+import {
+	Dialog,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+	DialogActions,
+	TextField,
+	Box,
+	Stack,
+	Container,
+	Typography,
+	Button,
+} from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowBack as BackIcon } from '@mui/icons-material';
 import Page from '../components/Page';
-import { getItemInfo } from '../api/item';
+import { getItemInfo, saveSaleInfo } from '../api/item';
+import { saleFactoryContract, nftCA } from '../web3Config';
+import UserContext from '../context/UserContext';
 
 function BadgeDetail() {
 	const { itemId } = useParams();
 	const navigate = useNavigate();
+	const userContext = useContext(UserContext);
 
 	const [itemInfo, setItemInfo] = useState({});
+	const [open, setOpen] = useState(false);
+	const [price, setPrice] = useState();
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
 
 	const onClickBackIcon = () => {
 		navigate(-1);
+	};
+
+	const onChangePrice = e => {
+		setPrice(e.target.value);
 	};
 
 	useEffect(() => {
@@ -27,6 +56,27 @@ function BadgeDetail() {
 			});
 		});
 	}, []);
+
+	const onClickSale = async () => {
+		// 판매하기
+
+		// SC 판매 등록하기
+		const saleInfo = await saleFactoryContract.methods
+			.createSale(itemId, price, nftCA)
+			.send({ from: userContext.loggedUser.address });
+
+		// 백엔드에 판매정보 등록하기
+		const res = await saveSaleInfo({
+			tokenId: itemId,
+			sellerAddress: userContext.loggedUser.address,
+			saleContractAddress:
+				saleInfo.events.CreatedSaleAddress.returnValues.saleAddress,
+		});
+		if (res.status === 200) {
+			// 판매 상세 페이지로 이동시키기
+			navigate(-1);
+		}
+	};
 
 	return (
 		<Page>
@@ -53,8 +103,37 @@ function BadgeDetail() {
 						{/* 설명 */}
 						{itemInfo.itemDec}
 					</Typography>
+					<Box textAlign='center' mt='40px'>
+						<Button
+							onClick={handleClickOpen}
+							sx={{ width: '50%' }}
+							variant='contained'
+						>
+							판매하기
+						</Button>
+					</Box>
 				</Stack>
 			</Container>
+			<Dialog open={open} onClose={handleClose}>
+				<DialogTitle>판매하기</DialogTitle>
+				<DialogContent>
+					<TextField
+						autoFocus
+						margin='dense'
+						id='name'
+						label='가격을 입력해 주세요.'
+						type='Number'
+						fullWidth
+						variant='standard'
+						value={price}
+						onChange={onChangePrice}
+					/>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={onClickSale}>판매</Button>
+					<Button onClick={handleClose}>취소</Button>
+				</DialogActions>
+			</Dialog>
 		</Page>
 	);
 }
