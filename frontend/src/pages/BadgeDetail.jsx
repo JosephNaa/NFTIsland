@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from 'react';
 import {
 	Dialog,
 	DialogContent,
-	DialogContentText,
 	DialogTitle,
 	DialogActions,
 	TextField,
@@ -11,6 +10,7 @@ import {
 	Container,
 	Typography,
 	Button,
+	CircularProgress,
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowBack as BackIcon } from '@mui/icons-material';
@@ -27,6 +27,7 @@ function BadgeDetail() {
 	const [itemInfo, setItemInfo] = useState({});
 	const [open, setOpen] = useState(false);
 	const [price, setPrice] = useState();
+	const [loading, setLoading] = useState(false);
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -58,28 +59,63 @@ function BadgeDetail() {
 	}, []);
 
 	const onClickSale = async () => {
-		// 판매하기
+		setOpen(false);
+		try {
+			// 판매하기
+			setLoading(true);
+			// SC 판매 등록하기
+			const saleInfo = await saleFactoryContract.methods
+				.createSale(itemId, price, nftCA)
+				.send({ from: userContext.loggedUser.address });
 
-		// SC 판매 등록하기
-		const saleInfo = await saleFactoryContract.methods
-			.createSale(itemId, price, nftCA)
-			.send({ from: userContext.loggedUser.address });
-
-		// 백엔드에 판매정보 등록하기
-		const res = await saveSaleInfo({
-			tokenId: itemId,
-			sellerAddress: userContext.loggedUser.address,
-			saleContractAddress:
-				saleInfo.events.CreatedSaleAddress.returnValues.saleAddress,
-		});
-		if (res.status === 200) {
-			// 판매 상세 페이지로 이동시키기
-			navigate(-1);
+			// 백엔드에 판매정보 등록하기
+			const res = await saveSaleInfo({
+				tokenId: itemId,
+				sellerAddress: userContext.loggedUser.address,
+				saleContractAddress:
+					saleInfo.events.CreatedSaleAddress.returnValues.saleAddress,
+			});
+			if (res.status === 200) {
+				// 판매 상세 페이지로 이동시키기
+				navigate(
+					`/market/item/${saleInfo.events.CreatedSaleAddress.returnValues.saleAddress}`
+				);
+			}
+		} catch (error) {
+			console.dir(error);
 		}
+		setLoading(false);
 	};
 
 	return (
 		<Page>
+			{loading && (
+				<Box
+					sx={{
+						position: 'fixed',
+						top: 0,
+						left: 0,
+						width: '100%',
+						height: '100%',
+						backgroundColor: 'rgba(0, 0, 0, 0.4)',
+						zIndex: 999,
+					}}
+				>
+					<Box
+						sx={{
+							position: 'absolute',
+							top: '50%',
+							left: '50%',
+							transform: 'translate(-50%, -50%)',
+						}}
+					>
+						<Stack alignItems='center'>
+							<CircularProgress />
+							<Box mt='10px'>NFT 판매 등록중...</Box>
+						</Stack>
+					</Box>
+				</Box>
+			)}
 			<Container>
 				<Stack justifyContent='center' direction='row' ml='20%' mr='20%'>
 					<Box position='absolute' left='20%'>

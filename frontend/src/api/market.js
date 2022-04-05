@@ -15,4 +15,10 @@ const getItemSaleInfo = saleCA =>
 		console.dir(err);
 	});
 
-export { getSalesCommunity, getSalesItem, getItemSaleInfo };
+const buyItem = data =>
+	http
+		.put(`/sales/info/${data.saleCA}`, { buyer_address: data.address })
+		.catch(err => {
+			console.dir(err);
+		});
+export { getSalesCommunity, getSalesItem, getItemSaleInfo, buyItem };
