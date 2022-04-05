@@ -10,4 +10,9 @@ const getSalesItem = communityId =>
 		console.dir(err);
 	});
 
-export { getSalesCommunity, getSalesItem };
+const getItemSaleInfo = saleCA =>
+	http.get(`/sales/info/${saleCA}`).catch(err => {
+		console.dir(err);
+	});
+
+export { getSalesCommunity, getSalesItem, getItemSaleInfo };

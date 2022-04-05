@@ -1,20 +1,28 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTheme, styled } from '@mui/material/styles';
 import { Container, Box, Stack, Typography, Button, Grid } from '@mui/material';
 import Page from '../components/Page';
-import logo from '../image/logo.png';
-import { getSalesItem } from '../api/market';
+import { getItemSaleInfo } from '../api/market';
 
 function MarketItem() {
-	const { communityId } = useParams();
+	const { saleCA } = useParams();
 	const theme = useTheme();
+	const [saleInfo, setSaleInfo] = useState({});
 
 	useEffect(() => {
-		getSalesItem(communityId).then(({ data }) => {
-			console.log(data);
+		getItemSaleInfo(saleCA).then(({ data }) => {
+			setSaleInfo({
+				communityId: data.community_id,
+				communityName: data.community_name,
+				imageUrl: data.item_url,
+				name: data.item_name,
+				description: data.item_description,
+				ownerNickname: data.owner_nickname,
+				ownerAddress: data.owner_address,
+				createAt: data.sale_created_at,
+			});
 		});
-		console.log(communityId);
 	}, []);
 
 	const ImgStyle = styled('img')({
@@ -39,7 +47,7 @@ function MarketItem() {
 				<Grid container spacing={6}>
 					<Grid item xs={12} md={6}>
 						<BoxStyle width='100%'>
-							<ImgStyle src={logo} alt='' />
+							<ImgStyle src={saleInfo.imageUrl} alt='' />
 						</BoxStyle>
 					</Grid>
 					<Grid item xs={12} md={6}>
@@ -50,24 +58,19 @@ function MarketItem() {
 								color={theme.palette.info.dark}
 								onClick={onClickCommunity}
 							>
-								Sad Girls Bar
+								{saleInfo.communityName}
 							</Typography>
 							{/* NFT 이름 */}
-							<Typography variant='h3'>Sad Girls #1235</Typography>
+							<Typography variant='h3'>{saleInfo.name}</Typography>
 							{/* NFT 발행자 */}
 							<Typography variant='body1'>
-								Created by <span>GxngYxng</span>
+								Created by <span>{saleInfo.ownerNickname}</span>
 							</Typography>
 							{/* NFT 설명 */}
 							<Typography variant='h5' paddingTop='20px'>
 								Description
 							</Typography>
-							<Typography variant='body1'>
-								Represented by the scales, Libras are naturally balanced individuals.
-								Although this can lead to some indecisiveness, it&apos;s also what makes
-								you such a fair and diplomatic person. Your friends all know they can
-								come to you with any problem and get the most honest response.
-							</Typography>
+							<Typography variant='body1'>{saleInfo.description}</Typography>
 						</BoxStyle>
 					</Grid>
 				</Grid>

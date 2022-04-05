@@ -38,7 +38,7 @@ export default function Router() {
 			children: [
 				{ path: '', element: <Market /> },
 				{ path: 'community/:communityId', element: <MarketCommunity /> },
-				{ path: 'item/:itemId', element: <MarketItem /> },
+				{ path: 'item/:saleCA', element: <MarketItem /> },
 			],
 		},
 		{
