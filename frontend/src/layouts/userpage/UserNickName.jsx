@@ -9,14 +9,17 @@ import {
 	Dialog,
 	DialogTitle,
 	DialogContent,
+	DialogActions,
 } from '@mui/material';
 import { Edit as EditIcon } from '@mui/icons-material';
+import { setUserNickNameAPI } from '../../api/user';
 
 UserNickName.propTypes = {
+	address: PropTypes.string,
 	userName: PropTypes.string,
 };
 
-function UserNickName({ userName }) {
+function UserNickName({ address, userName }) {
 	const [nameOpen, setNameOpen] = useState(false);
 	const [name, setName] = useState('');
 
@@ -26,17 +29,25 @@ function UserNickName({ userName }) {
 
 	const onClickNameModify = () => {
 		setNameOpen(true);
-		console.log('닉네임 수정버튼 클릭');
 	};
 
 	const handleNameChange = event => {
 		setName(event.target.value);
 	};
 
-	const handleNameModify = () => {
-		// 닉네임 변경 PUT API
+	const setUserNickName = async () => {
+		try {
+			await setUserNickNameAPI(address, name);
+			window.location.replace(`/user/${name}`);
+		} catch (error) {
+			alert('이미 존재하는 닉네임 입니다.');
+			console.dir(error);
+		}
+	};
+
+	const handleNameModify = async () => {
+		await setUserNickName();
 		setNameOpen(false);
-		// console.log(name);
 	};
 
 	return (
@@ -48,34 +59,26 @@ function UserNickName({ userName }) {
 				</Box>
 			</Stack>
 			<Dialog open={nameOpen} onClose={handleClose}>
-				<DialogTitle id='alert-dialog-title'>
-					<Typography fontSize='14px' textalign='center'>
-						<b>닉네임 변경</b>
-					</Typography>
-				</DialogTitle>
+				<DialogTitle>닉네임 변경</DialogTitle>
 				<DialogContent>
 					<TextField
-						sx={{ width: '100%' }}
+						autoFocus
+						margin='dense'
 						type='text'
+						fullWidth
+						variant='standard'
+						defaultValue={userName}
 						onChange={handleNameChange}
-						fontSize='10px'
 					/>
-					<Stack
-						direction='row'
-						pl='20px'
-						pr='20px'
-						justifyContent='center'
-						mt='10px'
-						spacing={1}
-					>
-						<Button size='small' variant='contained' onClick={handleNameModify}>
-							Modify
-						</Button>
-						<Button size='small' variant='outlined' onClick={handleClose}>
-							Cancel
-						</Button>
-					</Stack>
 				</DialogContent>
+				<DialogActions>
+					<Button size='small' variant='contained' onClick={handleNameModify}>
+						Modify
+					</Button>
+					<Button size='small' variant='outlined' onClick={handleClose}>
+						Cancel
+					</Button>
+				</DialogActions>
 			</Dialog>
 		</>
 	);

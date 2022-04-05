@@ -78,7 +78,10 @@ function UserPage() {
 					<UserProfileImage profileUrl={userInfo.profileUrl} />
 				</Box>
 				<Box display='flex' alignItems='center' justifyContent='center'>
-					<UserNickName userName={userInfo.userName} />
+					<UserNickName
+						address={userInfo.userAddress}
+						userName={userInfo.userName}
+					/>
 				</Box>
 				<Box display='flex' alignItems='center' justifyContent='center'>
 					<Chip label={userInfo.userAddress} variant='outlined' onClick={() => {}} />
