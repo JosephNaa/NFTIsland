@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import { Container, Box, Avatar, Stack, Typography, Grid } from '@mui/material';
 import Page from '../components/Page';
-import logo from '../image/logo.png';
 import ItemCard from '../layouts/market/ItemCard';
 import { getSalesItem } from '../api/market';
 import { getBoardsAPI } from '../api/board';
@@ -18,9 +17,11 @@ function MarketCommunity() {
 
 	useEffect(async () => {
 		getBoardsAPI(communityId).then(({ data }) => {
+			console.log(data);
 			setCommunityInfo({
 				name: data.name,
 				hostNickname: data.host_nick_name,
+				logo: data.logo_path,
 			});
 		});
 		// 판매중인 nft 목록불러오기
@@ -54,7 +55,11 @@ function MarketCommunity() {
 			<Container>
 				<Stack direction='column' alignItems='center' marginTop='50px'>
 					<Box border='3px solid white' borderRadius='50%' paddingBottom='7px'>
-						<Avatar sx={{ width: 200, height: 200 }} src={logo} alt='' />
+						<Avatar
+							sx={{ width: 200, height: 200 }}
+							src={communityInfo.logo}
+							alt=''
+						/>
 					</Box>
 					{/* 커뮤니티 이름 */}
 					<Typography variant='h2'>{communityInfo.name}</Typography>
@@ -116,6 +121,7 @@ function MarketCommunity() {
 								itemName={item.name}
 								price={item.price}
 								saleCA={item.saleCA}
+								imageUrl={item.imageUrl}
 							/>
 						</Grid>
 					))}

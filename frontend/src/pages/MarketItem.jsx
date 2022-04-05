@@ -1,27 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTheme, styled } from '@mui/material/styles';
 import { Container, Box, Stack, Typography, Button, Grid } from '@mui/material';
 import Page from '../components/Page';
 import { getItemSaleInfo } from '../api/market';
+import { createSaleContract } from '../web3Config';
+import UserContext from '../context/UserContext';
 
 function MarketItem() {
-	const { saleCA } = useParams();
 	const theme = useTheme();
+	const { saleCA } = useParams();
+	const userContext = useContext(UserContext);
 	const [saleInfo, setSaleInfo] = useState({});
+	const saleContract = createSaleContract(saleCA);
 
 	useEffect(() => {
 		getItemSaleInfo(saleCA).then(({ data }) => {
-			setSaleInfo({
-				communityId: data.community_id,
-				communityName: data.community_name,
-				imageUrl: data.item_url,
-				name: data.item_name,
-				description: data.item_description,
-				ownerNickname: data.owner_nickname,
-				ownerAddress: data.owner_address,
-				createAt: data.sale_created_at,
-			});
+			saleContract.methods
+				.getSaleInfo()
+				.call()
+				.then(res => {
+					setSaleInfo({
+						communityId: data.community_id,
+						communityName: data.community_name,
+						imageUrl: data.item_url,
+						name: data.item_name,
+						description: data.item_description,
+						ownerNickname: data.owner_nickname,
+						ownerAddress: data.owner_address,
+						createAt: data.sale_created_at,
+						price: res[0],
+					});
+				});
 		});
 	}, []);
 
@@ -39,6 +49,14 @@ function MarketItem() {
 	const onClickCommunity = e => {
 		e.stopPropagation();
 		console.log('nickname');
+	};
+
+	const onClickBuy = async () => {
+		const buy = await saleContract.methods
+			.purchase()
+			.send({ from: userContext.loggedUser.address, value: saleInfo.price });
+
+		console.log(buy);
 	};
 
 	return (
@@ -71,11 +89,15 @@ function MarketItem() {
 								Description
 							</Typography>
 							<Typography variant='body1'>{saleInfo.description}</Typography>
+							<Typography variant='h5' paddingTop='20px'>
+								Price
+							</Typography>
+							<Typography variant='body1'>{saleInfo.price}</Typography>
 						</BoxStyle>
 					</Grid>
 				</Grid>
 				<Box width='350px' margin='50px auto'>
-					<Button variant='outlined' size='large' fullWidth>
+					<Button onClick={onClickBuy} variant='outlined' size='large' fullWidth>
 						Buy
 					</Button>
 				</Box>

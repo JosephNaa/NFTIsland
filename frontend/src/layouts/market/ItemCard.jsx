@@ -1,9 +1,8 @@
 import { Box, Avatar, Typography, Stack, Card } from '@mui/material';
 import { useTheme, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../image/logo.png';
 
-function ItemCard({ saleCA, communityName, itemName, price }) {
+function ItemCard({ saleCA, communityName, itemName, price, imageUrl }) {
 	const navigate = useNavigate();
 	const theme = useTheme();
 
@@ -29,7 +28,7 @@ function ItemCard({ saleCA, communityName, itemName, price }) {
 			onClick={onClickCard}
 		>
 			{/* NFT 이미지 */}
-			<ImgStyle src={logo} alt='' />
+			<ImgStyle src={imageUrl} alt='' />
 			<Stack
 				direction='row'
 				justifyContent='space-between'
