@@ -19,57 +19,62 @@ Comments.propTypes = {
 	nickName: PropTypes.string.isRequired,
 	userAddress: PropTypes.string,
 	updatedAt: PropTypes.string.isRequired,
+	profilePic: PropTypes.string.isRequired,
 };
 
-function Comments({ commentId, content, nickName, userAddress, updatedAt }) {
+function Comments({
+	commentId,
+	content,
+	nickName,
+	userAddress,
+	updatedAt,
+	profilePic,
+}) {
 	const theme = useTheme();
 	const navigate = useNavigate();
 	const { loggedUser } = useContext(UserContext);
 	const { communityId, postId } = useParams();
 
-	const onClickEditIcon = () => {
-		navigate('/postwrite');
-	};
-
+	// const test = 'test';
 	const onClickDeleteIcon = () => {
 		// 댓글 삭제 API
 		deleteCommentAPI({
 			commentId,
+			// user_address: test,
 			user_address: loggedUser.address,
 		}).then(res => {
-			navigate(`/community/${communityId}/${postId}`);
+			navigate(`/community/${communityId}/${postId}`, { replace: true });
 		});
 	};
 
 	return (
-		<Container>
-			<Stack direction='row' ml='-3%'>
-				<PersonIcon sx={{ width: 40, height: 60 }} />
-				{/* 작성자 이미지 */}
+		<Box>
+			<Stack direction='row' pt='5px' pb='5px' mr='30px' spacing={1}>
+				<Avatar sx={{ width: 30, height: 30 }}>
+					<img src={profilePic} alt='' />
+					{/* 작성자 이미지 */}
+				</Avatar>
 				<Box flex='1'>
-					<Typography mb='3px' fontSize='14px'>
+					<Typography fontSize='11px'>
 						{/* 작성자 닉네임 */}
 						{nickName}
 					</Typography>
-					<Typography mb='3px'>
+					<Typography fontSize='13px'>
 						{/* 댓글내용 */}
 						{content}
 					</Typography>
 				</Box>
-				<Typography mt='15px' fontSize='14px'>
+				<Typography pt='2px' fontSize='11px'>
 					{/* 댓글 작성일 */}
 					{updatedAt}
 				</Typography>
 				<Stack direction='row' ml='30px' mt='15px' spacing={1}>
 					<Box>
-						<EditIcon sx={{ width: 20, height: 20 }} onClick={onClickEditIcon} />
-					</Box>
-					<Box>
 						<DeleteIcon sx={{ width: 20, height: 20 }} onClick={onClickDeleteIcon} />
 					</Box>
 				</Stack>
 			</Stack>
-		</Container>
+		</Box>
 	);
 }
 
