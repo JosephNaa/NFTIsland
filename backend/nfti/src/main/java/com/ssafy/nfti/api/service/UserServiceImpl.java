@@ -2,6 +2,7 @@ package com.ssafy.nfti.api.service;
 
 
 import com.ssafy.nfti.api.request.UserReq;
+import com.ssafy.nfti.api.request.UserUpdateReq;
 import com.ssafy.nfti.api.response.UserRes;
 import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
 import com.ssafy.nfti.common.exception.response.ApiException;
@@ -68,16 +69,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserRes updateNickname(String address, String nickname) {
+    public UserRes updateNickname(String address, UserUpdateReq req) {
         User user = userRepository.findByAddress(address)
                 .orElseThrow();
 
-        Boolean flag = userRepositorySupport.findUserByNickname(nickname).isPresent();
+        Boolean flag = userRepositorySupport.findUserByNickname(req.getNickname()).isPresent();
         if (flag == true) {
             throw new ApiException(ExceptionEnum.CONFLICT_USER_NICKNAME);
         }
 
-        user.setNickname(nickname);
+        user.setNickname(req.getNickname());
         User newUser = userRepository.save(user);
         return UserRes.of(newUser);
 

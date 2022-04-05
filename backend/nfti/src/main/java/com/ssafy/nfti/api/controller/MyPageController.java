@@ -1,6 +1,7 @@
 package com.ssafy.nfti.api.controller;
 
 import com.ssafy.nfti.api.request.UserReq;
+import com.ssafy.nfti.api.request.UserUpdateReq;
 import com.ssafy.nfti.api.response.CommunityListRes;
 import com.ssafy.nfti.api.response.MyActivityRes;
 import com.ssafy.nfti.api.response.UserRes;
@@ -70,17 +71,17 @@ public class MyPageController {
         return ResponseEntity.ok(res);
     }
 
-    @PutMapping("/{address}")
+    @PutMapping("/usernickname/{address}")
     public ResponseEntity<UserRes> updateNickname(
             @PathVariable String address,
-            @RequestParam String nickname
+            @RequestBody UserUpdateReq req
     ) {
 //        String url = null;
 //        if (req.getProfile_path() != null) {
 //            url = awss3Service.uploadFile(req.getProfile_path());
 //        }
 
-        UserRes res = userService.updateNickname(address, nickname);
+        UserRes res = userService.updateNickname(address, req);
 
         return ResponseEntity.ok(res);
     }
