@@ -27,17 +27,15 @@ function Comments({ commentId, content, nickName, userAddress, updatedAt }) {
 	const { loggedUser } = useContext(UserContext);
 	const { communityId, postId } = useParams();
 
-	const onClickEditIcon = () => {
-		navigate('/postwrite');
-	};
-
+	// const test = 'test';
 	const onClickDeleteIcon = () => {
 		// 댓글 삭제 API
 		deleteCommentAPI({
 			commentId,
+			// user_address: test,
 			user_address: loggedUser.address,
 		}).then(res => {
-			navigate(`/community/${communityId}/${postId}`);
+			navigate(`/community/${communityId}/${postId}`, { replace: true });
 		});
 	};
 
@@ -61,9 +59,6 @@ function Comments({ commentId, content, nickName, userAddress, updatedAt }) {
 					{updatedAt}
 				</Typography>
 				<Stack direction='row' ml='30px' mt='15px' spacing={1}>
-					<Box>
-						<EditIcon sx={{ width: 20, height: 20 }} onClick={onClickEditIcon} />
-					</Box>
 					<Box>
 						<DeleteIcon sx={{ width: 20, height: 20 }} onClick={onClickDeleteIcon} />
 					</Box>

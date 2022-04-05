@@ -55,6 +55,7 @@ function PostDetail() {
 	useEffect(() => {
 		getBoardAPI(postId).then(res => {
 			setPost(res.data);
+			console.log(res.data);
 			setLikes(res.data.likes);
 			// 댓글 목록
 			setComments(res.data.comments);
@@ -65,16 +66,18 @@ function PostDetail() {
 	const handleDeleteClose = () => {
 		setOpen(false);
 		deleteBoardAPI({ postId, user_address: loggedUser.address }).then(res => {
-			navigate(`/community/${communityId}`);
+			navigate(`/community/${communityId}`, { replace: true });
 		});
 	};
 
 	const onClickBackIcon = () => {
-		navigate(-1);
+		navigate(`/community/${communityId}`, { replace: true });
 	};
 
 	const onClickEditIcon = () => {
-		navigate(`/community/postwrite/${communityId}?postId=${postId}`);
+		navigate(`/community/postwrite/${communityId}?postId=${postId}`, {
+			replace: true,
+		});
 	};
 
 	const onClickDeleteIcon = () => {
@@ -84,13 +87,12 @@ function PostDetail() {
 	// 좋아요 API
 	const onClickLikeIcon = () => {
 		if (likes.includes(loggedUser.address)) {
-			console.log('좋아요 목록에 존재함');
 			// 좋아요 삭제API
 			deleteLikeAPI({
 				board_id: postId,
 				user_address: loggedUser.address,
 			}).then(res => {
-				navigate(`/community/${communityId}/${postId}`);
+				navigate(`/community/${communityId}/${postId}`, { replace: true });
 			});
 		} else {
 			// 좋아요 등록API
@@ -98,7 +100,7 @@ function PostDetail() {
 				board_id: postId,
 				user_address: loggedUser.address,
 			}).then(() => {
-				navigate(`/community/${communityId}/${postId}`);
+				navigate(`/community/${communityId}/${postId}`, { replace: true });
 			});
 		}
 	};
@@ -108,14 +110,15 @@ function PostDetail() {
 	const handleCommentChange = event => {
 		setComment(event.target.value);
 	};
+
 	const onClickComment = () => {
 		if (comment.length > 0) {
 			createCommentAPI({
 				board_id: postId,
 				user_address: loggedUser.address,
 				content: comment,
-			}).then(() => {
-				navigate(`/community/${communityId}/${postId}`);
+			}).then(res => {
+				setComments(prev => [...prev, res.data]);
 			});
 			setComment('');
 		}
