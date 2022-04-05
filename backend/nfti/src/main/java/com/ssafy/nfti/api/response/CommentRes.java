@@ -9,12 +9,14 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Builder
 @JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class CommentRes {
     Long id;
     String userAddress;
+    String userProfile;
     String nickName;
     String content;
     LocalDateTime createdAt;
@@ -25,6 +27,7 @@ public class CommentRes {
         return CommentRes.builder()
             .id(comment.getId())
             .userAddress(comment.getUser().getAddress())
+            .userProfile(comment.getUser().getProfile_path())
             .nickName(comment.getUser().getNickname())
             .content(comment.getContent())
             .createdAt(comment.getCreatedAt())
