@@ -2,6 +2,7 @@ package com.ssafy.nfti.api.service;
 
 import com.ssafy.nfti.api.request.UserRegisterPostReq;
 import com.ssafy.nfti.api.request.UserReq;
+import com.ssafy.nfti.api.request.UserUpdateReq;
 import com.ssafy.nfti.api.response.UserRes;
 import com.ssafy.nfti.db.entity.User;
 
@@ -12,7 +13,7 @@ public interface UserService {
 
     User getUserInfo(String findBy, String search);
 
-    UserRes updateNickname(String address, String nickname);
+    UserRes updateNickname(String address, UserUpdateReq req);
 
     UserRes updateProfilePath(String address, UserReq req, String url);
 

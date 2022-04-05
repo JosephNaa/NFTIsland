@@ -9,5 +9,4 @@ import lombok.Setter;
 @ApiModel("UserUpdateReq")
 public class UserUpdateReq {
     String nickname;
-    String profile_path;
 }
