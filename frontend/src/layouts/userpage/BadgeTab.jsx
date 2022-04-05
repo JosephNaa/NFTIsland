@@ -1,12 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Box, Grid, FormControl, Select, MenuItem } from '@mui/material';
 import ItemCard from './ItemCard';
+import { getMyOwnItemByNickname } from '../../api/item';
 
-function BadgeTab() {
+BadgeTab.propTypes = {
+	userName: PropTypes.string.isRequired,
+};
+
+function BadgeTab({ userName }) {
 	const [category, setCategory] = useState('');
+	const [badges, setBadges] = useState([]);
 	const handleCategoryChange = event => {
 		setCategory(event.target.value);
 	};
+
+	useEffect(() => {
+		getMyOwnItemByNickname(userName).then(({ data }) => {
+			setBadges(data);
+		});
+	}, []);
 
 	return (
 		<>
@@ -25,18 +38,24 @@ function BadgeTab() {
 			</Box>
 			<Box maxWidth='xl' sx={{ pt: '30px' }}>
 				<Grid container spacing={6}>
-					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<ItemCard />
-					</Grid>
-					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<ItemCard />
-					</Grid>
-					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<ItemCard />
-					</Grid>
-					<Grid sx={{ mb: 5 }} item xs={12} sm={6} md={4} lg={3}>
-						<ItemCard />
-					</Grid>
+					{badges.map(item => (
+						<Grid
+							sx={{ mb: 5 }}
+							item
+							xs={12}
+							sm={6}
+							md={4}
+							lg={3}
+							key={item.token_id}
+						>
+							<ItemCard
+								tokenId={item.token_id}
+								communityName={item.community_name}
+								itemName={item.item_title}
+								itemURL={item.item_url}
+							/>
+						</Grid>
+					))}
 				</Grid>
 			</Box>
 		</>

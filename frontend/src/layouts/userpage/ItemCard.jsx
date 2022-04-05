@@ -3,16 +3,13 @@ import { useTheme, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../image/logo.png';
 
-function ItemCard() {
+function ItemCard({ tokenId, itemURL, itemName, communityName }) {
 	const navigate = useNavigate();
 	const theme = useTheme();
 
 	const onClickCard = () => {
-		navigate('/market/item/sadgirl');
-	};
-
-	const onClickSell = () => {
-		navigate('/market/item/sadgirl');
+		// 아이템 상세페이지로 이동
+		navigate(`/item/${tokenId}`);
 	};
 
 	const ImgStyle = styled('img')({
@@ -33,7 +30,7 @@ function ItemCard() {
 			onClick={onClickCard}
 		>
 			{/* NFT 이미지 */}
-			<ImgStyle src={logo} alt='' />
+			<ImgStyle src={itemURL} alt='' />
 			<Stack
 				direction='row'
 				justifyContent='space-between'
@@ -42,20 +39,10 @@ function ItemCard() {
 				<Box>
 					{/* 커뮤니티 이름 */}
 					<Typography variant='body2' color={theme.palette.grey[500]}>
-						Sad Girls Bar
+						{communityName}
 					</Typography>
 					{/* NFT 이름 */}
-					<Typography variant='subtitle1'>Sad Girls #12435</Typography>
-				</Box>
-				<Box textAlign='right'>
-					<Button
-						size='small'
-						variant='contained'
-						disableElevation
-						onClick={onClickSell}
-					>
-						판매하기
-					</Button>
+					<Typography variant='subtitle1'>{itemName}</Typography>
 				</Box>
 			</Stack>
 		</Card>

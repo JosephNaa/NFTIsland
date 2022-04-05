@@ -1,15 +1,19 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useTheme, styled } from '@mui/material/styles';
 import { Container, Box, Stack, Typography, Button, Grid } from '@mui/material';
 import Page from '../components/Page';
 import logo from '../image/logo.png';
+import { getSalesItem } from '../api/market';
 
 function MarketItem() {
-	const communityId = useLocation().pathname.substring(13);
+	const { communityId } = useParams();
 	const theme = useTheme();
 
 	useEffect(() => {
+		getSalesItem(communityId).then(({ data }) => {
+			console.log(data);
+		});
 		console.log(communityId);
 	}, []);
 
