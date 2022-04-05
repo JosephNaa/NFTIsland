@@ -1,3 +1,4 @@
+import { useEffect, useState, useContext } from 'react';
 import { useTheme, styled } from '@mui/material/styles';
 import { Box, Avatar, Typography, Stack, Card } from '@mui/material';
 import {
@@ -7,6 +8,8 @@ import {
 } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import { useNavigate, useParams } from 'react-router-dom';
+import UserContext from '../../context/UserContext';
+import { getHasItem } from '../../api/item';
 
 PostCard.propTypes = {
 	boardId: PropTypes.number.isRequired,
@@ -34,8 +37,25 @@ function PostCard({
 	const theme = useTheme();
 
 	const onClickCard = () => {
-		navigate(`/community/${communityId}/${boardId}`);
+		if (has === true) {
+			navigate(`/community/${communityId}/${boardId}`);
+		}
+		if (has === false) {
+			alert('게시글 조회 권한이 없습니다.');
+		}
 	};
+
+	// hasItem API address, community_id
+	const { loggedUser } = useContext(UserContext);
+	const [has, setHas] = useState();
+
+	useEffect(() => {
+		getHasItem({ address: loggedUser.address, community_id: communityId }).then(
+			res => {
+				setHas(res.data);
+			}
+		);
+	}, []);
 
 	return (
 		<Card

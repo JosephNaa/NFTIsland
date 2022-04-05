@@ -30,4 +30,9 @@ const getMyOwnItemByNickname = (userNickname, page = 1, size = 30) =>
 			console.dir(err);
 		});
 
-export { getImageURL, saveItemInfo, getMyOwnItemByNickname, getItemInfo };
+const getHasItem = data =>
+	http.get(`/items/hasItem?address=${data.address}&community_id=${data.community_id}`).catch(err => {
+		console.dir(err);
+	});
+
+export { getImageURL, saveItemInfo, getMyOwnItemByNickname, getItemInfo, getHasItem };
