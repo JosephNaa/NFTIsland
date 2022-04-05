@@ -25,6 +25,8 @@ public class ItemsRes {
 
     private Long communityId;
 
+    private String communityName;
+
     public static ItemsRes of(Items items) {
         return ItemsRes.builder()
             .tokenId(items.getTokenId())
@@ -34,6 +36,7 @@ public class ItemsRes {
             .onSaleYn(items.getOnSaleYn())
             .ownerAddress(items.getOwner().getAddress())
             .communityId(items.getCommunity().getId())
+            .communityName(items.getCommunity().getName())
             .build();
     }
 }

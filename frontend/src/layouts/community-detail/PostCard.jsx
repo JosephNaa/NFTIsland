@@ -16,6 +16,7 @@ PostCard.propTypes = {
 	commentCnt: PropTypes.number.isRequired,
 	likeCnt: PropTypes.number.isRequired,
 	createAt: PropTypes.string.isRequired,
+	profilePic: PropTypes.string.isRequired,
 };
 
 function PostCard({
@@ -26,6 +27,7 @@ function PostCard({
 	commentCnt,
 	likeCnt,
 	createAt,
+	profilePic,
 }) {
 	const navigate = useNavigate();
 	const { communityId } = useParams();
@@ -85,11 +87,9 @@ function PostCard({
 					<Box width='60%'>
 						<Stack direction='row'>
 							<Avatar sx={{ width: 25, height: 25 }}>
-								<PersonIcon />
 								{/* 작성자 이미지 */}
+								<img src={profilePic} alt='' />
 							</Avatar>
-							{/* 작성자 이미지
-							<PersonIcon sx={{ width: 30, height: 30 }} /> */}
 							<Typography
 								ml='5px'
 								mb='10px'
