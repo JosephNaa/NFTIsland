@@ -685,11 +685,214 @@ const saleAbi = [
 	},
 ];
 
-const nftCA = '0xC00e939034155C25Fe0Ad6682750aDf449018338';
+const saleFactoryAbi = [
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_nftAddress',
+				type: 'address',
+			},
+		],
+		stateMutability: 'nonpayable',
+		type: 'constructor',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: 'address',
+				name: 'saleAddress',
+				type: 'address',
+			},
+		],
+		name: 'CreatedSaleAddress',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: 'address',
+				name: '_saleContract',
+				type: 'address',
+			},
+			{
+				indexed: true,
+				internalType: 'address',
+				name: '_owner',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: '_workId',
+				type: 'uint256',
+			},
+		],
+		name: 'NewSale',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'previousOwner',
+				type: 'address',
+			},
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'newOwner',
+				type: 'address',
+			},
+		],
+		name: 'OwnershipTransferred',
+		type: 'event',
+	},
+	{
+		inputs: [],
+		name: 'admin',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+		constant: true,
+	},
+	{
+		inputs: [],
+		name: 'erc721Contract',
+		outputs: [
+			{
+				internalType: 'contract NFTIslandBadge',
+				name: '',
+				type: 'address',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+		constant: true,
+	},
+	{
+		inputs: [],
+		name: 'owner',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+		constant: true,
+	},
+	{
+		inputs: [],
+		name: 'renounceOwnership',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		name: 'sales',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+		constant: true,
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'newOwner',
+				type: 'address',
+			},
+		],
+		name: 'transferOwnership',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: 'itemId',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: 'purchasePrice',
+				type: 'uint256',
+			},
+			{
+				internalType: 'address',
+				name: 'nftAddress',
+				type: 'address',
+			},
+		],
+		name: 'createSale',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [],
+		name: 'allSales',
+		outputs: [
+			{
+				internalType: 'address[]',
+				name: '',
+				type: 'address[]',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+		constant: true,
+	},
+];
+
+export const nftCA = '0xC00e939034155C25Fe0Ad6682750aDf449018338';
+
+const saleFactoryCA = '0x83ED4f6f78366309a0746B85F805E6C3b0749BD8';
 
 export const web3 = new Web3(window.ethereum);
 
 export const nftContract = new web3.eth.Contract(nftAbi, nftCA);
+
+export const saleFactoryContract = new web3.eth.Contract(
+	saleFactoryAbi,
+	saleFactoryCA
+);
 
 export const createSaleContract = saleCA =>
 	new web3.eth.Contract(saleAbi, saleCA);

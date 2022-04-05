@@ -30,4 +30,21 @@ const getMyOwnItemByNickname = (userNickname, page = 1, size = 30) =>
 			console.dir(err);
 		});
 
-export { getImageURL, saveItemInfo, getMyOwnItemByNickname, getItemInfo };
+const saveSaleInfo = data =>
+	http
+		.post('/sales', data, {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+		.catch(err => {
+			console.dir(err);
+		});
+
+export {
+	getImageURL,
+	saveItemInfo,
+	getMyOwnItemByNickname,
+	getItemInfo,
+	saveSaleInfo,
+};
