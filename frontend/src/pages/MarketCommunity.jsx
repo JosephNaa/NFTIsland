@@ -1,17 +1,29 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import { Container, Box, Avatar, Stack, Typography, Grid } from '@mui/material';
 import Page from '../components/Page';
 import logo from '../image/logo.png';
 import ItemCard from '../layouts/market/ItemCard';
+import { getSalesItem } from '../api/market';
+import { createSaleContract } from '../web3Config';
 
 function MarketCommunity() {
-	const communityId = useLocation().pathname.substring(18);
+	const { communityId } = useParams();
 	const theme = useTheme();
 
 	useEffect(() => {
-		console.log(communityId);
+		// 판매중인 nft불러와야함
+		getSalesItem(communityId).then(({ data }) => {
+			data.map(v => {
+				console.log(v);
+				const saleContract = createSaleContract(v.saleContractAddress);
+				console.log(saleContract);
+				const saleInfo = saleContract.methods.getSaleInfo().call();
+				console.log(saleInfo);
+				return v;
+			});
+		});
 	}, []);
 
 	const onClickNickname = () => {

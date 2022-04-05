@@ -13,7 +13,7 @@ import { Form, FormikProvider, useFormik } from 'formik';
 import * as Yup from 'yup';
 import Header from '../layouts/PageHeader';
 import Page from '../components/Page';
-import { getImageURL, saveNFTInfo } from '../api/item';
+import { getImageURL, saveItemInfo } from '../api/item';
 import { getBoardsAPI } from '../api/board';
 import UserContext from '../context/UserContext';
 import { nftContract } from '../web3Config';
@@ -74,7 +74,7 @@ function CreateItem() {
 					.create(userContext.loggedUser.address, res.data, payable, value.supply)
 					.send({ from: userContext.loggedUser.address });
 				// 백엔드에 토큰정보 저장하기
-				await saveNFTInfo({
+				await saveItemInfo({
 					token_ids: events.CreatedTokenIds.returnValues.tokenIdArray,
 					owner_address: userContext.loggedUser.address,
 					community_id: params.communityId,

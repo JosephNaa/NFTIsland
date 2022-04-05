@@ -98,7 +98,7 @@ function UserPage() {
 						<CommunityTab userName={userInfo.userName} />
 					</TabPanel>
 					<TabPanel value={userInfo.currentTab} index={1}>
-						<BadgeTab />
+						<BadgeTab userName={userInfo.userName} />
 					</TabPanel>
 					<TabPanel value={userInfo.currentTab} index={2}>
 						<ActivityTab userName={userInfo.userName} />

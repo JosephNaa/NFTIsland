@@ -51,11 +51,6 @@ export default function Router() {
 				{ path: ':communityId/:postId', element: <PostDetail /> },
 			],
 		},
-		// {
-		// 	path: '/postwrite',
-		// 	element: <MainLayout />,
-		// 	children: [{ path: '', element: <PostWrite /> }],
-		// },
 		{
 			path: '/user',
 			element: <MainLayout />,
@@ -65,9 +60,9 @@ export default function Router() {
 			],
 		},
 		{
-			path: '/badgedetail',
+			path: '/item',
 			element: <MainLayout />,
-			children: [{ path: '', element: <BadgeDetail /> }],
+			children: [{ path: ':itemId', element: <BadgeDetail /> }],
 		},
 		{
 			path: '/badgeregistration',

@@ -5,7 +5,7 @@ const getImageURL = data =>
 		console.dir(err);
 	});
 
-const saveNFTInfo = data =>
+const saveItemInfo = data =>
 	http
 		.post('/items', data, {
 			headers: {
@@ -16,4 +16,18 @@ const saveNFTInfo = data =>
 			console.dir(err);
 		});
 
-export { getImageURL, saveNFTInfo };
+const getItemInfo = itemId =>
+	http.get(`/items/${itemId}`).catch(err => {
+		console.log(err);
+	});
+
+const getMyOwnItemByNickname = (userNickname, page = 1, size = 30) =>
+	http
+		.get(
+			`items?find_by=nickname&search=${userNickname}&on_sale_yn=false&page=${page}&size=${size}`
+		)
+		.catch(err => {
+			console.dir(err);
+		});
+
+export { getImageURL, saveItemInfo, getMyOwnItemByNickname, getItemInfo };
