@@ -61,7 +61,6 @@ function UserPage() {
 	};
 
 	useEffect(async () => {
-		console.log('hello');
 		await getUserInfo('nickname', userName);
 	}, []);
 
@@ -104,7 +103,7 @@ function UserPage() {
 						<ActivityTab userName={userInfo.userName} />
 					</TabPanel>
 					<TabPanel value={userInfo.currentTab} index={3}>
-						<MasterTab />
+						<MasterTab userName={userInfo.userName} />
 					</TabPanel>
 					<TabPanel value={userInfo.currentTab} index={4}>
 						<SellingTab />

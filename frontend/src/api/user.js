@@ -41,4 +41,23 @@ const getUserActivityListAPI = (findBy, search, page, size) =>
 			console.dir(err);
 		});
 
-export { getUserInfoAPI, getUserCommunityListAPI, getUserActivityListAPI };
+const getUserMasterListAPI = (findBy, search, page, size) =>
+	http
+		.get('/mypage/community/master', {
+			params: {
+				find_by: findBy,
+				search,
+				page,
+				size,
+			},
+		})
+		.catch(err => {
+			console.dir(err);
+		});
+
+export {
+	getUserInfoAPI,
+	getUserCommunityListAPI,
+	getUserActivityListAPI,
+	getUserMasterListAPI,
+};
