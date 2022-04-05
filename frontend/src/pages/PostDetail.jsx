@@ -185,7 +185,7 @@ function PostDetail() {
 			<Box ml='20%' mr='20%' mt='4%' maxWidth='60%'>
 				<Stack direction='row'>
 					<Avatar sx={{ width: 40, height: 40 }}>
-						<PersonIcon />
+						<img src={post?.user_profile} alt='' />
 						{/* 작성자 이미지 */}
 					</Avatar>
 					<Stack ml='10px' mb='3%'>
@@ -246,6 +246,7 @@ function PostDetail() {
 						nickName={comment.nick_name}
 						userAddress={comment.user_address}
 						updatedAt={comment.updated_at.substr(0, 10)}
+						profilePic={comment.user_profile}
 					/>
 				))}
 			</Box>

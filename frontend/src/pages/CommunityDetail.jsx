@@ -169,6 +169,7 @@ function CommunityDetail() {
 									commentCnt={board.comment_count}
 									likeCnt={board.likes_count}
 									createAt={board.created_at.substr(0, 10)}
+									profilePic={board.user_profile}
 								/>
 							</Grid>
 						))}
