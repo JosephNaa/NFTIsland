@@ -79,7 +79,6 @@ function SellingTab({ userName }) {
 						onChange={handleCategoryChange}
 						displayEmpty
 					>
-						{/* 가입된 커뮤니티 목록 */}
 						<MenuItem value={undefined}>All</MenuItem>
 						{itemInfo.categoryList.map(item => (
 							<MenuItem value={item.id}>{item.name}</MenuItem>
