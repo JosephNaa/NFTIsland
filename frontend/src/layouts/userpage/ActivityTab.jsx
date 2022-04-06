@@ -11,27 +11,61 @@ import {
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroller';
 import PostCard from './PostCard';
-import { getUserActivityListAPI } from '../../api/user';
+import {
+	getUserActivityListAPI,
+	getUserCommunityListAPI,
+} from '../../api/user';
 
 ActivityTab.propTypes = {
 	userName: PropTypes.string.isRequired,
 };
 
 function ActivityTab({ userName }) {
-	const [category, setCategory] = useState('All');
 	const [itemInfo, setItemInfo] = useState({
+		category: undefined,
+		categoryList: [],
 		activityList: [],
 		hasMoreItems: true,
 	});
 
 	const handleCategoryChange = event => {
-		setCategory(event.target.value);
+		setItemInfo(prev => ({
+			...prev,
+			activityList: [],
+			hasMoreItems: true,
+			category: event.target.value,
+		}));
+	};
+
+	const getUserCommunityList = async () => {
+		const { data } = await getUserCommunityListAPI(
+			'nickname',
+			userName,
+			false,
+			1,
+			99
+		);
+		return data;
 	};
 
 	const getUserActivityList = async page => {
-		const { data } = await getUserActivityListAPI('nickname', userName, page, 12);
+		const { data } = await getUserActivityListAPI(
+			'nickname',
+			userName,
+			page,
+			12,
+			itemInfo.category
+		);
 		return data;
 	};
+
+	useEffect(async () => {
+		const data = await getUserCommunityList();
+		setItemInfo(prev => ({
+			...prev,
+			categoryList: prev.categoryList.concat(data),
+		}));
+	}, []);
 
 	const loadItems = async page => {
 		const data = await getUserActivityList(page);
@@ -46,16 +80,21 @@ function ActivityTab({ userName }) {
 		<>
 			<Box>
 				<FormControl sx={{ m: 1, minWidth: 120 }}>
-					<Select value={category} onChange={handleCategoryChange} displayEmpty>
-						{/* 가입된 커뮤니티 목록 */}
-						<MenuItem value='All'>All</MenuItem>
-						<MenuItem value='가입된 커뮤니티1'>가입된 커뮤니티1</MenuItem>
-						<MenuItem value='가입된 커뮤니티2'>가입된 커뮤니티2</MenuItem>
+					<Select
+						value={itemInfo.category}
+						onChange={handleCategoryChange}
+						displayEmpty
+					>
+						<MenuItem value={undefined}>All</MenuItem>
+						{itemInfo.categoryList.map(item => (
+							<MenuItem value={item.id}>{item.name}</MenuItem>
+						))}
 					</Select>
 				</FormControl>
 			</Box>
 			<InfiniteScroll
 				pageStart={0}
+				key={itemInfo.category}
 				loadMore={loadItems}
 				hasMore={itemInfo.hasMoreItems}
 				loader={
