@@ -12,9 +12,9 @@ public interface CommunityService {
 
     CommunityCreateRes createCommunity(CommunityReq req, String url);
     CommunityRes getOne(Long id);
-    List<CommunityListRes> getList(Pageable pageable);
-    List<CommunityListRes> getListSortByMember(Pageable pageable);
-    List<CommunityListRes> getListSortByBoard(Pageable pageable);
+    List<CommunityListRes> getList(Pageable pageable, String search);
+    List<CommunityListRes> getListSortByMember(Pageable pageable, String search);
+    List<CommunityListRes> getListSortByBoard(Pageable pageable, String search);
     CommunityRes updateCommunity(Long id, CommunityUpdateReq req);
     void deleteCommunity(Long id, String hostId);
 }
