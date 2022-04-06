@@ -2,9 +2,13 @@ package com.ssafy.nfti.api.controller;
 
 import com.ssafy.nfti.api.request.BoardReq;
 import com.ssafy.nfti.api.request.DeleteReq;
+import com.ssafy.nfti.api.request.ValidReq;
 import com.ssafy.nfti.api.response.BoardCreateRes;
 import com.ssafy.nfti.api.response.BoardRes;
 import com.ssafy.nfti.api.service.BoardService;
+import com.ssafy.nfti.api.service.ItemsService;
+import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
+import com.ssafy.nfti.common.exception.response.ApiException;
 import com.ssafy.nfti.common.model.response.BaseResponseBody;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,12 +32,17 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "게시글 API", tags = {"Board."})
 public class BoardController {
 
+    private final BoardService boardService;
+
     @Autowired
-    BoardService boardService;
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
 
     @PostMapping()
     @ApiOperation(value = "게시글 생성", notes = "게시글을 생성한다.")
     public ResponseEntity<BoardCreateRes> postBoard(@RequestBody BoardReq req) {
+
         BoardCreateRes res = boardService.save(req);
         return ResponseEntity.ok(res);
     }
@@ -50,8 +59,11 @@ public class BoardController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "게시글 정보", notes = "게시글의 정보를 불러온다.")
-    public ResponseEntity<BoardRes> getBoard(@PathVariable Long id) {
-        BoardRes res = boardService.getOne(id);
+    public ResponseEntity<BoardRes> getBoard(
+        @PathVariable Long id,
+        @RequestBody ValidReq req
+    ) {
+        BoardRes res = boardService.getOne(id, req.getCommunityId());
         return ResponseEntity.ok(res);
     }
 
@@ -69,7 +81,7 @@ public class BoardController {
     @ApiOperation(value = "게시글 삭제", notes = "게시글을 삭제한다.")
     public ResponseEntity<BaseResponseBody> deleteBoard(
         @PathVariable("id") Long id,
-        @RequestBody DeleteReq req
+        @RequestBody ValidReq req
     ) {
         boardService.delete(id, req.getUserAddress());
         return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));

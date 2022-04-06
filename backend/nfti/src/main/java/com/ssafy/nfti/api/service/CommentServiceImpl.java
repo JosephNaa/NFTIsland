@@ -6,9 +6,11 @@ import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
 import com.ssafy.nfti.common.exception.response.ApiException;
 import com.ssafy.nfti.db.entity.Board;
 import com.ssafy.nfti.db.entity.Comment;
+import com.ssafy.nfti.db.entity.Community;
 import com.ssafy.nfti.db.entity.User;
 import com.ssafy.nfti.db.repository.BoardRepository;
 import com.ssafy.nfti.db.repository.CommentRepository;
+import com.ssafy.nfti.db.repository.CommunityRepository;
 import com.ssafy.nfti.db.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +31,16 @@ public class CommentServiceImpl implements CommentService{
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    CommunityRepository communityRepository;
+
     @Override
     @Transactional
     public CommentRes addComment(CommentReq req) {
-        Board board = boardRepository.findById(req.getBoardId())
+        Community community = communityRepository.findById(req.getCommunityId())
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY));
+
+        Board board = boardRepository.findByIdAndCommunity(req.getBoardId(), community)
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_BOARD));
 
         User user = userRepository.findByAddress(req.getUserAddress())

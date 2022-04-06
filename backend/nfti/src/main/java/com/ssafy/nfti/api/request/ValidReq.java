@@ -8,9 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class LikesReq {
-
-    Long boardId;
+public class ValidReq {
     String userAddress;
     Long communityId;
 }
