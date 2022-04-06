@@ -4,6 +4,7 @@ import {
 	Box,
 	TextField,
 	Button,
+	IconButton,
 	Typography,
 	Stack,
 	Dialog,
@@ -54,9 +55,9 @@ function UserNickName({ address, userName }) {
 		<>
 			<Stack direction='row' spacing={1} mb='10px'>
 				<Typography variant='h4'>{userName}</Typography>
-				<Box pt='10px'>
-					<EditIcon sx={{ width: 15, height: 15 }} onClick={onClickNameModify} />
-				</Box>
+				<IconButton onClick={onClickNameModify}>
+					<EditIcon sx={{ width: 15, height: 15 }} />
+				</IconButton>
 			</Stack>
 			<Dialog open={nameOpen} onClose={handleClose}>
 				<DialogTitle>닉네임 변경</DialogTitle>
