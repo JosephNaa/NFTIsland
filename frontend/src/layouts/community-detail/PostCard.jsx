@@ -37,13 +37,12 @@ function PostCard({
 	const theme = useTheme();
 
 	const onClickCard = () => {
-		navigate(`/community/${communityId}/${boardId}`);
-		// if (has === true) {
-		// 	navigate(`/community/${communityId}/${boardId}`);
-		// }
-		// if (has === false) {
-		// 	alert('게시글 조회 권한이 없습니다.');
-		// }
+		if (has === true) {
+			navigate(`/community/${communityId}/${boardId}`);
+		}
+		if (has === false) {
+			alert('게시글 조회 권한이 없습니다.');
+		}
 	};
 
 	// hasItem API address, community_id
