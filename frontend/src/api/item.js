@@ -35,9 +35,9 @@ const getMyOwnItemByNickname = (
 				find_by: findBy,
 				search: userNickname,
 				on_sale_yn: onSaleYn,
-				community_id: communityId,
 				page,
 				size,
+				community_id: communityId,
 			},
 		})
 		.catch(err => {
