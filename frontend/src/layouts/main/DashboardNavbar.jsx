@@ -48,7 +48,7 @@ function DashboardNavbar() {
 						size='large'
 						sx={{
 							fontSize: 17,
-							display: userContext.loggedIn ? 'none' : 'block',
+							// display: userContext.loggedIn ? 'none' : 'block',
 						}}
 						component={RouterLink}
 					>

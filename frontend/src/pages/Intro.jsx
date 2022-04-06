@@ -53,11 +53,11 @@ function Intro() {
 		connectAccount();
 	};
 
-	useEffect(() => {
-		if (userContext.loggedIn) {
-			navigate('/community', { replace: true });
-		}
-	}, []);
+	// useEffect(() => {
+	// 	if (userContext.loggedIn) {
+	// 		navigate('/community', { replace: true });
+	// 	}
+	// }, []);
 
 	return (
 		<Page
@@ -157,6 +157,17 @@ function Intro() {
 								</BoxStyle>
 							</Grid>
 						</Grid>
+					</Box>
+					<Box mt='200px' height='700px'>
+						<iframe
+							width='100%'
+							height='100%'
+							src='https://www.youtube.com/embed/G9mTqJI1oLQ'
+							title='YouTube video player'
+							frameBorder='0'
+							allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+							allowFullScreen
+						/>
 					</Box>
 				</Stack>
 			</Container>
