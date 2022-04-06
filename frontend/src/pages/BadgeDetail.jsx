@@ -79,12 +79,12 @@ function BadgeDetail() {
 			// SC 판매 등록하기
 			const saleInfo = await saleFactoryContract.methods
 				.createSale(itemId, price, nftCA)
-				.send({ from: userContext.loggedUser.address });
+				.send({ from: userContext.loggedUser.account });
 
 			// 백엔드에 판매정보 등록하기
 			const res = await saveSaleInfo({
 				tokenId: itemId,
-				sellerAddress: userContext.loggedUser.address,
+				sellerAddress: userContext.loggedUser.account,
 				saleContractAddress:
 					saleInfo.events.CreatedSaleAddress.returnValues.saleAddress,
 			});
@@ -106,10 +106,10 @@ function BadgeDetail() {
 			setLoading(true);
 			await nftContract.methods
 				.safeTransferFrom(itemInfo.ownerAdderss, address, itemId)
-				.send({ from: userContext.loggedUser.address });
+				.send({ from: userContext.loggedUser.account });
 			const res = await transferItem(
 				itemId,
-				userContext.loggedUser.address,
+				userContext.loggedUser.account,
 				address
 			);
 			if (res.status === 200) {
@@ -174,7 +174,7 @@ function BadgeDetail() {
 						{/* 설명 */}
 						{itemInfo.itemDec}
 					</Typography>
-					{userContext.loggedUser.address === itemInfo.ownerAdderss && (
+					{userContext.loggedUser.account === itemInfo.ownerAdderss && (
 						<>
 							<Stack
 								direction='row'

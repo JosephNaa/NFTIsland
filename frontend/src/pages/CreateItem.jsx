@@ -71,12 +71,12 @@ function CreateItem() {
 				const res = await getImageURL(formData);
 				// SC로 NFT 발행하기
 				const { events } = await nftContract.methods
-					.create(userContext.loggedUser.address, res.data, payable, value.supply)
-					.send({ from: userContext.loggedUser.address });
+					.create(userContext.loggedUser.account, res.data, payable, value.supply)
+					.send({ from: userContext.loggedUser.account });
 				// 백엔드에 토큰정보 저장하기
 				await saveItemInfo({
 					token_ids: events.CreatedTokenIds.returnValues.tokenIdArray,
-					owner_address: userContext.loggedUser.address,
+					owner_address: userContext.loggedUser.account,
 					community_id: params.communityId,
 					item_description: value.description,
 					item_title: value.itemName,
