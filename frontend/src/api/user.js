@@ -1,4 +1,3 @@
-import axios from 'axios';
 import http from './http';
 
 const getUserInfoAPI = (findBy, search) =>
@@ -58,10 +57,14 @@ const setUserNickNameAPI = (address, nickName) =>
 		nickname: nickName,
 	});
 
+const setUserProfileImageAPI = (address, data) =>
+	http.put(`/mypage/multipart/${address}`, data);
+
 export {
 	getUserInfoAPI,
 	getUserCommunityListAPI,
 	getUserActivityListAPI,
 	getUserMasterListAPI,
 	setUserNickNameAPI,
+	setUserProfileImageAPI,
 };

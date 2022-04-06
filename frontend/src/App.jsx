@@ -19,7 +19,7 @@ export default function App() {
 			if (userAccount[0]) {
 				const { data } = await getUserAPI(userAccount[0]);
 				userContext.setLoggedUser({
-					address: data.address,
+					account: data.address,
 					nickname: data.nickname,
 					profileImage: data.profile_path,
 				});

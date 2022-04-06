@@ -30,10 +30,11 @@ public class BoardRepositorySupport extends QuerydslRepositorySupport {
     QBoard board = QBoard.board;
     QUser user = QUser.user;
 
-    public List<Board> findAllByPageSort(Pageable pageable, Long id) {
+    public List<Board> findAllByPageSort(Pageable pageable, Long id, String search) {
         JPAQuery<Board> query = jpaQueryFactory
             .selectFrom(board)
-            .where(community.id.eq(id));
+            .where(community.id.eq(id)
+                .and(board.title.contains(search)));
 
         return Objects.requireNonNull(getQuerydsl())
             .applyPagination(pageable, query)

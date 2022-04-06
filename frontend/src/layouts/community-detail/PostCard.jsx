@@ -50,7 +50,7 @@ function PostCard({
 	const [has, setHas] = useState();
 
 	useEffect(() => {
-		getHasItem({ address: loggedUser.address, community_id: communityId }).then(
+		getHasItem({ address: loggedUser.account, community_id: communityId }).then(
 			res => {
 				setHas(res.data);
 			}

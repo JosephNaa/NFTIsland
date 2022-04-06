@@ -79,6 +79,18 @@ public class SalesServiceImpl implements SalesService {
     }
 
     @Override
+    public String getSaleContractAddressByTokenId(Long tokenId) {
+        Items item = itemsRepository.findByTokenId(tokenId)
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_ITEM));
+
+        Sales sale = salesRepository.findByItemAndSaleYn(item, false)
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_SALES));
+
+        String res = sale.getSaleContractAddress();
+        return res;
+    }
+
+    @Override
     public List<ListCommunitiesOnSaleRes> listCommunitiesOnSale(Pageable pageable) {
         List<Community> resList = itemsRepositorySupport.findAllCommunityOnSale(pageable);
 

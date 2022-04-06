@@ -40,6 +40,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -84,10 +85,11 @@ public class CommunityController {
     @GetMapping
     @ApiOperation(value = "커뮤니티 목록(최신순)", notes = "커뮤니티 목록을 최신순으로 불러온다.", response = CommunityListRes.class, responseContainer = "List")
     public ResponseEntity<List<CommunityListRes>> getCommunityList(
-        @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable
+        @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable,
+        @RequestParam(defaultValue = "") String search
     ) {
 
-        List<CommunityListRes> res = communityService.getList(pageable);
+        List<CommunityListRes> res = communityService.getList(pageable, search);
 
         return ResponseEntity.ok(res);
     }
@@ -95,10 +97,11 @@ public class CommunityController {
     @GetMapping("/member-sort")
     @ApiOperation(value = "커뮤니티 목록(회원 많은순)", notes = "커뮤니티 목록을 회원 많은순으로 불러온다.", response = CommunityListRes.class, responseContainer = "List")
     public ResponseEntity<List<CommunityListRes>> getCommunityListSortByMember(
-        @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable
+        @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable,
+        @RequestParam(defaultValue = "") String search
     ) {
 
-        List<CommunityListRes> res = communityService.getListSortByMember(pageable);
+        List<CommunityListRes> res = communityService.getListSortByMember(pageable, search);
 
         return ResponseEntity.ok(res);
     }
@@ -106,10 +109,11 @@ public class CommunityController {
     @GetMapping("/board-sort")
     @ApiOperation(value = "커뮤니티 목록(게시글 많은순)", notes = "커뮤니티 목록을 게시글 많은순으로 불러온다.", response = CommunityListRes.class, responseContainer = "List")
     public ResponseEntity<List<CommunityListRes>> getCommunityListSortByBoard(
-        @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable
+        @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable,
+        @RequestParam(defaultValue = "") String search
     ) {
 
-        List<CommunityListRes> res = communityService.getListSortByBoard(pageable);
+        List<CommunityListRes> res = communityService.getListSortByBoard(pageable, search);
 
         return ResponseEntity.ok(res);
     }

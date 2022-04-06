@@ -60,7 +60,7 @@ function CommunityDetail() {
 			}
 		});
 		getHasItem({
-			address: loggedUser.address,
+			address: loggedUser.account,
 			community_id: params.communityId,
 		}).then(res => {
 			setHas(res.data);
