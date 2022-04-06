@@ -36,8 +36,8 @@ public class BoardServiceImpl implements BoardService {
     UserRepository userRepository;
 
     @Override
-    public List<BoardRes> list(Pageable pageable, Long id) {
-        List<Board> postList = boardRepositorySupport.findAllByPageSort(pageable, id);
+    public List<BoardRes> list(Pageable pageable, Long id, String search) {
+        List<Board> postList = boardRepositorySupport.findAllByPageSort(pageable, id, search);
         List<BoardRes> res = new ArrayList<>();
         for (Board board : postList) {
             res.add(BoardRes.of(board));

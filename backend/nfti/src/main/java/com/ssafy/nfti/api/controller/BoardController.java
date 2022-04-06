@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -57,9 +58,10 @@ public class BoardController {
     @ApiOperation(value = "게시글 목록", notes = "게시글 목록을 불러온다. (사용X)")
     public ResponseEntity<List<BoardRes>> getList(
         @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 2) Pageable pageable,
-        @PathVariable Long id
+        @PathVariable Long id,
+        @RequestParam(defaultValue = "") String search
     ) {
-        List<BoardRes> res = boardService.list(pageable, id);
+        List<BoardRes> res = boardService.list(pageable, id, search);
         return ResponseEntity.ok(res);
     }
 
