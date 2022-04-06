@@ -67,6 +67,7 @@ function BadgeDetail() {
 				itemName: data.item_title,
 				itemURL: data.item_url,
 				ownerAdderss: data.owner_address,
+				onSale: data.on_sale_yn,
 			});
 		});
 	}, []);
@@ -146,7 +147,7 @@ function BadgeDetail() {
 					>
 						<Stack alignItems='center'>
 							<CircularProgress />
-							{/* <Box mt='10px'>NFT 판매 등록중...</Box> */}
+							<Box mt='10px'>잠시만 기다려 주세요...</Box>
 						</Stack>
 					</Box>
 				</Box>
@@ -174,72 +175,73 @@ function BadgeDetail() {
 						{/* 설명 */}
 						{itemInfo.itemDec}
 					</Typography>
-					{userContext.loggedUser.account === itemInfo.ownerAdderss && (
-						<>
-							<Stack
-								direction='row'
-								justifyContent='space-evenly'
-								textAlign='center'
-								mt='40px'
-							>
-								<Button
-									onClick={handleClickTransferOpen}
-									sx={{ width: '40%' }}
-									variant='contained'
-									color='secondary'
+					{userContext.loggedUser.account === itemInfo.ownerAdderss &&
+						!itemInfo.onSale && (
+							<>
+								<Stack
+									direction='row'
+									justifyContent='space-evenly'
+									textAlign='center'
+									mt='40px'
 								>
-									전송하기
-								</Button>
-								<Button
-									onClick={handleClickSellOpen}
-									sx={{ width: '40%' }}
-									variant='contained'
-								>
-									판매하기
-								</Button>
-							</Stack>
-							<Dialog open={openSell} onClose={handleSellClose}>
-								<DialogTitle>판매하기</DialogTitle>
-								<DialogContent>
-									<TextField
-										autoFocus
-										margin='dense'
-										id='name'
-										label='가격을 입력해 주세요.'
-										type='Number'
-										fullWidth
-										variant='standard'
-										value={price}
-										onChange={onChangePrice}
-									/>
-								</DialogContent>
-								<DialogActions>
-									<Button onClick={onClickSale}>판매</Button>
-									<Button onClick={handleSellClose}>취소</Button>
-								</DialogActions>
-							</Dialog>
-							<Dialog open={openTransfer} onClose={handleTransferClose}>
-								<DialogTitle>전송하기</DialogTitle>
-								<DialogContent>
-									<TextField
-										autoFocus
-										margin='dense'
-										id='address'
-										label='보내실 지갑 주소를 입력해 주세요.'
-										type='text'
-										fullWidth
-										variant='standard'
-										value={address}
-										onChange={onChangeAddress}
-									/>
-								</DialogContent>
-								<DialogActions>
-									<Button onClick={onClickTransfer}>전송</Button>
-									<Button onClick={handleTransferClose}>취소</Button>
-								</DialogActions>
-							</Dialog>
-						</>
-					)}
+									<Button
+										onClick={handleClickTransferOpen}
+										sx={{ width: '40%' }}
+										variant='contained'
+										color='secondary'
+									>
+										전송하기
+									</Button>
+									<Button
+										onClick={handleClickSellOpen}
+										sx={{ width: '40%' }}
+										variant='contained'
+									>
+										판매하기
+									</Button>
+								</Stack>
+								<Dialog open={openSell} onClose={handleSellClose}>
+									<DialogTitle>판매하기</DialogTitle>
+									<DialogContent>
+										<TextField
+											autoFocus
+											margin='dense'
+											id='name'
+											label='가격을 입력해 주세요.'
+											type='Number'
+											fullWidth
+											variant='standard'
+											value={price}
+											onChange={onChangePrice}
+										/>
+									</DialogContent>
+									<DialogActions>
+										<Button onClick={onClickSale}>판매</Button>
+										<Button onClick={handleSellClose}>취소</Button>
+									</DialogActions>
+								</Dialog>
+								<Dialog open={openTransfer} onClose={handleTransferClose}>
+									<DialogTitle>전송하기</DialogTitle>
+									<DialogContent>
+										<TextField
+											autoFocus
+											margin='dense'
+											id='address'
+											label='보내실 지갑 주소를 입력해 주세요.'
+											type='text'
+											fullWidth
+											variant='standard'
+											value={address}
+											onChange={onChangeAddress}
+										/>
+									</DialogContent>
+									<DialogActions>
+										<Button onClick={onClickTransfer}>전송</Button>
+										<Button onClick={handleTransferClose}>취소</Button>
+									</DialogActions>
+								</Dialog>
+							</>
+						)}
 				</Stack>
 			</Container>
 		</Page>

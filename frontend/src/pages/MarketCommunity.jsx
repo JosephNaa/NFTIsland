@@ -4,7 +4,12 @@ import { useTheme } from '@mui/material/styles';
 import { Container, Box, Avatar, Stack, Typography, Grid } from '@mui/material';
 import Page from '../components/Page';
 import ItemCard from '../layouts/market/ItemCard';
-import { getSalesItem } from '../api/market';
+import {
+	getSalesItem,
+	getMintItemsCnt,
+	getOwnedItemCnt,
+	getTotalTraded,
+} from '../api/market';
 import { getBoardsAPI } from '../api/board';
 import { createSaleContract } from '../web3Config';
 
@@ -14,11 +19,18 @@ function MarketCommunity() {
 	const navigate = useNavigate();
 
 	const [communityInfo, setCommunityInfo] = useState({});
+	const [communityCntInfo, setCommunityCntInfo] = useState([]);
 	const [itemList, setItemList] = useState([]);
-
 	useEffect(async () => {
+		Promise.all([
+			getMintItemsCnt(communityId),
+			getOwnedItemCnt(communityId),
+			getTotalTraded(communityId),
+		]).then(res => {
+			setCommunityCntInfo(res.map(v => v.data));
+		});
+
 		getBoardsAPI(communityId).then(({ data }) => {
-			console.log(data);
 			setCommunityInfo({
 				name: data.name,
 				hostNickname: data.host_nick_name,
@@ -91,21 +103,21 @@ function MarketCommunity() {
 						{/* items */}
 						<Box width='100%' borderRight={`1px solid ${theme.palette.grey[400]}`}>
 							<Typography variant='h4' margin='15px 0 5px'>
-								10.0K
+								{communityCntInfo[0]}
 							</Typography>
 							<Typography color={theme.palette.grey[600]}>items</Typography>
 						</Box>
 						{/* owners */}
 						<Box width='100%' borderRight={`1px solid ${theme.palette.grey[400]}`}>
 							<Typography variant='h4' margin='15px 0 5px'>
-								4.7K
+								{communityCntInfo[1]}
 							</Typography>
 							<Typography color={theme.palette.grey[600]}>owners</Typography>
 						</Box>
 						{/* volume traded */}
 						<Box width='100%'>
 							<Typography variant='h4' margin='15px 0 5px'>
-								2.1K
+								{communityCntInfo[2]}
 							</Typography>
 							<Typography color={theme.palette.grey[600]}>volume traded</Typography>
 						</Box>

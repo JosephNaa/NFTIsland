@@ -79,6 +79,7 @@ function CreateItem() {
 					owner_address: userContext.loggedUser.account,
 					community_id: params.communityId,
 					item_description: value.description,
+					// 스마트컨트랙트에서 받아오기
 					item_title: value.itemName,
 					item_url: res.data,
 				});
