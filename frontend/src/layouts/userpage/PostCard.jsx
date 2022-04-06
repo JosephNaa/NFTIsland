@@ -31,6 +31,7 @@ PostCard.propTypes = {
 	commentCount: PropTypes.number,
 	likeCount: PropTypes.number,
 	createdDate: PropTypes.string,
+	userProfile: PropTypes.string,
 };
 
 function PostCard({
@@ -44,6 +45,7 @@ function PostCard({
 	commentCount,
 	likeCount,
 	createdDate,
+	userProfile,
 }) {
 	const navigate = useNavigate();
 
@@ -71,7 +73,7 @@ function PostCard({
 				onClick={onClickCard}
 			>
 				<CardHeader
-					avatar={<Avatar aria-label='recipe'>R</Avatar>}
+					avatar={<Avatar src={userProfile} />}
 					title={userName}
 					subheader={moment(createdDate, 'YYYYMMDD').fromNow('')}
 				/>

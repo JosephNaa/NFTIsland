@@ -139,6 +139,7 @@ function ActivityTab({ userName }) {
 								commentCount={item.comment_count}
 								likeCount={item.likes_count}
 								createdDate={item.created_at}
+								userProfile={item.user_profile}
 							/>
 						</Grid>
 					))}
