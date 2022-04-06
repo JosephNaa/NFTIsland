@@ -1,12 +1,12 @@
 package com.ssafy.nfti.api.controller;
 
 import com.ssafy.nfti.api.request.BoardReq;
-import com.ssafy.nfti.api.request.DeleteReq;
 import com.ssafy.nfti.api.request.ValidReq;
 import com.ssafy.nfti.api.response.BoardCreateRes;
 import com.ssafy.nfti.api.response.BoardRes;
 import com.ssafy.nfti.api.service.BoardService;
 import com.ssafy.nfti.api.service.ItemsService;
+import com.ssafy.nfti.common.aop.NoLogging;
 import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
 import com.ssafy.nfti.common.exception.response.ApiException;
 import com.ssafy.nfti.common.model.response.BaseResponseBody;
@@ -33,15 +33,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class BoardController {
 
     private final BoardService boardService;
+    private final ItemsService itemsService;
 
     @Autowired
-    public BoardController(BoardService boardService) {
+    public BoardController(BoardService boardService, ItemsService itemsService) {
         this.boardService = boardService;
+        this.itemsService = itemsService;
     }
 
     @PostMapping()
     @ApiOperation(value = "게시글 생성", notes = "게시글을 생성한다.")
     public ResponseEntity<BoardCreateRes> postBoard(@RequestBody BoardReq req) {
+
+        if (!itemsService.checkHasItem(req.getUserAddress(), req.getCommunityId())) {
+            throw new ApiException(ExceptionEnum.CONFLICT_USER);
+        }
 
         BoardCreateRes res = boardService.save(req);
         return ResponseEntity.ok(res);
@@ -57,13 +63,12 @@ public class BoardController {
         return ResponseEntity.ok(res);
     }
 
+    @NoLogging
     @GetMapping("/{id}")
     @ApiOperation(value = "게시글 정보", notes = "게시글의 정보를 불러온다.")
     public ResponseEntity<BoardRes> getBoard(
-        @PathVariable Long id,
-        @RequestBody ValidReq req
-    ) {
-        BoardRes res = boardService.getOne(id, req.getCommunityId());
+        @PathVariable Long id) {
+        BoardRes res = boardService.getBoard(id);
         return ResponseEntity.ok(res);
     }
 
@@ -73,6 +78,10 @@ public class BoardController {
         @PathVariable Long id,
         @RequestBody BoardReq req
     ) {
+        if (!itemsService.checkHasItem(req.getUserAddress(), req.getCommunityId())) {
+            throw new ApiException(ExceptionEnum.CONFLICT_USER);
+        }
+
         BoardRes res = boardService.updateBoard(id, req);
         return ResponseEntity.ok(res);
     }
@@ -83,6 +92,10 @@ public class BoardController {
         @PathVariable("id") Long id,
         @RequestBody ValidReq req
     ) {
+        if (!itemsService.checkHasItem(req.getUserAddress(), req.getCommunityId())) {
+            throw new ApiException(ExceptionEnum.CONFLICT_USER);
+        }
+        
         boardService.delete(id, req.getUserAddress());
         return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
     }

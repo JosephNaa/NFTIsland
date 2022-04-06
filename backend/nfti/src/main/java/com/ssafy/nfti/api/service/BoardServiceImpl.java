@@ -58,6 +58,15 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public BoardRes getBoard(Long id) {
+
+        Board board = boardRepository.findById(id)
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_BOARD));
+
+        return BoardRes.of(board);
+    }
+
+    @Override
     public BoardRes updateBoard(Long id, BoardReq req) {
         Board board = boardRepository.findById(id)
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_BOARD));
