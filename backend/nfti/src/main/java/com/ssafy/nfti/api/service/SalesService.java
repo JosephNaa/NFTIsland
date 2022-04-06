@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 public interface SalesService {
 
     SalesRes createSales(CreateSaleReq createSaleReq);
+    String getSaleContractAddressByTokenId(Long tokenId);
     List<ListCommunitiesOnSaleRes> listCommunitiesOnSale(Pageable pageable);
     List<ListSalesOnCommunityIdRes> listSalesOnCommunityId(Pageable pageable, Long communityId);
     GetSaleRes getSale(String saleContractAddress);
