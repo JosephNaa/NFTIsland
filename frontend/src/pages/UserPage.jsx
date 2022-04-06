@@ -109,7 +109,7 @@ function UserPage() {
 						<MasterTab userName={userInfo.userName} />
 					</TabPanel>
 					<TabPanel value={userInfo.currentTab} index={4}>
-						<SellingTab />
+						<SellingTab userName={userInfo.userName} />
 					</TabPanel>
 				</Box>
 			</Container>

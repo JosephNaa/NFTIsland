@@ -18,6 +18,7 @@ import {
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 PostCard.propTypes = {
 	onClickURL: PropTypes.string.isRequired,
@@ -72,7 +73,7 @@ function PostCard({
 				<CardHeader
 					avatar={<Avatar aria-label='recipe'>R</Avatar>}
 					title={userName}
-					subheader={createdDate}
+					subheader={moment(createdDate, 'YYYYMMDD').fromNow('')}
 				/>
 				<CardContent>
 					<Typography gutterBottom variant='h5' component='div'>

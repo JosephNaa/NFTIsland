@@ -31,8 +31,7 @@ public class ItemsAop {
     }
 
     @Pointcut(
-        "execution(* com.ssafy.nfti.api.controller.BoardController.*(..)) "
-            + "|| execution(* com.ssafy.nfti.api.controller.CommentController.*(..)) "
+        "execution(* com.ssafy.nfti.api.controller.CommentController.*(..)) "
             + "|| execution(* com.ssafy.nfti.api.controller.LikesController.*(..))"
     )
     private void cut() {}

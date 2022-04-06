@@ -91,11 +91,6 @@ function CommunityCard({
 							{communityHost}
 						</Typography>
 					</Stack>
-
-					{/* 컬렉션 설명 */}
-					<Typography variant='subtitle2' padding='0 20px' textAlign='center'>
-						{communityDescription}
-					</Typography>
 				</Stack>
 			</Card>
 		</Link>
