@@ -76,6 +76,10 @@ function CommunityDetail() {
 		}
 	};
 
+	const onClickNick = () => {
+		navigate(`/user/${communityInfo.hostNickname}`);
+	};
+
 	const onClickNFTBtn = () => {
 		navigate(`/create/item/${params.communityId}`);
 	};
@@ -109,7 +113,13 @@ function CommunityDetail() {
 							</Typography>
 							<Stack direction='row'>
 								<Typography fontSize='12px'>Owned by</Typography>
-								<Typography ml='10px' fontSize='12px' color={theme.palette.info.dark}>
+								<Typography
+									ml='3px'
+									fontSize='12px'
+									color={theme.palette.info.dark}
+									onClick={onClickNick}
+									sx={{ cursor: 'pointer' }}
+								>
 									{/* 커뮤니티장 닉네임 */}
 									{communityInfo.hostNickname}
 								</Typography>

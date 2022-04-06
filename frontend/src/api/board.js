@@ -20,6 +20,9 @@ const getBoardsAPI = communityId =>
 
 const editBoardAPI = (postId, data) =>
 	http.put(`/board/${postId}`, data).catch(err => {
+		if (err.response.status === 409) {
+			alert('권한이 없습니다.');
+		}
 		console.dir(err);
 	});
 
@@ -28,7 +31,9 @@ const deleteBoardAPI = data => {
 	return http
 		.delete(
 			`/board/${data.postId}`,
-			{ data: { user_address: data.user_address } },
+			{
+				data: { user_address: data.user_address, community_id: data.communityId },
+			},
 			{
 				headers: {
 					'Content-Type': 'application/json',
@@ -36,7 +41,10 @@ const deleteBoardAPI = data => {
 			}
 		)
 		.catch(err => {
-			console.dir(err);
+			if (err.response.status === 409) {
+				alert('권한이 없습니다.');
+			}
+			console.dir(err.response);
 		});
 };
 
@@ -45,33 +53,43 @@ const getBoardAPI = boardId =>
 		console.dir(err);
 	});
 
-const createLikeAPI = data => {
-	console.log(data);
-	return http
+const createLikeAPI = data =>
+	http
 		.post('/likes', data, {
 			headers: {
 				'Content-Type': 'application/json',
 			},
 		})
 		.catch(err => {
+			if (err.response.status === 409) {
+				alert('권한이 없습니다.');
+			}
 			console.dir(err);
 		});
-};
 
-
-const deleteLikeAPI = data => {
-	console.log('Delete', data);
-	return http
-		.delete('/likes', { data: { board_id: data.board_id, user_address: data.user_address } }, {
-			headers: {
-				'Content-Type': 'application/json',
+const deleteLikeAPI = data =>
+	http
+		.delete(
+			'/likes',
+			{
+				data: {
+					board_id: data.board_id,
+					user_address: data.user_address,
+					community_id: data.community_id,
+				},
 			},
-		}
+			{
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			}
 		)
 		.catch(err => {
+			if (err.response.status === 409) {
+				alert('권한이 없습니다.');
+			}
 			console.dir(err);
 		});
-};
 
 export {
 	createBoardAPI,

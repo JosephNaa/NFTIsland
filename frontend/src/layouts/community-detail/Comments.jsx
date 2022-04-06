@@ -29,6 +29,7 @@ function Comments({
 	userAddress,
 	updatedAt,
 	profilePic,
+	setComments,
 }) {
 	const theme = useTheme();
 	const navigate = useNavigate();
@@ -40,10 +41,10 @@ function Comments({
 		// 댓글 삭제 API
 		deleteCommentAPI({
 			commentId,
-			// user_address: test,
+			communityId,
 			user_address: loggedUser.address,
 		}).then(res => {
-			navigate(`/community/${communityId}/${postId}`, { replace: true });
+			setComments(prev => prev.filter(v => v.id !== commentId));
 		});
 	};
 
