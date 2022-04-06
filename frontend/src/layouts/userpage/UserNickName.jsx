@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
 	Box,
@@ -13,6 +13,7 @@ import {
 	DialogActions,
 } from '@mui/material';
 import { Edit as EditIcon } from '@mui/icons-material';
+import UserContext from '../../context/UserContext';
 import { setUserNickNameAPI } from '../../api/user';
 
 UserNickName.propTypes = {
@@ -21,6 +22,7 @@ UserNickName.propTypes = {
 };
 
 function UserNickName({ address, userName }) {
+	const userContext = useContext(UserContext);
 	const [nameOpen, setNameOpen] = useState(false);
 	const [name, setName] = useState('');
 
@@ -55,9 +57,11 @@ function UserNickName({ address, userName }) {
 		<>
 			<Stack direction='row' spacing={1} mb='10px'>
 				<Typography variant='h4'>{userName}</Typography>
-				<IconButton onClick={onClickNameModify}>
-					<EditIcon sx={{ width: 15, height: 15 }} />
-				</IconButton>
+				{userContext.loggedUser.account === address && (
+					<IconButton onClick={onClickNameModify}>
+						<EditIcon sx={{ width: 15, height: 15 }} />
+					</IconButton>
+				)}
 			</Stack>
 			<Dialog open={nameOpen} onClose={handleClose}>
 				<DialogTitle>닉네임 변경</DialogTitle>
