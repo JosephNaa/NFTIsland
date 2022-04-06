@@ -2,6 +2,7 @@ package com.ssafy.nfti.api.controller;
 
 import com.ssafy.nfti.api.request.CommentReq;
 import com.ssafy.nfti.api.request.DeleteReq;
+import com.ssafy.nfti.api.request.ValidReq;
 import com.ssafy.nfti.api.response.CommentRes;
 import com.ssafy.nfti.api.service.CommentService;
 import com.ssafy.nfti.common.model.response.BaseResponseBody;
@@ -47,7 +48,7 @@ public class CommentController {
     @ApiOperation(value = "댓글 삭제", notes = "댓글을 삭제한다.")
     public ResponseEntity<BaseResponseBody> deleteComment(
         @PathVariable Long id,
-        @RequestBody DeleteReq req
+        @RequestBody ValidReq req
     ) {
         commentService.deleteComment(id, req.getUserAddress());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

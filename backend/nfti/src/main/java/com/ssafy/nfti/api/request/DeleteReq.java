@@ -11,4 +11,5 @@ import org.springframework.web.multipart.MultipartFile;
 @JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class DeleteReq {
     String userAddress;
+    Long communityId;
 }

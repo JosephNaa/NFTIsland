@@ -46,8 +46,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardRes getOne(Long id) {
-        Board board = boardRepository.findById(id)
+    public BoardRes getOne(Long id, Long communityId) {
+        // querydsl로 변경
+        Community community = communityRepository.findById(communityId)
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY));
+
+        Board board = boardRepository.findByIdAndCommunity(id, community)
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_BOARD));
 
         return BoardRes.of(board);

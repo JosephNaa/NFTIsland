@@ -4,12 +4,16 @@ import com.ssafy.nfti.api.request.CommunityReq;
 import com.ssafy.nfti.api.request.CommunityUpdateReq;
 import com.ssafy.nfti.api.request.DeleteReq;
 import com.ssafy.nfti.api.request.UserReq;
+import com.ssafy.nfti.api.request.ValidReq;
 import com.ssafy.nfti.api.response.CommunityCreateRes;
 import com.ssafy.nfti.api.response.CommunityListRes;
 import com.ssafy.nfti.api.response.CommunityRes;
 import com.ssafy.nfti.api.service.AWSS3Service;
 import com.ssafy.nfti.api.service.CommunityService;
+import com.ssafy.nfti.api.service.ItemsService;
 import com.ssafy.nfti.api.service.UserService;
+import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
+import com.ssafy.nfti.common.exception.response.ApiException;
 import com.ssafy.nfti.common.model.response.BaseResponseBody;
 import com.ssafy.nfti.db.entity.Community;
 import io.swagger.annotations.Api;
@@ -46,14 +50,23 @@ import org.springframework.web.multipart.MultipartFile;
 @Api(value = "커뮤니티 API", tags = {"Community."})
 public class CommunityController {
 
-    @Autowired
-    CommunityService communityService;
+    private final CommunityService communityService;
+    private final AWSS3Service awss3Service;
+    private final UserService userService;
+    private final ItemsService itemsService;
 
     @Autowired
-    AWSS3Service awss3Service;
-
-    @Autowired
-    UserService userService;
+    public CommunityController(
+        CommunityService communityService,
+        AWSS3Service awss3Service,
+        UserService userService,
+        ItemsService itemsService
+    ) {
+        this.communityService = communityService;
+        this.awss3Service = awss3Service;
+        this.userService = userService;
+        this.itemsService = itemsService;
+    }
 
     @PostMapping(consumes = {"multipart/form-data"})
     @ApiOperation(value = "커뮤니티 생성", notes = "커뮤니티를 생성한다.", response = CommunityCreateRes.class)
@@ -103,7 +116,10 @@ public class CommunityController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "커뮤니티 하나 가져오기", notes = "<strong>커뮤니티 아이디</strong>에 해당하는 커뮤니티의 정보를 불러온다.", response = CommunityRes.class)
-    public ResponseEntity<CommunityRes> getCommunity(@PathVariable Long id) {
+    public ResponseEntity<CommunityRes> getCommunity(
+        @PathVariable Long id,
+        @RequestBody ValidReq req
+    ) {
         CommunityRes res = communityService.getOne(id);
         return ResponseEntity.ok(res);
     }
@@ -124,7 +140,7 @@ public class CommunityController {
     @ApiOperation(value = "커뮤니티 삭제", notes = "커뮤니티를 삭제한다. Body에는 <strong>host_address</strong>만 필요하다.", response = BaseResponseBody.class)
     public ResponseEntity<BaseResponseBody> deleteCommunity(
         @PathVariable Long id,
-        @RequestBody DeleteReq req
+        @RequestBody ValidReq req
     ) {
         communityService.deleteCommunity(id, req.getUserAddress());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
