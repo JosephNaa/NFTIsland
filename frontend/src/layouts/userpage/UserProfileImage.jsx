@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import {
 	Box,
@@ -14,6 +14,7 @@ import {
 	DialogActions,
 } from '@mui/material';
 import { Edit as EditIcon } from '@mui/icons-material';
+import UserContext from '../../context/UserContext';
 import { setUserProfileImageAPI } from '../../api/user';
 
 UserProfileImage.propTypes = {
@@ -22,6 +23,7 @@ UserProfileImage.propTypes = {
 };
 
 function UserProfileImage({ address, profileUrl }) {
+	const userContext = useContext(UserContext);
 	const [image, setImage] = useState('');
 	const [imgOpen, setImgOpen] = useState(false);
 	// const [imageName, setImageName] = useState('');
@@ -58,14 +60,22 @@ function UserProfileImage({ address, profileUrl }) {
 		setImgOpen(true);
 	};
 
+	useEffect(() => {
+		console.log(`global address: ${userContext.loggedUser.account}`);
+		console.log(`global nickname: ${userContext.loggedUser.nickname}`);
+		console.log(`local address: ${address}`);
+	}, []);
+
 	return (
 		<Stack direction='row'>
 			<Avatar src={profileUrl} sx={{ width: 140, height: 140 }} />
-			<Box pt='110px'>
-				<IconButton onClick={onClickImgModify}>
-					<EditIcon sx={{ width: 15, height: 15 }} />
-				</IconButton>
-			</Box>
+			{userContext.loggedUser.account === address && (
+				<Box pt='110px'>
+					<IconButton onClick={onClickImgModify}>
+						<EditIcon sx={{ width: 15, height: 15 }} />
+					</IconButton>
+				</Box>
+			)}
 			<Dialog open={imgOpen} onClose={handleClose}>
 				<DialogTitle>프로필 이미지 변경</DialogTitle>
 				<DialogContent>
