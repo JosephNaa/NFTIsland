@@ -9,6 +9,9 @@ const createCommentAPI = data => {
 			},
 		})
 		.catch(err => {
+			if (err.response.status === 409) {
+				alert('권한이 없습니다.');
+			}
 			console.dir(err);
 		});
 };
@@ -27,6 +30,9 @@ const deleteCommentAPI = data =>
 			}
 		)
 		.catch(err => {
+			if (err.response.status === 409) {
+				alert('권한이 없습니다.');
+			}
 			console.dir(err);
 		});
 

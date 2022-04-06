@@ -56,10 +56,10 @@ function PostDetail() {
 	useEffect(() => {
 		getBoardAPI(postId).then(res => {
 			setPost(res.data);
-			setLikes(res.data.likes);
+			setLikes(res.data.likes_count);
 			// 댓글 목록
 			setComments(res.data.comments);
-			if (res.data.likes.includes(test)) {
+			if (res.data.likes.includes(loggedUser.address)) {
 				setLike(true);
 			} else {
 				setLike(false);
@@ -70,7 +70,11 @@ function PostDetail() {
 	// 게시글 삭제 API, id = 게시글id + useraddress
 	const handleDeleteClose = () => {
 		setOpen(false);
-		deleteBoardAPI({ postId, user_address: loggedUser.address }).then(res => {
+		deleteBoardAPI({
+			postId,
+			user_address: loggedUser.address,
+			communityId,
+		}).then(res => {
 			navigate(`/community/${communityId}`, { replace: true });
 		});
 	};
@@ -91,21 +95,25 @@ function PostDetail() {
 
 	// 좋아요 API
 	const onClickLikeIcon = () => {
-		if (likes.includes(loggedUser.address)) {
+		if (like) {
 			// 좋아요 삭제API
 			deleteLikeAPI({
 				board_id: postId,
 				user_address: loggedUser.address,
+				community_id: communityId,
 			}).then(res => {
 				setLike(false);
+				setLikes(prev => prev - 1);
 			});
 		} else {
 			// 좋아요 등록API
 			createLikeAPI({
 				board_id: postId,
 				user_address: loggedUser.address,
+				community_id: communityId,
 			}).then(() => {
 				setLike(true);
+				setLikes(prev => prev + 1);
 			});
 		}
 	};
@@ -133,6 +141,9 @@ function PostDetail() {
 		}
 	};
 
+	const onClickNick = () => {
+		navigate(`/user/${post.nick_name}`);
+	};
 	return (
 		<Page>
 			<Container>
@@ -195,7 +206,12 @@ function PostDetail() {
 						{/* 작성자 이미지 */}
 					</Avatar>
 					<Stack ml='10px' mb='3%'>
-						<Typography mb='3px' fontSize='16px'>
+						<Typography
+							mb='3px'
+							fontSize='16px'
+							onClick={onClickNick}
+							sx={{ cursor: 'pointer' }}
+						>
 							{post?.nick_name}
 						</Typography>
 						{/* 게시글 작성일 */}
@@ -226,7 +242,7 @@ function PostDetail() {
 					</IconButton> */}
 					{/* 좋아요 개수 */}
 					<Typography ml='3px' mt='10px' sx={{ fontSize: '13px' }}>
-						좋아요 {post?.likes_count}개
+						{likes}개
 					</Typography>
 				</Stack>
 				<hr />
