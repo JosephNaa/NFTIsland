@@ -41,6 +41,8 @@ function CommunityDetail() {
 	});
 	const { loggedUser } = useContext(UserContext);
 	const [has, setHas] = useState();
+	// nft 발행 버튼 master 인 지 확인
+	const [visible, setVisible] = useState(false);
 
 	useEffect(() => {
 		getBoardsAPI(params.communityId).then(({ data }) => {
@@ -53,6 +55,9 @@ function CommunityDetail() {
 				communityName: data.name,
 				communityLogo: data.logo_path,
 			});
+			if (data.host_address === loggedUser.address) {
+				setVisible(true);
+			}
 		});
 		getHasItem({
 			address: loggedUser.address,
@@ -121,20 +126,22 @@ function CommunityDetail() {
 							>
 								<Typography mt='2%'>{communityInfo.communityDes}</Typography>
 							</Box>
-							<Button
-								sx={{
-									mt: '2%',
-									width: '100px',
-									fontSize: '12px',
-									alignContent: 'center',
-								}}
-								size='small'
-								variant='contained'
-								disableElevation
-								onClick={onClickNFTBtn}
-							>
-								NFT 발행
-							</Button>
+							{visible && (
+								<Button
+									sx={{
+										mt: '2%',
+										width: '100px',
+										fontSize: '12px',
+										alignContent: 'center',
+									}}
+									size='small'
+									variant='contained'
+									disableElevation
+									onClick={onClickNFTBtn}
+								>
+									NFT 발행
+								</Button>
+							)}
 						</Stack>
 					</Stack>
 				</Box>
