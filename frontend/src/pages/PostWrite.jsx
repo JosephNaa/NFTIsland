@@ -55,7 +55,7 @@ function PostWrite() {
 			if (postId) {
 				editBoardAPI(postId, {
 					community_id: communityId,
-					user_address: loggedUser.address,
+					user_address: loggedUser.account,
 					title: value.title,
 					content: value.content,
 				}).then(() => {
@@ -64,7 +64,7 @@ function PostWrite() {
 			} else {
 				createBoardAPI({
 					community_id: communityId,
-					user_address: loggedUser.address,
+					user_address: loggedUser.account,
 					title: value.title,
 					content: value.content,
 				}).then(() => {

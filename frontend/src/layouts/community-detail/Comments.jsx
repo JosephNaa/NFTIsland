@@ -42,7 +42,7 @@ function Comments({
 		deleteCommentAPI({
 			commentId,
 			communityId,
-			user_address: loggedUser.address,
+			user_address: loggedUser.account,
 		}).then(res => {
 			setComments(prev => prev.filter(v => v.id !== commentId));
 		});
