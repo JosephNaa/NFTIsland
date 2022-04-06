@@ -45,9 +45,9 @@ function ItemCard({ saleCA, communityName, itemName, price, imageUrl }) {
 				<Box textAlign='right'>
 					{/* 가격 */}
 					<Typography variant='body2' color={theme.palette.grey[500]}>
-						Price
+						Price (eth)
 					</Typography>
-					<Typography variant='subtitle2'>{price}</Typography>
+					<Typography variant='subtitle2'>{price * 10 ** -18}</Typography>
 					{/* 남은 거래 일? */}
 				</Box>
 			</Stack>

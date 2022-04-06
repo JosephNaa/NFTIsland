@@ -42,6 +42,11 @@ const getSaleCA = tokenId =>
 		console.dir(err);
 	});
 
+const cancelSale = (saleCA, address) =>
+	http.post(`/sales/info/${saleCA}`, { sellerAddress: address }).catch(err => {
+		console.dir(err);
+	});
+
 export {
 	getSalesCommunity,
 	getSalesItem,
@@ -51,4 +56,5 @@ export {
 	getOwnedItemCnt,
 	getTotalTraded,
 	getSaleCA,
+	cancelSale,
 };

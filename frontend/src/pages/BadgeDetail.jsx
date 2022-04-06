@@ -79,7 +79,7 @@ function BadgeDetail() {
 			setLoading(true);
 			// SC 판매 등록하기
 			const saleInfo = await saleFactoryContract.methods
-				.createSale(itemId, price, nftCA)
+				.createSale(itemId, String(price * 10 ** 18), nftCA)
 				.send({ from: userContext.loggedUser.account });
 
 			// 백엔드에 판매정보 등록하기
@@ -207,7 +207,7 @@ function BadgeDetail() {
 											autoFocus
 											margin='dense'
 											id='name'
-											label='가격을 입력해 주세요.'
+											label='가격을 입력해 주세요. (eth)'
 											type='Number'
 											fullWidth
 											variant='standard'
