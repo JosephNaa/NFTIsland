@@ -71,11 +71,11 @@ function MarketItem() {
 		try {
 			await saleContract.methods
 				.purchase()
-				.send({ from: userContext.loggedUser.address, value: saleInfo.price });
+				.send({ from: userContext.loggedUser.account, value: saleInfo.price });
 
 			const res = await buyItem({
 				saleCA,
-				address: userContext.loggedUser.address,
+				address: userContext.loggedUser.account,
 				value: saleInfo.price,
 			});
 			if (res.status === 200) {
