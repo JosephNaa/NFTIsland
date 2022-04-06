@@ -50,6 +50,17 @@ const getHasItem = data =>
 			console.dir(err);
 		});
 
+const transferItem = (tokenId, fromAddress, toAddress) =>
+	http
+		.put(`/items/${tokenId}`, {
+			tokenId,
+			from_address: fromAddress,
+			to_address: toAddress,
+		})
+		.catch(err => {
+			console.dir(err);
+		});
+
 export {
 	getImageURL,
 	saveItemInfo,
@@ -57,4 +68,5 @@ export {
 	getItemInfo,
 	getHasItem,
 	saveSaleInfo,
+	transferItem,
 };

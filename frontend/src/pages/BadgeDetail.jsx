@@ -15,8 +15,8 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowBack as BackIcon } from '@mui/icons-material';
 import Page from '../components/Page';
-import { getItemInfo, saveSaleInfo } from '../api/item';
-import { saleFactoryContract, nftCA } from '../web3Config';
+import { getItemInfo, saveSaleInfo, transferItem } from '../api/item';
+import { saleFactoryContract, nftCA, nftContract } from '../web3Config';
 import UserContext from '../context/UserContext';
 
 function BadgeDetail() {
@@ -25,16 +25,26 @@ function BadgeDetail() {
 	const userContext = useContext(UserContext);
 
 	const [itemInfo, setItemInfo] = useState({});
-	const [open, setOpen] = useState(false);
+	const [openSell, setSellOpen] = useState(false);
+	const [openTransfer, setTransferOpen] = useState(false);
 	const [price, setPrice] = useState();
+	const [address, setAddress] = useState();
 	const [loading, setLoading] = useState(false);
 
-	const handleClickOpen = () => {
-		setOpen(true);
+	const handleClickSellOpen = () => {
+		setSellOpen(true);
 	};
 
-	const handleClose = () => {
-		setOpen(false);
+	const handleSellClose = () => {
+		setSellOpen(false);
+	};
+
+	const handleClickTransferOpen = () => {
+		setTransferOpen(true);
+	};
+
+	const handleTransferClose = () => {
+		setTransferOpen(false);
 	};
 
 	const onClickBackIcon = () => {
@@ -43,6 +53,9 @@ function BadgeDetail() {
 
 	const onChangePrice = e => {
 		setPrice(e.target.value);
+	};
+	const onChangeAddress = e => {
+		setAddress(e.target.value);
 	};
 
 	useEffect(() => {
@@ -59,7 +72,7 @@ function BadgeDetail() {
 	}, []);
 
 	const onClickSale = async () => {
-		setOpen(false);
+		setSellOpen(false);
 		try {
 			// 판매하기
 			setLoading(true);
@@ -80,6 +93,28 @@ function BadgeDetail() {
 				navigate(
 					`/market/item/${saleInfo.events.CreatedSaleAddress.returnValues.saleAddress}`
 				);
+			}
+		} catch (error) {
+			console.dir(error);
+		}
+		setLoading(false);
+	};
+
+	const onClickTransfer = async () => {
+		setTransferOpen(false);
+		try {
+			setLoading(true);
+			await nftContract.methods
+				.safeTransferFrom(itemInfo.ownerAdderss, address, itemId)
+				.send({ from: userContext.loggedUser.address });
+			const res = await transferItem(
+				itemId,
+				userContext.loggedUser.address,
+				address
+			);
+			if (res.status === 200) {
+				// 판매 상세 페이지로 이동시키기
+				navigate(-1);
 			}
 		} catch (error) {
 			console.dir(error);
@@ -111,7 +146,7 @@ function BadgeDetail() {
 					>
 						<Stack alignItems='center'>
 							<CircularProgress />
-							<Box mt='10px'>NFT 판매 등록중...</Box>
+							{/* <Box mt='10px'>NFT 판매 등록중...</Box> */}
 						</Stack>
 					</Box>
 				</Box>
@@ -139,37 +174,74 @@ function BadgeDetail() {
 						{/* 설명 */}
 						{itemInfo.itemDec}
 					</Typography>
-					<Box textAlign='center' mt='40px'>
-						<Button
-							onClick={handleClickOpen}
-							sx={{ width: '50%' }}
-							variant='contained'
-						>
-							판매하기
-						</Button>
-					</Box>
+					{userContext.loggedUser.address === itemInfo.ownerAdderss && (
+						<>
+							<Stack
+								direction='row'
+								justifyContent='space-evenly'
+								textAlign='center'
+								mt='40px'
+							>
+								<Button
+									onClick={handleClickTransferOpen}
+									sx={{ width: '40%' }}
+									variant='contained'
+									color='secondary'
+								>
+									전송하기
+								</Button>
+								<Button
+									onClick={handleClickSellOpen}
+									sx={{ width: '40%' }}
+									variant='contained'
+								>
+									판매하기
+								</Button>
+							</Stack>
+							<Dialog open={openSell} onClose={handleSellClose}>
+								<DialogTitle>판매하기</DialogTitle>
+								<DialogContent>
+									<TextField
+										autoFocus
+										margin='dense'
+										id='name'
+										label='가격을 입력해 주세요.'
+										type='Number'
+										fullWidth
+										variant='standard'
+										value={price}
+										onChange={onChangePrice}
+									/>
+								</DialogContent>
+								<DialogActions>
+									<Button onClick={onClickSale}>판매</Button>
+									<Button onClick={handleSellClose}>취소</Button>
+								</DialogActions>
+							</Dialog>
+							<Dialog open={openTransfer} onClose={handleTransferClose}>
+								<DialogTitle>전송하기</DialogTitle>
+								<DialogContent>
+									<TextField
+										autoFocus
+										margin='dense'
+										id='address'
+										label='보내실 지갑 주소를 입력해 주세요.'
+										type='text'
+										fullWidth
+										variant='standard'
+										value={address}
+										onChange={onChangeAddress}
+									/>
+								</DialogContent>
+								<DialogActions>
+									<Button onClick={onClickTransfer}>전송</Button>
+									<Button onClick={handleTransferClose}>취소</Button>
+								</DialogActions>
+							</Dialog>
+						</>
+					)}
 				</Stack>
 			</Container>
-			<Dialog open={open} onClose={handleClose}>
-				<DialogTitle>판매하기</DialogTitle>
-				<DialogContent>
-					<TextField
-						autoFocus
-						margin='dense'
-						id='name'
-						label='가격을 입력해 주세요.'
-						type='Number'
-						fullWidth
-						variant='standard'
-						value={price}
-						onChange={onChangePrice}
-					/>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={onClickSale}>판매</Button>
-					<Button onClick={handleClose}>취소</Button>
-				</DialogActions>
-			</Dialog>
 		</Page>
 	);
 }
