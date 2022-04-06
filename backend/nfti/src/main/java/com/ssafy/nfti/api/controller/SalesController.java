@@ -85,7 +85,7 @@ public class SalesController {
         return ResponseEntity.ok(res);
     }
 
-    @DeleteMapping("/info/{saleContractAddress}")
+    @PostMapping("/info/{saleContractAddress}")
     public ResponseEntity<? extends ResponseEntity> cancelSale(
         @PathVariable String saleContractAddress,
         @RequestBody CancelSaleReq req) {
