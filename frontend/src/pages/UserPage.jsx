@@ -75,7 +75,10 @@ function UserPage() {
 		<Page>
 			<Container>
 				<Box display='flex' alignItems='center' justifyContent='center' mb='2%'>
-					<UserProfileImage profileUrl={userInfo.profileUrl} />
+					<UserProfileImage
+						address={userInfo.userAddress}
+						profileUrl={userInfo.profileUrl}
+					/>
 				</Box>
 				<Box display='flex' alignItems='center' justifyContent='center'>
 					<UserNickName
