@@ -21,11 +21,25 @@ const getItemInfo = itemId =>
 		console.log(err);
 	});
 
-const getMyOwnItemByNickname = (userNickname, page = 1, size = 30) =>
+const getMyOwnItemByNickname = (
+	findBy,
+	userNickname,
+	onSaleYn,
+	page,
+	size,
+	communityId
+) =>
 	http
-		.get(
-			`items?find_by=nickname&search=${userNickname}&on_sale_yn=false&page=${page}&size=${size}`
-		)
+		.get(`/items`, {
+			params: {
+				find_by: findBy,
+				search: userNickname,
+				on_sale_yn: onSaleYn,
+				community_id: communityId,
+				page,
+				size,
+			},
+		})
 		.catch(err => {
 			console.dir(err);
 		});

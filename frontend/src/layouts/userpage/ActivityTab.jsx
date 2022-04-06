@@ -33,10 +33,6 @@ function ActivityTab({ userName }) {
 		return data;
 	};
 
-	// useEffect(async () => {
-	// 	await getUserActivityList(userName);
-	// }, []);
-
 	const loadItems = async page => {
 		const data = await getUserActivityList(page);
 		setItemInfo(prev => ({
