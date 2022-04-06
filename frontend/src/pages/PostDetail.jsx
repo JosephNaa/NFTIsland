@@ -11,7 +11,6 @@ import {
 	DialogContentText,
 	DialogTitle,
 	TextField,
-	Divider,
 	IconButton,
 } from '@mui/material';
 
@@ -22,6 +21,7 @@ import {
 	Edit as EditIcon,
 	FavoriteBorder as LikeIcon,
 	Add as AddIcon,
+	Favorite as FullLikeIcon,
 } from '@mui/icons-material';
 import { useNavigate, useParams } from 'react-router-dom';
 import UserContext from '../context/UserContext';
@@ -51,14 +51,19 @@ function PostDetail() {
 	const [post, setPost] = useState();
 	const [comments, setComments] = useState();
 	const [likes, setLikes] = useState();
+	const [like, setLike] = useState(false);
 
 	useEffect(() => {
 		getBoardAPI(postId).then(res => {
 			setPost(res.data);
-			console.log(res.data);
 			setLikes(res.data.likes);
 			// 댓글 목록
 			setComments(res.data.comments);
+			if (res.data.likes.includes(test)) {
+				setLike(true);
+			} else {
+				setLike(false);
+			}
 		});
 	}, []);
 
@@ -92,7 +97,7 @@ function PostDetail() {
 				board_id: postId,
 				user_address: loggedUser.address,
 			}).then(res => {
-				navigate(`/community/${communityId}/${postId}`, { replace: true });
+				setLike(false);
 			});
 		} else {
 			// 좋아요 등록API
@@ -100,7 +105,8 @@ function PostDetail() {
 				board_id: postId,
 				user_address: loggedUser.address,
 			}).then(() => {
-				navigate(`/community/${communityId}/${postId}`, { replace: true });
+				setLike(true);
+				// navigate(`/community/${communityId}/${postId}`, { replace: true });
 			});
 		}
 	};
@@ -206,11 +212,20 @@ function PostDetail() {
 				</Box>
 
 				<Stack direction='row' mt='5%' mb='3%'>
-					<IconButton type='submit' onClick={onClickLikeIcon}>
+					{like ? (
+						<IconButton type='submit' onClick={onClickLikeIcon}>
+							<FullLikeIcon sx={{ fontSize: '18px', color: 'red' }} />
+						</IconButton>
+					) : (
+						<IconButton type='submit' onClick={onClickLikeIcon}>
+							<LikeIcon sx={{ fontSize: '18px' }} />
+						</IconButton>
+					)}
+					{/* <IconButton type='submit' onClick={onClickLikeIcon}>
 						<LikeIcon />
-					</IconButton>
+					</IconButton> */}
 					{/* 좋아요 개수 */}
-					<Typography ml='3px' mt='10px'>
+					<Typography ml='3px' mt='10px' sx={{ fontSize: '13px' }}>
 						좋아요 {post?.likes_count}개
 					</Typography>
 				</Stack>
