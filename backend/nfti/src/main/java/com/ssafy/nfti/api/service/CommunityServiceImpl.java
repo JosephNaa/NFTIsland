@@ -68,8 +68,8 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public List<CommunityListRes> getList(Pageable pageable) {
-        List<Community> list = communityRepositorySupport.findAllPageSort(pageable);
+    public List<CommunityListRes> getList(Pageable pageable, String search) {
+        List<Community> list = communityRepositorySupport.findAllPageSort(pageable, search);
 
         List<CommunityListRes> res = new ArrayList<>();
         for (Community c : list) {
@@ -80,8 +80,8 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public List<CommunityListRes> getListSortByMember(Pageable pageable) {
-        List<Community> list = communityRepositorySupport.findAllSortByMember(pageable);
+    public List<CommunityListRes> getListSortByMember(Pageable pageable, String search) {
+        List<Community> list = communityRepositorySupport.findAllSortByMember(pageable, search);
 
         List<CommunityListRes> res = new ArrayList<>();
         for (Community c : list) {
@@ -92,8 +92,8 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public List<CommunityListRes> getListSortByBoard(Pageable pageable) {
-        List<Community> list = communityRepositorySupport.findAllSortByBoard(pageable);
+    public List<CommunityListRes> getListSortByBoard(Pageable pageable, String search) {
+        List<Community> list = communityRepositorySupport.findAllSortByBoard(pageable, search);
 
         List<CommunityListRes> res = new ArrayList<>();
         for (Community c : list) {

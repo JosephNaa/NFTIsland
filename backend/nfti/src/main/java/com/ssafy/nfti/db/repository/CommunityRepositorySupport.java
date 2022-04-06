@@ -23,9 +23,10 @@ public class CommunityRepositorySupport extends QuerydslRepositorySupport {
 
     QCommunity community = QCommunity.community;
 
-    public List<Community> findAllPageSort(Pageable pageable) {
+    public List<Community> findAllPageSort(Pageable pageable, String search) {
         JPAQuery<Community> query = jpaQueryFactory
-            .selectFrom(community);
+            .selectFrom(community)
+            .where(community.name.containsIgnoreCase(search));
 //            .orderBy(community.id.desc());
 //            .offset(pageable.getOffset())
 //            .limit(pageable.getPageSize())
@@ -36,9 +37,10 @@ public class CommunityRepositorySupport extends QuerydslRepositorySupport {
             .fetch();
     }
 
-    public List<Community> findAllSortByMember(Pageable pageable) {
+    public List<Community> findAllSortByMember(Pageable pageable, String search) {
         JPAQuery<Community> query = jpaQueryFactory
             .selectFrom(community)
+            .where(community.name.containsIgnoreCase(search))
             .orderBy(community.items.size().desc());
 
         return Objects.requireNonNull(getQuerydsl())
@@ -46,9 +48,10 @@ public class CommunityRepositorySupport extends QuerydslRepositorySupport {
             .fetch();
     }
 
-    public List<Community> findAllSortByBoard(Pageable pageable) {
+    public List<Community> findAllSortByBoard(Pageable pageable, String search) {
         JPAQuery<Community> query = jpaQueryFactory
             .selectFrom(community)
+            .where(community.name.containsIgnoreCase(search))
             .orderBy(community.boards.size().desc());
 
         return Objects.requireNonNull(getQuerydsl())
