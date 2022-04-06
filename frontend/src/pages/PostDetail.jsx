@@ -106,7 +106,6 @@ function PostDetail() {
 				user_address: loggedUser.address,
 			}).then(() => {
 				setLike(true);
-				// navigate(`/community/${communityId}/${postId}`, { replace: true });
 			});
 		}
 	};
@@ -123,6 +122,7 @@ function PostDetail() {
 				board_id: postId,
 				user_address: loggedUser.address,
 				content: comment,
+				community_id: communityId,
 			}).then(res => {
 				setComments(prev => [...prev, res.data]);
 			});
@@ -262,6 +262,7 @@ function PostDetail() {
 						userAddress={comment.user_address}
 						updatedAt={comment.updated_at.substr(0, 10)}
 						profilePic={comment.user_profile}
+						setComments={setComments}
 					/>
 				))}
 			</Box>
