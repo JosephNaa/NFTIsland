@@ -12,5 +12,5 @@ public class CommentReq {
     Long boardId;
     String userAddress;
     String content;
-
+    Long communityId;
 }
