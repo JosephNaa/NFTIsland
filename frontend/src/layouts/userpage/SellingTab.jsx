@@ -13,6 +13,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import ItemCard from './ItemCard';
 import { getMyOwnItemByNickname } from '../../api/item';
 import { getUserCommunityListAPI } from '../../api/user';
+import { getSaleCA } from '../../api/market';
 
 SellingTab.propTypes = {
 	userName: PropTypes.string.isRequired,
@@ -63,6 +64,12 @@ function SellingTab({ userName }) {
 			12,
 			itemInfo.category
 		);
+		// console.log(data);
+		// data.forEach(async v => {
+		// 	const saleCA = await getSaleCA(v.token_id);
+		// 	// v.sale_CA = saleCA.data;
+		// 	console.log(v);
+		// });
 		setItemInfo(prev => ({
 			...prev,
 			BadgeList: prev.BadgeList.concat(data),

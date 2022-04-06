@@ -21,4 +21,34 @@ const buyItem = data =>
 		.catch(err => {
 			console.dir(err);
 		});
-export { getSalesCommunity, getSalesItem, getItemSaleInfo, buyItem };
+
+const getMintItemsCnt = communityId =>
+	http.get(`/sales/community/${communityId}/count/items`).catch(err => {
+		console.dir(err);
+	});
+
+const getOwnedItemCnt = communityId =>
+	http.get(`/sales/community/${communityId}/count/owners`).catch(err => {
+		console.dir(err);
+	});
+
+const getTotalTraded = communityId =>
+	http.get(`/sales/community/${communityId}/count/traded`).catch(err => {
+		console.dir(err);
+	});
+
+const getSaleCA = tokenId =>
+	http.get(`/sales/item/${tokenId}`).catch(err => {
+		console.dir(err);
+	});
+
+export {
+	getSalesCommunity,
+	getSalesItem,
+	getItemSaleInfo,
+	buyItem,
+	getMintItemsCnt,
+	getOwnedItemCnt,
+	getTotalTraded,
+	getSaleCA,
+};
