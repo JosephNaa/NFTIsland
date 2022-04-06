@@ -1,5 +1,6 @@
 package com.ssafy.nfti.db.repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.nfti.common.exception.enums.ExceptionEnum;
@@ -39,19 +40,22 @@ public class BoardRepositorySupport extends QuerydslRepositorySupport {
             .fetch();
     }
 
-    public List<Board> findAllByPageSortAndUser(Pageable pageable, String findBy, String search) {
-        JPAQuery<Board> query = null;
+    public List<Board> findAllByPageSortAndUser(Pageable pageable, String findBy, String search, Long communityId) {
+        BooleanExpression whereQuery = null;
         if ("address".equals(findBy)) {
-            query = jpaQueryFactory
-                .selectFrom(board)
-                .where(user.address.eq(search));
+            whereQuery = user.address.eq(search);
         } else if ("nickname".equals(findBy)) {
-            query = jpaQueryFactory
-                .selectFrom(board)
-                .where(user.nickname.eq(search));
+            whereQuery = user.nickname.eq(search);
         } else {
             throw new ApiException(ExceptionEnum.BAD_REQUEST_OPTION);
         }
+
+        if (communityId != null) {
+            whereQuery = whereQuery.and(community.id.eq(communityId));
+        }
+        JPAQuery<Board> query = jpaQueryFactory
+            .selectFrom(board)
+            .where(whereQuery);
 
         return Objects.requireNonNull(getQuerydsl())
             .applyPagination(pageable, query)

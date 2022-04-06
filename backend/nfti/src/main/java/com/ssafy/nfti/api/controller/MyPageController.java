@@ -41,9 +41,10 @@ public class MyPageController {
     public ResponseEntity<List<MyActivityRes>> getMyList(
         @PageableDefault(sort = "createdAt", direction = Direction.DESC, size = 12) Pageable pageable,
         @RequestParam(required = true) @ApiParam(value = "<strong>address</strong> or <strong>nickname</strong>", name = "find_by") String findBy,
-        @RequestParam(required = true) String search
+        @RequestParam(required = true) String search,
+        @RequestParam(required = false) Long communityId
     ) {
-        List<MyActivityRes> res = myPageService.myActivityList(pageable, findBy, search);
+        List<MyActivityRes> res = myPageService.myActivityList(pageable, findBy, search, communityId);
 
         return ResponseEntity.ok(res);
     }

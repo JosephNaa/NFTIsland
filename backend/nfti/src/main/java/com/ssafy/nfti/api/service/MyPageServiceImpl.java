@@ -38,9 +38,9 @@ public class MyPageServiceImpl implements MyPageService {
     CommunityRepository communityRepository;
 
     @Override
-    public List<MyActivityRes> myActivityList(Pageable pageable, String findBy, String search) {
+    public List<MyActivityRes> myActivityList(Pageable pageable, String findBy, String search, Long communityId) {
 
-        List<Board> boardList = boardRepositorySupport.findAllByPageSortAndUser(pageable, findBy, search);
+        List<Board> boardList = boardRepositorySupport.findAllByPageSortAndUser(pageable, findBy, search, communityId);
         List<MyActivityRes> res = new ArrayList<>();
         for (Board board : boardList) {
             res.add(MyActivityRes.of(board));
