@@ -64,14 +64,16 @@ function SellingTab({ userName }) {
 			12,
 			itemInfo.category
 		);
-		data.map(async item => {
-			const saleCA = await getSaleCA(item.token_id);
-			return { ...item, saleCA: saleCA.data };
-		});
+		const data2 = await Promise.all(
+			data.map(async item => {
+				const saleCA = await getSaleCA(item.token_id);
+				return { ...item, saleCA: saleCA.data };
+			})
+		);
 		setItemInfo(prev => ({
 			...prev,
-			BadgeList: prev.BadgeList.concat(data),
-			hasMoreItems: !!data.length,
+			BadgeList: prev.BadgeList.concat(data2),
+			hasMoreItems: !!data2.length,
 		}));
 	};
 
