@@ -72,7 +72,7 @@ function PostDetail() {
 		setOpen(false);
 		deleteBoardAPI({
 			postId,
-			user_address: loggedUser.address,
+			user_address: loggedUser.account,
 			communityId,
 		}).then(res => {
 			navigate(`/community/${communityId}`, { replace: true });
@@ -99,7 +99,7 @@ function PostDetail() {
 			// 좋아요 삭제API
 			deleteLikeAPI({
 				board_id: postId,
-				user_address: loggedUser.address,
+				user_address: loggedUser.account,
 				community_id: communityId,
 			}).then(res => {
 				setLike(false);
@@ -109,7 +109,7 @@ function PostDetail() {
 			// 좋아요 등록API
 			createLikeAPI({
 				board_id: postId,
-				user_address: loggedUser.address,
+				user_address: loggedUser.account,
 				community_id: communityId,
 			}).then(() => {
 				setLike(true);
@@ -128,7 +128,7 @@ function PostDetail() {
 		if (comment.length > 0) {
 			createCommentAPI({
 				board_id: postId,
-				user_address: loggedUser.address,
+				user_address: loggedUser.account,
 				content: comment,
 				community_id: communityId,
 			}).then(res => {
