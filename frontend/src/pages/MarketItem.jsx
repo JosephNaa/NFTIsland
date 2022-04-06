@@ -11,7 +11,7 @@ import {
 	Stack,
 } from '@mui/material';
 import Page from '../components/Page';
-import { getItemSaleInfo, buyItem } from '../api/market';
+import { getItemSaleInfo, buyItem, cancelSale } from '../api/market';
 import { createSaleContract } from '../web3Config';
 import UserContext from '../context/UserContext';
 
@@ -66,6 +66,23 @@ function MarketItem() {
 		navigate(`/user/${saleInfo.ownerNickname}`);
 	};
 
+	const onClickStop = async () => {
+		setLoading(true);
+		try {
+			await saleContract.methods
+				.cancelSale()
+				.send({ from: userContext.loggedUser.account });
+
+			const res = await cancelSale(saleCA, userContext.loggedUser.account);
+			if (res.status === 204) {
+				navigate(`/user/${userContext.loggedUser.nickname}`);
+			}
+		} catch (error) {
+			console.dir(error);
+		}
+		setLoading(false);
+	};
+
 	const onClickBuy = async () => {
 		setLoading(true);
 		try {
@@ -112,7 +129,7 @@ function MarketItem() {
 					>
 						<Stack alignItems='center'>
 							<CircularProgress />
-							<Box mt='10px'>NFT 구매중...</Box>
+							<Box mt='10px'>잠시만 기다려 주세요...</Box>
 						</Stack>
 					</Box>
 				</Box>
@@ -156,16 +173,28 @@ function MarketItem() {
 							</Typography>
 							<Typography variant='body1'>{saleInfo.description}</Typography>
 							<Typography variant='h5' paddingTop='20px'>
-								Price
+								Price (eth)
 							</Typography>
-							<Typography variant='body1'>{saleInfo.price}</Typography>
+							<Typography variant='body1'>{saleInfo.price * 10 ** -18}</Typography>
 						</BoxStyle>
 					</Grid>
 				</Grid>
 				<Box width='350px' margin='50px auto'>
-					<Button onClick={onClickBuy} variant='outlined' size='large' fullWidth>
-						Buy
-					</Button>
+					{saleInfo.ownerAddress === userContext.loggedUser.account ? (
+						<Button
+							onClick={onClickStop}
+							variant='outlined'
+							size='large'
+							color='error'
+							fullWidth
+						>
+							판매 중지
+						</Button>
+					) : (
+						<Button onClick={onClickBuy} variant='outlined' size='large' fullWidth>
+							구매하기
+						</Button>
+					)}
 				</Box>
 			</Container>
 		</Page>

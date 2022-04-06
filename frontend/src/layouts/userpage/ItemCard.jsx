@@ -2,23 +2,21 @@ import { Box, Typography, Stack, Card, Link } from '@mui/material';
 import { useTheme, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
-function ItemCard({ tokenId, itemURL, itemName, communityName, saleCA }) {
+function ItemCard({ tokenId, itemURL, itemName, communityName, saleCA = '' }) {
 	const navigate = useNavigate();
 	const theme = useTheme();
-
 	const ImgStyle = styled('img')({
 		width: '100%',
-		// height: '80%',
 		objectFit: 'cover',
 	});
 
 	return (
 		<Link
-			href={`/item/${tokenId}`}
+			href={saleCA ? `/market/item/${saleCA}` : `/item/${tokenId}`}
 			underline='none'
 			onClick={e => {
 				e.preventDefault();
-				navigate(`/item/${tokenId}`);
+				navigate(saleCA ? `/market/item/${saleCA}` : `/item/${tokenId}`);
 			}}
 		>
 			<Card

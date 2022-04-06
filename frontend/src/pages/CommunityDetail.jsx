@@ -55,7 +55,7 @@ function CommunityDetail() {
 				communityName: data.name,
 				communityLogo: data.logo_path,
 			});
-			if (data.host_address === loggedUser.address) {
+			if (data.host_address === loggedUser.account) {
 				setVisible(true);
 			}
 		});

@@ -59,7 +59,7 @@ function PostDetail() {
 			setLikes(res.data.likes_count);
 			// 댓글 목록
 			setComments(res.data.comments);
-			if (res.data.likes.includes(loggedUser.address)) {
+			if (res.data.likes.includes(loggedUser.account)) {
 				setLike(true);
 			} else {
 				setLike(false);
