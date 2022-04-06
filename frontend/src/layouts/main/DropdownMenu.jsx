@@ -86,9 +86,10 @@ export default function DropDownMenu() {
 						aria-expanded={open ? 'true' : undefined}
 					>
 						{userContext.loggedIn ? (
-							<Avatar sx={{ width: 32, height: 32 }}>
-								<PersonIcon />
-							</Avatar>
+							<Avatar
+								src={userContext.loggedUser.profileImage}
+								sx={{ width: 32, height: 32 }}
+							/>
 						) : (
 							<WalletIcon sx={{ width: 32, height: 32 }} />
 						)}
