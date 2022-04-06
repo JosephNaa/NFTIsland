@@ -2,7 +2,7 @@ import { Box, Typography, Stack, Card, Link } from '@mui/material';
 import { useTheme, styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
-function ItemCard({ tokenId, itemURL, itemName, communityName }) {
+function ItemCard({ tokenId, itemURL, itemName, communityName, saleCA }) {
 	const navigate = useNavigate();
 	const theme = useTheme();
 

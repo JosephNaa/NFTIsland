@@ -64,12 +64,10 @@ function SellingTab({ userName }) {
 			12,
 			itemInfo.category
 		);
-		// console.log(data);
-		// data.forEach(async v => {
-		// 	const saleCA = await getSaleCA(v.token_id);
-		// 	// v.sale_CA = saleCA.data;
-		// 	console.log(v);
-		// });
+		data.map(async item => {
+			const saleCA = await getSaleCA(item.token_id);
+			return { ...item, saleCA: saleCA.data };
+		});
 		setItemInfo(prev => ({
 			...prev,
 			BadgeList: prev.BadgeList.concat(data),
@@ -134,6 +132,7 @@ function SellingTab({ userName }) {
 								communityName={item.community_name}
 								itemName={item.item_title}
 								itemURL={item.item_url}
+								saleCA={item.saleCA}
 							/>
 						</Grid>
 					))}
