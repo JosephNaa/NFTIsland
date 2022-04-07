@@ -1,21 +1,17 @@
 import { useContext } from 'react';
 import {
-	Box,
 	Button,
 	Avatar,
 	Typography,
-	Stack,
 	Card,
 	CardContent,
 	CardHeader,
 	CardActions,
-	IconButton,
 	Link,
 } from '@mui/material';
 import {
-	Person as PersonIcon,
 	InsertComment as InsertCommentIcon,
-	FavoriteBorder as LikeIcon,
+	Favorite as LikeIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -92,18 +88,15 @@ function PostCard({
 					subheader={moment.tz(createdDate, 'Asia/Seoul').fromNow('')}
 				/>
 				<CardContent>
-					<Typography gutterBottom variant='h5' component='div'>
+					<Typography noWrap variant='h5' component='div'>
 						{postTitle}
-					</Typography>
-					<Typography variant='body2' color='text.secondary'>
-						{postContent}
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Button color='inherit' startIcon={<InsertCommentIcon />}>
+					<Button color='inherit' startIcon={<InsertCommentIcon />} disabled>
 						{commentCount}
 					</Button>
-					<Button color='inherit' startIcon={<LikeIcon />}>
+					<Button color='inherit' startIcon={<LikeIcon />} disabled>
 						{likeCount}
 					</Button>
 				</CardActions>
