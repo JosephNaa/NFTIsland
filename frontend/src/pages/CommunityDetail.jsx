@@ -86,6 +86,10 @@ function CommunityDetail() {
 		navigate(`/create/item/${params.communityId}`);
 	};
 
+	const onClickMarket = () => {
+		navigate(`/market/community/${params.communityId}`);
+	};
+
 	const onChangeSearch = e => {
 		setSearch(e.target.value);
 	};
@@ -166,6 +170,20 @@ function CommunityDetail() {
 									NFT 발행
 								</Button>
 							)}
+							<Button
+								sx={{
+									mt: '2%',
+									width: '100px',
+									fontSize: '12px',
+									alignContent: 'center',
+								}}
+								size='small'
+								variant='contained'
+								disableElevation
+								onClick={onClickMarket}
+							>
+								Market
+							</Button>
 						</Stack>
 					</Stack>
 				</Box>
