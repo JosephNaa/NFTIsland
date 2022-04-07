@@ -154,49 +154,51 @@ function PostDetail() {
 					<Typography variant='h3' textalign='center'>
 						게시글 상세
 					</Typography>
-					<Stack direction='row' position='absolute' right='20%' spacing={1}>
-						<Box>
-							<EditIcon onClick={onClickEditIcon} />
-						</Box>
-						<Box>
-							<DeleteIcon onClick={onClickDeleteIcon} />
-						</Box>
-						<Dialog
-							open={open}
-							onClose={handleClose}
-							aria-labelledby='alert-dialog-title'
-							aria-describedby='alert-dialog-description'
-						>
-							<DialogTitle id='alert-dialog-title'>
-								<Typography fontSize='14px' textalign='center'>
-									<b>게시글 삭제</b>
-								</Typography>
-							</DialogTitle>
-							<DialogContent>
-								<DialogContentText
-									mlt='10px'
-									id='alert-dialog-description'
-									variant='h5'
-								>
-									정말 삭제하시겠습니까?
-								</DialogContentText>
-								<Stack
-									pl='20px'
-									pr='20px'
-									justifyContent='center'
-									mt='10px'
-									spacing={1}
-								>
-									<Button size='small' variant='contained' onClick={handleDeleteClose}>
-										Yes
-									</Button>
-									<Button size='small' variant='outlined' onClick={handleClose}>
-										Cancel
-									</Button>
-								</Stack>
-							</DialogContent>
-						</Dialog>
-					</Stack>
+					{post?.user_address === loggedUser.account && (
+						<Stack direction='row' position='absolute' right='20%' spacing={1}>
+							<Box>
+								<EditIcon onClick={onClickEditIcon} />
+							</Box>
+							<Box>
+								<DeleteIcon onClick={onClickDeleteIcon} />
+							</Box>
+							<Dialog
+								open={open}
+								onClose={handleClose}
+								aria-labelledby='alert-dialog-title'
+								aria-describedby='alert-dialog-description'
+							>
+								<DialogTitle id='alert-dialog-title'>
+									<Typography fontSize='14px' textalign='center'>
+										<b>게시글 삭제</b>
+									</Typography>
+								</DialogTitle>
+								<DialogContent>
+									<DialogContentText
+										mlt='10px'
+										id='alert-dialog-description'
+										variant='h5'
+									>
+										정말 삭제하시겠습니까?
+									</DialogContentText>
+									<Stack
+										pl='20px'
+										pr='20px'
+										justifyContent='center'
+										mt='10px'
+										spacing={1}
+									>
+										<Button size='small' variant='contained' onClick={handleDeleteClose}>
+											Yes
+										</Button>
+										<Button size='small' variant='outlined' onClick={handleClose}>
+											Cancel
+										</Button>
+									</Stack>
+								</DialogContent>
+							</Dialog>
+						</Stack>
+					)}
 				</Stack>
 			</Container>
 			<Box ml='20%' mr='20%' mt='4%' maxWidth='60%'>

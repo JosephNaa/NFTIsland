@@ -69,11 +69,13 @@ function Comments({
 					{/* 댓글 작성일 */}
 					{updatedAt}
 				</Typography>
-				<Stack direction='row' ml='30px' mt='15px' spacing={1}>
-					<Box>
-						<DeleteIcon sx={{ width: 20, height: 20 }} onClick={onClickDeleteIcon} />
-					</Box>
-				</Stack>
+				{userAddress === loggedUser.account && (
+					<Stack direction='row' ml='30px' mt='15px' spacing={1}>
+						<Box>
+							<DeleteIcon sx={{ width: 20, height: 20 }} onClick={onClickDeleteIcon} />
+						</Box>
+					</Stack>
+				)}
 			</Stack>
 		</Box>
 	);

@@ -59,7 +59,7 @@ export default function DropDownMenu() {
 					});
 				}
 			} else {
-				alert('Install Metamask!');
+				alert('Install Metamask! https://metamask.io/download/');
 			}
 		} catch (error) {
 			console.dir(error);
