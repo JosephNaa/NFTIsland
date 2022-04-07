@@ -20,18 +20,28 @@ import { getCommunityListAPI } from '../api/community';
 
 function Community() {
 	const [itemInfo, setItemInfo] = useState({
+		temp_keyword: '',
+		keyword: '',
 		communityList: [],
 		hasMoreItems: true,
 		filterOption: 'newest',
 	});
 
-	const getCommunityList = async (page, key) => {
-		const { data } = await getCommunityListAPI(page, 12, key);
+	const handleKeywordChange = e => {
+		setItemInfo(prev => ({ ...prev, temp_keyword: e.target.value }));
+	};
+
+	const getCommunityList = async (keyword, page, key) => {
+		const { data } = await getCommunityListAPI(keyword, page, 12, key);
 		return data;
 	};
 
 	const loadItems = async page => {
-		const data = await getCommunityList(page, itemInfo.filterOption);
+		const data = await getCommunityList(
+			itemInfo.keyword,
+			page,
+			itemInfo.filterOption
+		);
 		setItemInfo(prev => ({
 			...prev,
 			communityList: prev.communityList.concat(data),
@@ -57,9 +67,23 @@ function Community() {
 							<InputBase
 								sx={{ ml: 1, flex: 1 }}
 								placeholder='커뮤니티 이름을 입력하세요.'
+								onChange={handleKeywordChange}
 							/>
 							<Divider sx={{ height: 28, m: 0.5 }} orientation='vertical' />
-							<IconButton type='submit' sx={{ p: '10px' }}>
+							<IconButton
+								sx={{ p: '10px' }}
+								onClick={() => {
+									if (itemInfo.keyword === itemInfo.temp_keyword) {
+										return;
+									}
+									setItemInfo(prev => ({
+										...prev,
+										keyword: prev.temp_keyword,
+										communityList: [],
+										hasMoreItems: true,
+									}));
+								}}
+							>
 								<SearchIcon />
 							</IconButton>
 						</Paper>
@@ -78,6 +102,7 @@ function Community() {
 								setItemInfo(prev => ({
 									...prev,
 									filterOption: 'newest',
+									keyword: prev.temp_keyword,
 									communityList: [],
 									hasMoreItems: true,
 								}));
@@ -102,6 +127,7 @@ function Community() {
 								setItemInfo(prev => ({
 									...prev,
 									filterOption: 'member',
+									keyword: prev.temp_keyword,
 									communityList: [],
 									hasMoreItems: true,
 								}));
@@ -126,6 +152,7 @@ function Community() {
 								setItemInfo(prev => ({
 									...prev,
 									filterOption: 'board',
+									keyword: prev.temp_keyword,
 									communityList: [],
 									hasMoreItems: true,
 								}));
@@ -145,7 +172,7 @@ function Community() {
 
 					<InfiniteScroll
 						pageStart={0}
-						key={itemInfo.filterOption}
+						key={`${itemInfo.filterOption}-${itemInfo.keyword}`}
 						loadMore={loadItems}
 						hasMore={itemInfo.hasMoreItems}
 						loader={
