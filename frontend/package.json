@@ -1,8 +1,7 @@
 {
 	"name": "ssafy-sample-pjt-frontend",
 	"author": {
-		"name": "NonceLab",
-		"url": "https://www.noncelab.com/"
+		"name": "NFTIsland"
 	},
 	"version": "1.0.0",
 	"private": false,
