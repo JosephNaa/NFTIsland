@@ -171,7 +171,7 @@ function CommunityDetail() {
 									NFT 발행
 								</Button>
 							)}
-							{communityInfo.payable && (
+							{communityInfo?.payable && (
 								<Button
 									sx={{
 										mt: '2%',
