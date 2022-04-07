@@ -60,11 +60,11 @@ function UserProfileImage({ address, profileUrl }) {
 		setImgOpen(true);
 	};
 
-	useEffect(() => {
-		console.log(`global address: ${userContext.loggedUser.account}`);
-		console.log(`global nickname: ${userContext.loggedUser.nickname}`);
-		console.log(`local address: ${address}`);
-	}, []);
+	// useEffect(() => {
+	// 	console.log(`global address: ${userContext.loggedUser.account}`);
+	// 	console.log(`global nickname: ${userContext.loggedUser.nickname}`);
+	// 	console.log(`local address: ${address}`);
+	// }, []);
 
 	return (
 		<Stack direction='row'>

@@ -69,6 +69,7 @@ function BadgeDetail() {
 				itemURL: data.item_url,
 				ownerAdderss: data.owner_address,
 				onSale: data.on_sale_yn,
+				payable: data.payable,
 			});
 		});
 	}, []);
@@ -125,6 +126,10 @@ function BadgeDetail() {
 		setLoading(false);
 	};
 
+	const onClickCommunity = () => {
+		navigate(`/community/${itemInfo.communityId}/`);
+	};
+
 	return (
 		<Page>
 			{loading && (
@@ -165,7 +170,13 @@ function BadgeDetail() {
 					</Box>
 				</Stack>
 				<Stack ml='20%' mr='20%'>
-					<Typography mt='5%' mb='3%' variant='h4'>
+					<Typography
+						mt='5%'
+						mb='3%'
+						variant='h4'
+						onClick={onClickCommunity}
+						sx={{ cursor: 'pointer' }}
+					>
 						{/* 커뮤니티 이름 */}
 						{itemInfo.communityName}
 					</Typography>
@@ -194,13 +205,15 @@ function BadgeDetail() {
 									>
 										전송하기
 									</Button>
-									<Button
-										onClick={handleClickSellOpen}
-										sx={{ width: '40%' }}
-										variant='contained'
-									>
-										판매하기
-									</Button>
+									{itemInfo.payable && (
+										<Button
+											onClick={handleClickSellOpen}
+											sx={{ width: '40%' }}
+											variant='contained'
+										>
+											판매하기
+										</Button>
+									)}
 								</Stack>
 								<Dialog open={openSell} onClose={handleSellClose}>
 									<DialogTitle>판매하기</DialogTitle>
