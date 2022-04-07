@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Chip, Container, Tab, Tabs, Tooltip } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Icon } from '@iconify/react';
 import Page from '../components/Page';
 import { getUserInfoAPI } from '../api/user';
 import CommunityTab from '../layouts/userpage/CommunityTab';
@@ -102,7 +103,16 @@ function UserPage() {
 				<Box display='flex' alignItems='center' justifyContent='center'>
 					<Tooltip title={copied} placement='top' arrow>
 						<Chip
-							label={userInfo.userAddress}
+							icon={
+								<Icon
+									icon='fa-brands:ethereum'
+									style={{ fontSize: '16px', marginLeft: '10px' }}
+								/>
+							}
+							label={`${userInfo.userAddress?.slice(
+								0,
+								6
+							)}...${userInfo.userAddress?.slice(-4)}`}
 							variant='outlined'
 							onClick={() => copyClipboard(userInfo.userAddress)}
 						/>
