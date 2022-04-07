@@ -30,6 +30,8 @@ function CommunityDetail() {
 	const theme = useTheme();
 	const navigate = useNavigate();
 	const params = useParams();
+	const [search, setSearch] = useState('');
+	const [prevSearch, setPrevSearch] = useState('');
 	const [boards, setBoards] = useState();
 	const [communityInfo, setCommunityInfo] = useState({
 		hostAddress: '',
@@ -82,6 +84,18 @@ function CommunityDetail() {
 
 	const onClickNFTBtn = () => {
 		navigate(`/create/item/${params.communityId}`);
+	};
+
+	const onChangeSearch = e => {
+		setSearch(e.target.value);
+	};
+
+	const onClickSearch = () => {
+		if (search === prevSearch) return;
+		setPrevSearch(search);
+		getBoardsAPI(params.communityId, search).then(({ data }) => {
+			setBoards(data.boards);
+		});
 	};
 
 	return (
@@ -172,9 +186,16 @@ function CommunityDetail() {
 								sx={{ ml: 1, flex: 1 }}
 								placeholder=''
 								inputProps={{ 'aria-label': 'search google maps' }}
+								value={search}
+								onChange={onChangeSearch}
 							/>
 							<Divider sx={{ height: 28, m: 0.5 }} orientation='vertical' />
-							<IconButton type='submit' sx={{ p: '10px' }} aria-label='search'>
+							<IconButton
+								type='button'
+								onClick={onClickSearch}
+								sx={{ p: '10px' }}
+								aria-label='search'
+							>
 								<SearchIcon />
 							</IconButton>
 						</Paper>
