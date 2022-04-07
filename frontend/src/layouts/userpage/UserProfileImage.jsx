@@ -60,12 +60,6 @@ function UserProfileImage({ address, profileUrl }) {
 		setImgOpen(true);
 	};
 
-	useEffect(() => {
-		console.log(`global address: ${userContext.loggedUser.account}`);
-		console.log(`global nickname: ${userContext.loggedUser.nickname}`);
-		console.log(`local address: ${address}`);
-	}, []);
-
 	return (
 		<Stack direction='row'>
 			<Avatar src={profileUrl} sx={{ width: 140, height: 140 }} />

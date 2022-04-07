@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Chip, Container, Tab, Tabs } from '@mui/material';
+import { Box, Chip, Container, Tab, Tabs, Tooltip } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import Page from '../components/Page';
 import { getUserInfoAPI } from '../api/user';
@@ -44,6 +44,7 @@ function a11yProps(index) {
 function UserPage() {
 	const { userName } = useParams();
 	const [userInfo, setUserInfo] = useState({ userName, currentTab: 0 });
+	const [copied, setCopied] = useState('Copy');
 	const navigate = useNavigate();
 
 	const getUserInfo = async (findBy, nickname) => {
@@ -71,6 +72,18 @@ function UserPage() {
 		}));
 	};
 
+	const copyClipboard = async text => {
+		try {
+			await navigator.clipboard.writeText(text);
+			setCopied('Copied!');
+			setTimeout(() => {
+				setCopied('Copy');
+			}, 1500);
+		} catch (error) {
+			console.dir(error);
+		}
+	};
+
 	return (
 		<Page>
 			<Container>
@@ -87,7 +100,13 @@ function UserPage() {
 					/>
 				</Box>
 				<Box display='flex' alignItems='center' justifyContent='center'>
-					<Chip label={userInfo.userAddress} variant='outlined' onClick={() => {}} />
+					<Tooltip title={copied} placement='top' arrow>
+						<Chip
+							label={userInfo.userAddress}
+							variant='outlined'
+							onClick={() => copyClipboard(userInfo.userAddress)}
+						/>
+					</Tooltip>
 				</Box>
 				<Box sx={{ width: '100%' }}>
 					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
