@@ -1,7 +1,7 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { Box, Button, Container, Stack, Typography, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import Page from '../components/Page';
 import logo from '../image/logo.png';
 import logo2 from '../image/logo2.png';
@@ -10,14 +10,10 @@ import UserContext from '../context/UserContext';
 import { getUserAPI } from '../api/auth';
 
 function Intro() {
-	const navigate = useNavigate();
-
 	const ImgStyle = styled('img')({
 		width: '100%',
 		height: '80px',
 	});
-
-	const aStyle = styled('a')({});
 
 	const BoxStyle = styled(Box)(({ theme }) => ({
 		[theme.breakpoints.down('md')]: {
@@ -60,12 +56,12 @@ function Intro() {
 	const onClickLogin = () => {
 		connectAccount();
 	};
-
-	// useEffect(() => {
-	// 	if (userContext.loggedIn) {
-	// 		navigate('/community', { replace: true });
-	// 	}
-	// }, []);
+	const onClickHelp = () => {
+		window.open(
+			'https://dev-junyong.notion.site/NFT-Island-cbd311b6b815490d8e7b844d8b27cc45',
+			'_blank'
+		);
+	};
 
 	return (
 		<Page
@@ -92,6 +88,16 @@ function Intro() {
 							가능합니다.
 							<br />
 							아무나 이용할 수 없는 양질의 정보들을 맘껏 누려보세요!
+							<Stack alignItems='center' mt='10px'>
+								<Button
+									sx={{ boxShadow: 5 }}
+									variant='outlined'
+									color='secondary'
+									onClick={onClickHelp}
+								>
+									서비스 이용 가이드 보러 가기
+								</Button>
+							</Stack>
 						</Typography>
 
 						<Grid container>
@@ -161,7 +167,7 @@ function Intro() {
 							</Grid>
 							<Grid item xs={12} md={6}>
 								<BoxStyle width='100%'>
-									<img src={metamask} alt='' width='90%' pl='10px' pr='10px' />
+									<img src={logo2} alt='' width='90%' pl='10px' pr='10px' />
 								</BoxStyle>
 							</Grid>
 						</Grid>
@@ -218,6 +224,14 @@ function Intro() {
 							style={{ color: 'black', textDecoration: 'none', padding: '10px' }}
 						>
 							Notion
+						</a>
+						<a
+							href='https://dev-junyong.notion.site/NFT-Island-cbd311b6b815490d8e7b844d8b27cc45'
+							target='_blank'
+							rel='noreferrer'
+							style={{ color: 'black', textDecoration: 'none', padding: '10px' }}
+						>
+							Help
 						</a>
 					</Stack>
 				</Stack>
