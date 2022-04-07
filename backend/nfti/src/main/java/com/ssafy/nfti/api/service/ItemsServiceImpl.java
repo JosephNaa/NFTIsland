@@ -11,6 +11,7 @@ import com.ssafy.nfti.db.entity.Items;
 import com.ssafy.nfti.db.entity.User;
 import com.ssafy.nfti.db.repository.CommunityRepository;
 import com.ssafy.nfti.db.repository.ItemsRepository;
+import com.ssafy.nfti.db.repository.ItemsRepositorySupport;
 import com.ssafy.nfti.db.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,9 @@ public class ItemsServiceImpl implements ItemsService {
     ItemsRepository itemsRepository;
 
     @Autowired
+    ItemsRepositorySupport itemsRepositorySupport;
+
+    @Autowired
     UserRepository userRepository;
 
     @Autowired
@@ -39,6 +43,8 @@ public class ItemsServiceImpl implements ItemsService {
         Community community = communityRepository.findById(req.getCommunityId())
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY));
 
+        Long itemCount = itemsRepositorySupport.getItemCountByCommunity(req.getCommunityId());
+
         List<Items> items = new ArrayList<>();
         for (Long id : req.getTokenIds()) {
             Items item = new Items();
@@ -46,7 +52,8 @@ public class ItemsServiceImpl implements ItemsService {
             item.setOwner(owner);
             item.setCommunity(community);
             item.setItemDescription(req.getItemDescription());
-            item.setItemTitle(req.getItemTitle());
+            itemCount += 1;
+            item.setItemTitle(req.getItemTitle() + "#" + itemCount.toString());
             item.setItemUrl(req.getItemUrl());
             item.setOnSaleYn(false);
 
