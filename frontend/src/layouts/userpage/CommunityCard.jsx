@@ -17,7 +17,6 @@ function MarketCard() {
 	};
 	const onClickNickname = e => {
 		e.stopPropagation();
-		console.log('nickname');
 	};
 	return (
 		<Card

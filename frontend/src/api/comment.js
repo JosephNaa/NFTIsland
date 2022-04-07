@@ -1,8 +1,7 @@
 import http from './http';
 
-const createCommentAPI = data => {
-	console.log(data);
-	return http
+const createCommentAPI = data =>
+	http
 		.post('/comment', data, {
 			headers: {
 				'Content-Type': 'application/json',
@@ -14,7 +13,6 @@ const createCommentAPI = data => {
 			}
 			console.dir(err);
 		});
-};
 
 const deleteCommentAPI = data =>
 	http
