@@ -44,6 +44,9 @@ public class ItemsServiceImpl implements ItemsService {
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY));
 
         Long itemCount = itemsRepositorySupport.getItemCountByCommunity(req.getCommunityId());
+        if (itemCount == null) {
+            itemCount = 0L;
+        }
 
         List<Items> items = new ArrayList<>();
         for (Long id : req.getTokenIds()) {
