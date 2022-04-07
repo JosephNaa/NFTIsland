@@ -121,9 +121,10 @@ public class CommunityController {
     @GetMapping("/{id}")
     @ApiOperation(value = "커뮤니티 하나 가져오기", notes = "<strong>커뮤니티 아이디</strong>에 해당하는 커뮤니티의 정보를 불러온다.", response = CommunityRes.class)
     public ResponseEntity<CommunityRes> getCommunity(
-        @PathVariable Long id
+        @PathVariable Long id,
+        @RequestParam(defaultValue = "") String search
     ) {
-        CommunityRes res = communityService.getOne(id);
+        CommunityRes res = communityService.getOne(id, search);
         return ResponseEntity.ok(res);
     }
 
