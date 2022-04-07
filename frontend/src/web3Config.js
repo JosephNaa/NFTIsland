@@ -452,6 +452,19 @@ const nftAbi = [
 		inputs: [
 			{
 				internalType: 'address',
+				name: 'owner',
+				type: 'address',
+			},
+		],
+		name: 'approveSaleFactory',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
 				name: 'to',
 				type: 'address',
 			},
@@ -881,9 +894,9 @@ const saleFactoryAbi = [
 	},
 ];
 
-export const nftCA = '0x3871502c3a3F7700004A7ea17a1e208116613e3C';
+export const nftCA = '0xCbA1A9DE02bb6371D95848c086EaaCEB2AE18A27';
 
-const saleFactoryCA = '0x83ED4f6f78366309a0746B85F805E6C3b0749BD8';
+const saleFactoryCA = '0x14351CfE9a0265578746b752F42fB061f7C373c4';
 
 export const web3 = new Web3(window.ethereum);
 

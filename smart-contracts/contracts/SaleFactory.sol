@@ -24,9 +24,6 @@ contract SaleFactory is Ownable {
         erc721Contract = NFTIslandBadge(_nftAddress);
     }
 
-    /**
-     * @dev 반드시 구현해야하는 함수입니다. 
-     */
     function createSale(
         uint256 itemId,
         uint256 purchasePrice,
@@ -35,6 +32,10 @@ contract SaleFactory is Ownable {
         address seller = msg.sender;
         require(erc721Contract.ownerOf(itemId) == seller, "SaleFactory: seller is not owner of this item");
         require(erc721Contract.isPublic(itemId), "SaleFactory: this token can't be sold");
+
+        if (!erc721Contract.isApprovedForAll(seller, address(this))) {
+            erc721Contract.approveSaleFactory(seller);
+        }
         
         Sale sale = new Sale(admin, seller, itemId, purchasePrice, nftAddress);
         sales.push(address(sale));
