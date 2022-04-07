@@ -52,6 +52,7 @@ function CreateItem() {
 		supply: Yup.number()
 			.required('NFT 갯수를 입력해주세요.')
 			.positive('0보다 커야합니다.')
+			.lessThan(10)
 			.integer(),
 	});
 

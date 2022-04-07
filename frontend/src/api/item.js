@@ -18,7 +18,7 @@ const saveItemInfo = data =>
 
 const getItemInfo = itemId =>
 	http.get(`/items/${itemId}`).catch(err => {
-		console.log(err);
+		console.dir(err);
 	});
 
 const getMyOwnItemByNickname = (

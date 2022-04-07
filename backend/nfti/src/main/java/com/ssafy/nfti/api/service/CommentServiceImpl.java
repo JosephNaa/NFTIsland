@@ -95,8 +95,8 @@ public class CommentServiceImpl implements CommentService{
     @Override
     @Transactional
     public void deleteComment(Long id, String address) {
-        User user = userRepository.findByAddress(address)
-            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER));
+        User user = commentRepository.findById(id)
+            .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_USER)).getUser();
 
         if (user.getAddress().equals(address)) {
             Comment comment = commentRepository.findById(id)

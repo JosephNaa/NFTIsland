@@ -1,8 +1,7 @@
 import http from './http';
 
-const createBoardAPI = data => {
-	console.log(data);
-	return http
+const createBoardAPI = data =>
+	http
 		.post('/board', data, {
 			headers: {
 				'Content-Type': 'application/json',
@@ -11,7 +10,6 @@ const createBoardAPI = data => {
 		.catch(err => {
 			console.dir(err);
 		});
-};
 
 const getBoardsAPI = (communityId, search = '') =>
 	http.get(`/community/${communityId}?search=${search}`).catch(err => {
@@ -26,9 +24,8 @@ const editBoardAPI = (postId, data) =>
 		console.dir(err);
 	});
 
-const deleteBoardAPI = data => {
-	console.log(data);
-	return http
+const deleteBoardAPI = data =>
+	http
 		.delete(
 			`/board/${data.postId}`,
 			{
@@ -46,7 +43,6 @@ const deleteBoardAPI = data => {
 			}
 			console.dir(err.response);
 		});
-};
 
 const getBoardAPI = boardId =>
 	http.get(`/board/${boardId}`).catch(err => {

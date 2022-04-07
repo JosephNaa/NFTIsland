@@ -27,6 +27,8 @@ public class ItemsRes {
 
     private String communityName;
 
+    private Boolean payable;
+
     public static ItemsRes of(Items items) {
         return ItemsRes.builder()
             .tokenId(items.getTokenId())
@@ -37,6 +39,7 @@ public class ItemsRes {
             .ownerAddress(items.getOwner().getAddress())
             .communityId(items.getCommunity().getId())
             .communityName(items.getCommunity().getName())
+            .payable(items.getCommunity().getPayable())
             .build();
     }
 }

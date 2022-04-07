@@ -50,7 +50,7 @@ function Intro() {
 					});
 				}
 			} else {
-				alert('Install Metamask!');
+				alert('Install Metamask! https://metamask.io/download/');
 			}
 		} catch (error) {
 			console.dir(error);
@@ -204,7 +204,7 @@ function Intro() {
 					</Stack>
 					<Stack direction='row' spacing={3}>
 						<a
-							href='https://mui.com/components/data-grid/migration-v4/#css-classes'
+							href='https://j6d107.p.ssafy.io/'
 							target='_blank'
 							rel='noreferrer'
 							style={{ color: 'black', textDecoration: 'none', padding: '10px' }}
@@ -212,20 +212,12 @@ function Intro() {
 							About
 						</a>
 						<a
-							href='https://mui.com/components/data-grid/migration-v4/#css-classes'
+							href='https://dev-junyong.notion.site/dev-junyong/PJT-df2dbc6ff2c94d72920357d165196d1e'
 							target='_blank'
 							rel='noreferrer'
 							style={{ color: 'black', textDecoration: 'none', padding: '10px' }}
 						>
 							Notion
-						</a>
-						<a
-							href='https://mui.com/components/data-grid/migration-v4/#css-classes'
-							target='_blank'
-							rel='noreferrer'
-							style={{ color: 'black', textDecoration: 'none', padding: '10px' }}
-						>
-							Help
 						</a>
 					</Stack>
 				</Stack>

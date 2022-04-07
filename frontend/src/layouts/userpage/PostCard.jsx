@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import {
 	Box,
 	Button,
@@ -19,6 +20,10 @@ import {
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import 'moment-timezone';
+import 'moment/locale/ko';
+import { getHasItem } from '../../api/item';
+import UserContext from '../../context/UserContext';
 
 PostCard.propTypes = {
 	onClickURL: PropTypes.string.isRequired,
@@ -47,19 +52,29 @@ function PostCard({
 	createdDate,
 	userProfile,
 }) {
+	const userContext = useContext(UserContext);
 	const navigate = useNavigate();
-
-	const onClickCard = () => {
-		navigate(onClickURL);
-	};
 
 	return (
 		<Link
 			href={onClickURL}
 			underline='none'
-			onClick={e => {
+			onClick={async e => {
 				e.preventDefault();
-				navigate(onClickURL);
+				try {
+					const { data } = await getHasItem({
+						address: userContext.loggedUser.account,
+						community_id: communityId,
+					});
+					console.log(data);
+					if (data) {
+						navigate(onClickURL);
+					} else {
+						alert('게시글 조회 권한이 없습니다.');
+					}
+				} catch (error) {
+					console.dir(error);
+				}
 			}}
 		>
 			<Card
@@ -70,12 +85,11 @@ function PostCard({
 						boxShadow: 5,
 					},
 				}}
-				onClick={onClickCard}
 			>
 				<CardHeader
 					avatar={<Avatar src={userProfile} />}
 					title={userName}
-					subheader={moment(createdDate, 'YYYYMMDD').fromNow('')}
+					subheader={moment.tz(createdDate, 'Asia/Seoul').fromNow('')}
 				/>
 				<CardContent>
 					<Typography gutterBottom variant='h5' component='div'>

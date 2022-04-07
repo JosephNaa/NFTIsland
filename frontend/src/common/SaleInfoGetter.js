@@ -19,7 +19,7 @@ export default async function getByTokenId(id) {
 				throw err;
 			});
 	} catch (e) {
-		console.log(e);
+		console.dir(e);
 		return undefined;
 	}
 }
