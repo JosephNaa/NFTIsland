@@ -881,7 +881,7 @@ const saleFactoryAbi = [
 	},
 ];
 
-export const nftCA = '0xC00e939034155C25Fe0Ad6682750aDf449018338';
+export const nftCA = '0x3871502c3a3F7700004A7ea17a1e208116613e3C';
 
 const saleFactoryCA = '0x83ED4f6f78366309a0746B85F805E6C3b0749BD8';
 
