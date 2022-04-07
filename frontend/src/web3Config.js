@@ -881,9 +881,9 @@ const saleFactoryAbi = [
 	},
 ];
 
-export const nftCA = '0x3871502c3a3F7700004A7ea17a1e208116613e3C';
+export const nftCA = '0x8D70cE16Ed3643206FdC3A8ccD49333Aaa18509f';
 
-const saleFactoryCA = '0x83ED4f6f78366309a0746B85F805E6C3b0749BD8';
+const saleFactoryCA = '0x04dDD25b8080ffbd22e369b4854ED4C216db5D5C';
 
 export const web3 = new Web3(window.ethereum);
 
