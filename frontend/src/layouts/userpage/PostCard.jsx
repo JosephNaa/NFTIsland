@@ -20,6 +20,8 @@ import {
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import 'moment-timezone';
+import 'moment/locale/ko';
 import { getHasItem } from '../../api/item';
 import UserContext from '../../context/UserContext';
 
@@ -87,7 +89,7 @@ function PostCard({
 				<CardHeader
 					avatar={<Avatar src={userProfile} />}
 					title={userName}
-					subheader={moment(createdDate, 'YYYYMMDD').fromNow('')}
+					subheader={moment.tz(createdDate, 'Asia/Seoul').fromNow('')}
 				/>
 				<CardContent>
 					<Typography gutterBottom variant='h5' component='div'>
