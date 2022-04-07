@@ -13,8 +13,8 @@ const createBoardAPI = data => {
 		});
 };
 
-const getBoardsAPI = communityId =>
-	http.get(`/community/${communityId}`).catch(err => {
+const getBoardsAPI = (communityId, search = '') =>
+	http.get(`/community/${communityId}?search=${search}`).catch(err => {
 		console.dir(err);
 	});
 
