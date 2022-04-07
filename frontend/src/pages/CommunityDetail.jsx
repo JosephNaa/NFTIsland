@@ -56,6 +56,7 @@ function CommunityDetail() {
 				communityDes: data.description,
 				communityName: data.name,
 				communityLogo: data.logo_path,
+				payable: data.payable,
 			});
 			if (data.host_address === loggedUser.account) {
 				setVisible(true);
@@ -170,20 +171,22 @@ function CommunityDetail() {
 									NFT 발행
 								</Button>
 							)}
-							<Button
-								sx={{
-									mt: '2%',
-									width: '100px',
-									fontSize: '12px',
-									alignContent: 'center',
-								}}
-								size='small'
-								variant='contained'
-								disableElevation
-								onClick={onClickMarket}
-							>
-								Market
-							</Button>
+							{communityInfo.payable && (
+								<Button
+									sx={{
+										mt: '2%',
+										width: '100px',
+										fontSize: '12px',
+										alignContent: 'center',
+									}}
+									size='small'
+									variant='contained'
+									disableElevation
+									onClick={onClickMarket}
+								>
+									Market
+								</Button>
+							)}
 						</Stack>
 					</Stack>
 				</Box>
