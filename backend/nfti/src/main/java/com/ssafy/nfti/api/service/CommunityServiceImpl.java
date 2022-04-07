@@ -61,10 +61,10 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public CommunityRes getOne(Long id) {
+    public CommunityRes getOne(Long id, String search) {
         Community res = communityRepository.findById(id)
             .orElseThrow(() -> new ApiException(ExceptionEnum.NOT_FOUND_COMMUNITY));
-        return CommunityRes.of(res);
+        return CommunityRes.of(res, search);
     }
 
     @Override
@@ -119,7 +119,7 @@ public class CommunityServiceImpl implements CommunityService {
 
             Community res = communityRepository.save(community);
 
-            return CommunityRes.of(res);
+            return CommunityRes.of(res, "");
         } catch (Exception e) {
             throw new ApiException(ExceptionEnum.BAD_REQUEST_USER);
         }
