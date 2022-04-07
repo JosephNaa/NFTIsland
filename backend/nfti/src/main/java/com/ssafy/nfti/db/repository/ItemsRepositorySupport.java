@@ -98,4 +98,14 @@ public class ItemsRepositorySupport extends QuerydslRepositorySupport {
 
         return res.get(0);
     }
+
+    public Long getItemCountByCommunity(Long communityId) {
+        List<Long> res = jpaQueryFactory
+            .select(items.count())
+            .from(items)
+            .where(items.community.id.eq(communityId))
+            .fetch();
+
+        return res.get(0);
+    }
 }

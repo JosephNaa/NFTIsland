@@ -30,11 +30,13 @@ public class CommunityRes {
     LocalDateTime createdAt;
     List<BoardListRes> boards;
 
-    public static CommunityRes of(Community community) {
+    public static CommunityRes of(Community community, String search) {
 
         List<BoardListRes> boards = new ArrayList<>();
         for (Board board : community.getBoards()) {
-            boards.add(BoardListRes.of(board));
+            if (board.getTitle().contains(search)) {
+                boards.add(BoardListRes.of(board));
+            }
         }
 
         return CommunityRes.builder()

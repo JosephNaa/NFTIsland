@@ -11,7 +11,7 @@ const createCommunityAPI = data =>
 			console.dir(err);
 		});
 
-const getCommunityListAPI = (page, size, key) => {
+const getCommunityListAPI = (search, page, size, key) => {
 	let sortBy;
 	switch (key) {
 		case 'member':
@@ -29,6 +29,7 @@ const getCommunityListAPI = (page, size, key) => {
 			params: {
 				page,
 				size,
+				search,
 			},
 		})
 		.catch(err => {

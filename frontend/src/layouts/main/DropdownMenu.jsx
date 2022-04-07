@@ -10,9 +10,6 @@ import {
 } from '@mui/material';
 import {
 	Person as PersonIcon,
-	Apps as AppsIcon,
-	Assignment as AssignmentIcon,
-	FavoriteBorder as FavoriteBorderIcon,
 	Logout as LogoutIcon,
 	AccountBalanceWallet as WalletIcon,
 	Add as AddIcon,
@@ -146,15 +143,6 @@ export default function DropDownMenu() {
 							마이 페이지
 						</MenuItem>
 					</Link>
-					<MenuItem>
-						<AppsIcon /> 내 뱃지 컬렉션
-					</MenuItem>
-					<MenuItem>
-						<AssignmentIcon /> 내 게시글/댓글
-					</MenuItem>
-					<MenuItem>
-						<FavoriteBorderIcon /> 내 좋아요
-					</MenuItem>
 					<MenuItem onClick={onClickLogout}>
 						<LogoutIcon /> 로그아웃
 					</MenuItem>
