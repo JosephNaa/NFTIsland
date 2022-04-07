@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { useEffect, useState, useContext } from 'react';
 import {
 	Dialog,
@@ -27,7 +28,7 @@ function BadgeDetail() {
 	const [itemInfo, setItemInfo] = useState({});
 	const [openSell, setSellOpen] = useState(false);
 	const [openTransfer, setTransferOpen] = useState(false);
-	const [price, setPrice] = useState();
+	const [price, setPrice] = useState('');
 	const [address, setAddress] = useState();
 	const [loading, setLoading] = useState(false);
 
@@ -73,6 +74,7 @@ function BadgeDetail() {
 	}, []);
 
 	const onClickSale = async () => {
+		if (price < 0.0001) return alert('0.0001ETH 보다 커야합니다.');
 		setSellOpen(false);
 		try {
 			// 판매하기

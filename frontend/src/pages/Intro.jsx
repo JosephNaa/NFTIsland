@@ -4,12 +4,20 @@ import { styled } from '@mui/material/styles';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Page from '../components/Page';
 import logo from '../image/logo.png';
+import logo2 from '../image/logo2.png';
 import metamask from '../image/metamask.png';
 import UserContext from '../context/UserContext';
 import { getUserAPI } from '../api/auth';
 
 function Intro() {
 	const navigate = useNavigate();
+
+	const ImgStyle = styled('img')({
+		width: '100%',
+		height: '80px',
+	});
+
+	const aStyle = styled('a')({});
 
 	const BoxStyle = styled(Box)(({ theme }) => ({
 		[theme.breakpoints.down('md')]: {
@@ -158,7 +166,7 @@ function Intro() {
 							</Grid>
 						</Grid>
 					</Box>
-					<Box mt='200px' height='700px'>
+					<Box mt='200px' mb='100px' height='800px'>
 						<iframe
 							width='100%'
 							height='100%'
@@ -171,6 +179,57 @@ function Intro() {
 					</Box>
 				</Stack>
 			</Container>
+			<Box
+				position='fixed'
+				bottom='0'
+				left='0'
+				width='100%'
+				height='80px'
+				backgroundColor='#E1F6FF'
+				padding='0 140px'
+			>
+				<Stack direction='row' justifyContent='space-between' alignItems='center'>
+					<Stack direction='row' position='relative'>
+						<ImgStyle src={logo} alt='' />
+						<ImgStyle src={logo2} alt='' />
+						<Typography
+							variant='subtitle2'
+							position='absolute'
+							bottom='2px'
+							left='-12px'
+							fontSize='11px'
+						>
+							@ 2022 BadgeMeal
+						</Typography>
+					</Stack>
+					<Stack direction='row' spacing={3}>
+						<a
+							href='https://mui.com/components/data-grid/migration-v4/#css-classes'
+							target='_blank'
+							rel='noreferrer'
+							style={{ color: 'black', textDecoration: 'none', padding: '10px' }}
+						>
+							About
+						</a>
+						<a
+							href='https://mui.com/components/data-grid/migration-v4/#css-classes'
+							target='_blank'
+							rel='noreferrer'
+							style={{ color: 'black', textDecoration: 'none', padding: '10px' }}
+						>
+							Notion
+						</a>
+						<a
+							href='https://mui.com/components/data-grid/migration-v4/#css-classes'
+							target='_blank'
+							rel='noreferrer'
+							style={{ color: 'black', textDecoration: 'none', padding: '10px' }}
+						>
+							Help
+						</a>
+					</Stack>
+				</Stack>
+			</Box>
 		</Page>
 	);
 }
