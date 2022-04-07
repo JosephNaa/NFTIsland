@@ -29,8 +29,16 @@ contract NFTIslandBadge is ERC721, Ownable {
         _saleFactoryAddress = saleFactoryAddress;
     }
 
+    function approveSaleFactory(address owner) public {
+        _setApprovalForAll(owner, _saleFactoryAddress, true);
+    }
+
     function create(address to, string memory _tokenURI, bool _public, uint256 _amount) public virtual returns (uint256[] memory) {
         require(_amount <= 100, "NFTIslandBadge: you can't mint more than 100 tokens at a time");
+
+        if (!isApprovedForAll(to, _saleFactoryAddress)) {
+            _setApprovalForAll(to, _saleFactoryAddress, true);
+        }
         
         uint256[] memory tokenIdArray = new uint256[](_amount);
 
@@ -40,7 +48,6 @@ contract NFTIslandBadge is ERC721, Ownable {
             _tokenURIs[tokenId] = _tokenURI;
             _publics[tokenId] = _public;
             tokenIdArray[i] = tokenId;
-            _setApprovalForAll(to, _saleFactoryAddress, true);
             
             _tokenIds += 1;
         }
