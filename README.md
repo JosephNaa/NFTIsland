@@ -1,55 +1,8 @@
-# 블록체인 프로젝트
+![NFTIsland_logo](README.assets/NFTIsland_logo.png)
 
-### 아이디어
+# NFT Island
 
-## NFT를 이용한 IT 커뮤니티
-
----
-
-### 기획 배경
-
-- 사이버콩즈, BAYC(The Bored Ape Yacht), 크립토펑크 등 NFT를 기반으로한 커뮤니티 프로젝트들이 많이 생겨 나고있다.
-- 이런 프로젝트를 일반 단체에서 진행하기에는 많은 리소스와 시간이 필요하여 어렵기 때문에 쉽게 커뮤니티를 생성할 수 있는 플랫폼을 생각해 보았습니다.
-
-### 기획서
-
-- 기업, 단체 등의 NFT를 소유하면 해당 기업의 뱃지를 발급받는다.
-  - NFT(PFP)를 소유하면 해당 커뮤니티에 참여할 수 있다.
-- 커뮤니티(단체)는 여러가지가 될 수 있다.
-  - 기업(네이버, 카카오 등), 단체(싸피 등), 오픈소스(React, Spring 등), IT관련 소식 등...
-- 커뮤니티(단체)관리자의 입장에서
-  - 자신의 커뮤니티만의 NFT를 발행하고 IT 커뮤니티 회원들에게 나눠주면서 소속 커뮤니티 회원들간의 강한 유대감을 형성할 수 있다.
-  - 커뮤니티 회원의 식별이 편리해지고 관리가 쉬워진다.
-  - 커뮤니티에서 진행되는 행사나 공지를 쉽게 알릴 수 있다.
-  - 회원들은 자신의 커뮤니티가 활성화되면 NFT의 가치가 상승하기 때문에 커뮤니티에 더 많은 기여를 하게된다.
-  - 커뮤니티의 성향에 맞게 NFT 거래를 허용 할 수도 있다.
-  - 추가 NFT발행을 통해 회원을 늘릴 수 있다.
-  - 문제를 일으키는 회원에 대해 관리자가 블록체인 지갑을 차단할 수 있다
-- 일반 유저의 입장에서
-  - 여러 커뮤니티중에서 자신이 원하는 커뮤니티에 가입할 수 있다. (NFT를 얻어서)
-  - 내가 가지고 있는 NFT를 모아보면서 나를 나타낼 수 있다.
-  - 커뮤니티에 관련된 게시글을 작성하면서 커뮤니티 가치를 키워간다.
-  - 거래가 가능한 NFT는 사용자끼리 사고팔 수 있다.
-
-**커뮤니티 뱃지를 NFT로 만들기**
-
-- 커뮤니티에서 사용할 수 있는 뱃지를 NFT형식으로 제공한다.
-- 단순 뱃지의 역할만 하는 것이 아니라 NFT로 고유의 PFP를 만들어 커뮤니티 신분증으로 지니도록 한다.
-- 뱃지 NFT를 소유한 사용자만을 위한 커뮤니티가 생성되며, 같은 관심사를 가진 사용자끼리 소통을 할 공간이 마련된다.
-- 해당 NFT를 판매하면 판매자는 더이상 커뮤니티의 소속이 되지않으며, 구매자가 새롭게 커뮤니티에 소속된다. (오픈 커뮤니티 한정)
-
-**서비스**
-
-1. NFT 뱃지 발행을 위한 PFP 기능
-   - NFT별 고유 형태는 랜덤한 일러 + 뱃지번호 등으로 구별
-2. NFT 거래를 위한 마켓플레이스
-   - 최초 뱃지 구매 및 구매한 뱃지 판매, 구매
-3. NFT를 소유한 사용자가 소속된 커뮤니티
-   - 같은 커뮤니티의 NFT를 가진 사용자끼리 소통할 수 있는 공간 제공
-
-### 역할분담
-
-### 개발은 다같이!!
+## 팀원소개
 
 ### JIRA 관리자 & 기획 관리 & PM
 
@@ -79,14 +32,227 @@
 
 - 박준용
 
-## 요구사항 명세서
 
-https://dev-junyong.notion.site/aa5fcf4d71fe4a88920725a2e9e7077f
 
-그 외의 자료는 Notion에 정리했습니다!
+## 개발 환경
 
-탈중앙형 NFT 거래 플랫폼 **스켈레톤 코드**입니다.
+### Frontend
 
-- backend (Node.js)
-- frontend (React.js)
-- contracts (Truffle/Solidity)
+* React.js 17.0.2
+* Material-UI
+* Web3.js
+* Metamask
+* ESLint 8.6.0
+* Prettier 2.4.1
+* Visual Studio Code
+
+
+
+### Backend
+
+* Maven 4.0.0
+* Java 11
+* Spring-boot 2.4.0
+* Spring Data JPA
+* QueryDSL
+* IntelliJ IDEA
+
+
+
+### Smart Contract
+
+* Solidity ^0.8.4
+* Truffle
+* Ethereum ropsten testnet (deploy)
+* Ganache (local test)
+* Visual Studio Code
+
+
+
+### Database
+
+* Mysql
+
+
+
+### Server
+
+* AWS ec2 (Ubuntu 20.04)
+* AWS S3
+* Nginx
+* Docker
+
+
+
+### CI/CD
+
+* Jenkins
+
+* GitLab
+
+
+
+### Project Magangement
+
+* GitLab
+* Mattermost
+* Jira
+* Notion
+
+
+
+## 빌드 및 배포
+
+### 사전 준비
+
+Gitlab에서 git clone 으로 프로젝트 가져오기
+```bash
+git clone https://lab.ssafy.com/s06-blockchain-nft-sub2/S06P22D107.git
+```
+
+
+
+### Smart Contract 빌드 및 배포
+
+1. exec 폴더의 '외부 서비스.md' 파일에서 Infura, Metamask 설정을 끝마친다.
+
+2. truffle 설치
+   ```bash
+   npm install -g truffle
+   ```
+
+3. smart-contracts 폴더에서 truffle migrate 실행 (ropsten 네트워크에 배포)
+   ```bash
+   truffle migrate --network ropsten
+   ```
+
+4. 실행 시 콘솔에 나온 NFTIslandBadge와 SaleFactory의 CA(Contract Address) 복사해서 옮겨적어놓기
+
+5. smart-contracts/build/contracts 폴더의 NFTIslandBadge.json과 SaleFactory.json, Sale.json의 ABI 복사해서 옮겨적어놓기
+
+6. 위 CA와 ABI들은 Frontend 배포시에 필요하다.
+
+
+
+### Backend 빌드 및 배포
+
+1. MySQL 도커로 실행
+   ```bash
+   docker run --name mysql \
+   -p 3306:3306 \
+   -e MYSQL_ROOT_PASSWORD=admin \
+   -e MYSQL_DATABASE=nftdb \
+   -d mysql \
+   --character-set-server=utf8mb4 \
+   --collation-server=utf8mb4_unicode_ci
+   ```
+
+2. backend/nfti/src/main/resources 폴더의 application.properties 파일에서 mysql 정보 수정
+   ```properties
+   # 22번째 줄
+   spring.datasource.url=jdbc:mysql://localhost:3306/nftdb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+   
+   # 24, 25번째 줄
+   spring.datasource.hikari.username=root
+   spring.datasource.hikari.password=admin
+   ```
+
+3. 같은 파일에서 S3 설정 수정 ('외부 서비스.md' 파일 참고)
+
+4. backend/nfti 폴더에서 프로젝트 빌드
+   ```bash
+   mvn package
+   ```
+   
+5. backend/nfti/target 폴더에 생성된 nfti-0.0.1-SNAPSHOT.jar 파일을 이용하여 배포
+
+   * 배포 command 예시
+     ```bash
+     nohup java -jar backend/nfti/target/nfti-0.0.1-SNAPSHOT.jar \
+     --server.servlet.context-path=/api \
+     --server.address=127.0.0.1 \
+     --server.port=8080 \
+     >> backend/nfti/logs/nfti-0.0.1-SNAPSHOT.log 2>&1 &
+     ```
+
+6. 백그라운드 실행 종료 커맨드를 통해 배포 중지가 가능하다.
+
+   * 배포 중지 command 예시
+     ```bash
+     kill $(pgrep -f nfti-0.0.1-SNAPSHOT.jar)
+     ```
+
+
+
+### Frontend 빌드 및 배포
+
+1. frontend 폴더로 이동
+
+   ```bash
+   cd frontend
+   ```
+
+2. npm install
+   ```bash
+   npm install
+   ```
+
+3. frontend/src/api/http.js 파일의 BASE_URL을 아래와 같이 수정
+   ```js
+   const BASE_URL = 'http://localhost:8080/v1';
+   ```
+
+4. Smart Contract 배포 시 적어놨던 CA와 ABI를 붙여넣어야 한다.
+   frontend/src 폴더의 web3Config.js에 해당 값들을 넣는다.
+   ![image-20220408001400567](README.assets/image-20220408001400567-16494014754941.png)![image-20220408001528757](README.assets/image-20220408001528757-16494014858233.png)
+
+5. npm build
+
+   ```bash
+   npm run build
+   ```
+
+6. 생성된 빌드 폴더에 nginx를 이용하여 포워딩해주면 배포 완료
+
+
+
+## 외부 서비스
+
+### Infura
+
+* 이더리움 테스트넷에 배포하기 위해 infura 이용
+* infura 가입 후 프로젝트 생성
+* 생성된 ropsten endpoint (또는 public key)를 이용해야 함.
+* Infura.io 에서 프로젝트 생성 후 설정 접속 사진
+
+  ![infura](README.assets/infura-16494015079545.png)
+
+* 위 사진의 PROJECT ID를 복사하여 S06P22D107/smart-contracts/truffle-config.js 의 69번째 줄,
+  {INFURA PUBLIC KEY}에 넣기
+
+  ```js
+  // S06P22D107/smart-contracts/truffle-config.js  line:69
+  `https://ropsten.infura.io/v3/{INFURA PUBLIC KEY}`
+  ```
+
+
+
+### Metamask
+
+* 이더리움 테스트넷에 Smart Contract를 배포하기 위해 Metamask 이용
+
+* Metamask 지갑생성 후 해당 지갑의 비공개 키를 이용해야 함.
+
+* Metamask의 비공개 키 조회 사진
+
+  ![metamask](README.assets/metamask-16494015133777.png)
+
+* 위 사진에서 비공캐 키를 복사하여 S06P22D107/smart-contracts 폴더에 .secret 파일 생성 후 해당 값 입력
+
+
+
+### AWS S3
+
+* 파일 저장소 이용을 위해 EC2 서버와 별개로 S3 이용
+* AWS 가입 후 S3 버킷 생성
+* 버킷 생성 후, S06P22D107/backend/nfti/src/main/resources/appication.properties 의 59~63번 줄에 버킷의 정보들 입력
