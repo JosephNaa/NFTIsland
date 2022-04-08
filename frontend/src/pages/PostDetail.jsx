@@ -225,7 +225,7 @@ function PostDetail() {
 					{post?.title}
 				</Typography>
 				{/* 게시글 내용 */}
-				<Box sx={{ whiteSpace: 'normal', width: '100%', wordBreak: 'break-all' }}>
+				<Box sx={{ whiteSpace: 'pre-line', width: '100%', wordBreak: 'break-all' }}>
 					{post?.content}
 				</Box>
 
