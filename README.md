@@ -8,7 +8,7 @@
 
 <h5> #NFT #급성장 시장 #커뮤니티 플랫폼  </h5>
 
-![NFTIsland_logo](README.assets/NFTIsland_logo.png)   
+![NFTIsland_logo](README.assets/logo.png)   
 
 나만의 NFT를 생성해 커뮤니티를 생성해보세요!
 
@@ -22,80 +22,33 @@
 
 # 🛠 Tech stack
 
-## 개발 환경
-
-### Frontend
-
-- React.js 17.0.2
-- Material-UI
-- Web3.js
-- Metamask
-- ESLint 8.6.0
-- Prettier 2.4.1
-- Visual Studio Code
-
-### Backend
-
-- Maven 4.0.0
-- Java 11
-- Spring-boot 2.4.0
-- Spring Data JPA
-- QueryDSL
-- IntelliJ IDEA
-
-### Smart Contract
-
-- Solidity ^0.8.4
-- Truffle
-- Ethereum ropsten testnet (deploy)
-- Ganache (local test)
-- Visual Studio Code
-
-### Database
-
-- Mysql
-
-### Server
-
-- AWS ec2 (Ubuntu 20.04)
-- AWS S3
-- Nginx
-- Docker
-
-### CI/CD
-
-- Jenkins
-
-- GitLab
-
-### Project Magangement
-
-- GitLab
-- Mattermost
-- Jira
-- Notion
+![TechStack](output/Output.assets/pjt2-16475660018494.png)
 
 ## ✨ 주요 기능
 
 ## 로그인
-
-## 이용가이드
+![login](README.assets/로그인.gif)
+- MetaMask를 이용하여 로그인할 수 있습니다.
 
 ## 커뮤니티 생성
+![community](README.assets/커뮤니티생성.gif)
+- 나만의 커뮤니티를 생성할 수 있습니다.
 
 ## NFT발행
-
-## 게시글 생성
-
-## 마이페이지
-
-## 마켓플레이스
+![minting](README.assets/NFT발행.gif)
+- NFT 민팅을 통해 커뮤니티 토큰을 발행할 수 있습니다.
 
 ## 판매 등록
+![sell](README.assets/판매등록.gif)
+- 내가 가진 NFT를 마켓플레이스에 판매 등록할 수 있습니다.
 
 ## 뱃지 구매
+![buy](README.assets/뱃지구매.gif)
+- 내가 속하고 싶은 커뮤니티의 토큰을 구매할 수 있습니다.
 
 ## 뱃지 전송
+![transfer](README.assets/뱃지전송.gif)
+- 뱃지를 전송하여 친구를 내 커뮤니티에 소속시킬 수 있습니다.
 
 
 
